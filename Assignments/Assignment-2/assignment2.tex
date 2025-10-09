@@ -1,0 +1,351 @@
+\documentclass{article}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{sectsty}
+
+\author{Matthew Farah $\langle farahm11@mcmaster.ca \rangle$}
+\date{\today}
+\title{MATH-3IA3 Assignment 2}
+\renewcommand{\thesubsection}{\alph{subsection}.)}
+\renewcommand{\thesubsubsection}{\Roman{subsubsection}.)}
+
+\sectionfont{\normalfont\Large}
+\subsectionfont{\normalfont\large}
+\subsubsectionfont{\normalfont\normalsize}
+\newcommand{\mysection}[1]{
+	\refstepcounter{section}
+	\section*{#1}
+}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L]{Matthew Farah $\langle farahm11@mcmaster.ca \rangle$}
+\fancyhead[R]{\today}
+
+\begin{document}
+\maketitle
+
+\mysection{2.5.6.) If $I_1 \supseteq I_2 \supseteq \ldots \supseteq I_n \supseteq \ldots$ is a nested sequence of intervals and if $I_n = [a_n, b_n]$, show that $a_1 \le a_2 \le \ldots \le a_n \le \ldots$ and $ b_1 \ge b_2 \ge \ldots \ge b_n \ge \ldots$}
+
+We prove both statements by induction. Let 
+\begin{align*}
+	P_1(n): a_1 \le a_2 \le \ldots \le a_{n+1}, \quad \text{and} \quad P_2(n): b_1 \ge b_2 \ge \ldots \ge b_{n+1}.
+\end{align*}
+
+\subsection{Prove $P_1(n)$}
+
+\subsubsection{Base case (Prove $P_1(1)$ is true)}
+
+$P_1(1)$ boils down to the statement $a_1 \le a_2$. For the purposes of contradiction, let's assume $P_1(1)$ is not true. We know 
+\begin{align*}
+	a_1 = \inf(I_1) \quad \text{and} \quad a_2 = \inf(I_2)
+\end{align*}
+by definition of intervals, and since both intervals are closed, 
+\begin{align*}
+	a_1 \in I_1 \quad \text{and} \quad a_2 \in I_2.
+\end{align*}
+Since $I_1 \supseteq I_2$, we know that $a_2 \in I_1$. However, if $a_1 > a_2$, then $a_1$ cannot be the infimum of $I_1$ since there exists an element smaller than it in the set. Therefore, by contradiction, it must be that 
+\begin{align*}
+	a_1 \le a_2,
+\end{align*}
+and thus $P_1(1)$ is true.
+
+\subsubsection{Induction Hypothesis (State $P_1(k)$)}
+
+\begin{align*}
+	P_1(k): a_1 \le a_2 \le \ldots \le a_{k+1}.
+\end{align*}
+
+\subsubsection{Prove $P_1(k) \implies P_1(k+1)$}
+
+We need to show that
+\begin{align*}
+	P_1(k+1): a_1 \le a_2 \le \ldots \le a_{k+2}.
+\end{align*}
+
+Assuming $P_1(k)$, we know the statement 
+\begin{align*}
+	a_1 \le a_2 \le \ldots \le a_{k+1}
+\end{align*}
+is true. Now once again appealing to our earlier argument, we know that if 
+\begin{align*}
+	I_{k+1} \supseteq I_{k+2},
+\end{align*}
+then 
+\begin{align*}
+	a_{k+2} \in I_{k+1} = [a_{k+1}, b_{k+1}],
+\end{align*}
+and hence 
+\begin{align*}
+	a_{k+1} \le a_{k+2}.
+\end{align*}
+Combining this with our induction hypothesis, we have
+\begin{align*}
+	a_1 \le a_2 \le \ldots \le a_{k+1} \le a_{k+2}.
+\end{align*}
+Therefore, $P_1(k+1)$ holds true. By the principle of mathematical induction, $P_1(n)$ is true for all $n$.
+
+\subsection{Prove $P_2(n)$}
+
+\subsubsection{Base case (Prove $P_2(1)$ is true)}
+
+$P_2(1)$ boils down to the statement $b_1 \ge b_2$. Since $I_1 \supseteq I_2$, we know that 
+\begin{align*}
+	b_2 \in I_1 = [a_1, b_1].
+\end{align*}
+Hence 
+\begin{align*}
+	a_1 \le b_2 \le b_1,
+\end{align*}
+and therefore 
+\begin{align*}
+	b_1 \ge b_2.
+\end{align*}
+Thus $P_2(1)$ is true.
+
+\subsubsection{Induction Hypothesis (State $P_2(k)$)}
+
+\begin{align*}
+	P_2(k): b_1 \ge b_2 \ge \ldots \ge b_{k+1}.
+\end{align*}
+
+\subsubsection{Prove $P_2(k) \implies P_2(k+1)$}
+
+We need to show that
+\begin{align*}
+	P_2(k+1): b_1 \ge b_2 \ge \ldots \ge b_{k+2}.
+\end{align*}
+
+Assuming $P_2(k)$, we know that
+\begin{align*}
+	b_1 \ge b_2 \ge \ldots \ge b_{k+1}.
+\end{align*}
+Now since 
+\begin{align*}
+	I_{k+1} \supseteq I_{k+2},
+\end{align*}
+it follows that 
+\begin{align*}
+	b_{k+2} \in I_{k+1} = [a_{k+1}, b_{k+1}],
+\end{align*}
+and so 
+\begin{align*}
+	a_{k+1} \le b_{k+2} \le b_{k+1}.
+\end{align*}
+This implies
+\begin{align*}
+	b_{k+1} \ge b_{k+2}.
+\end{align*}
+Combining this with our induction hypothesis, we have
+\begin{align*}
+	b_1 \ge b_2 \ge \ldots \ge b_{k+1} \ge b_{k+2}.
+\end{align*}
+Thus, $P_2(k+1)$ holds true. By the principle of mathematical induction, $P_2(n)$ is true for all $n$.
+
+
+
+
+
+\mysection{3.2.17.) Show that $\lim_{n\to\infty} \frac{2^n}{n!} = 0$. Hint: If $n \ge 3$, then $0 < \frac{2^n}{n!} \le 2(\frac{2}{3})^{n-2}$.}
+
+\begin{proof}
+
+	Let $\epsilon > 0$ be arbitrary. To prove that $\lim_{n\to\infty} \frac{2^n}{n!} = 0$, we must show that there exists some $N \in \mathbb{N}$ such that $n \ge N \implies | \frac{2^n}{n!} - 0 | < \epsilon$. To start, we begin by setting $N_1 = 3$. Thus, using the hint given in the question, for all $n \ge N_1$, we have:
+
+	\begin{align*}
+		| \frac{2^n}{n!} - 0 |
+		&= | \frac{2^n}{n!} | \\
+		&\le  | 2(\frac{2}{3})^{n-2} | \\
+		&= |\frac{9}{2}(\frac{2}{3})^n| \\
+		&= \frac{9}{2}(\frac{2}{3})^n
+	\end{align*}
+	
+	Now let's consider the sequence $(\frac{2}{3})^{n}$. Our goal is to prove that this sequence too converges to zero, because if it does, we can make that term arbitrary small in our previous expression and our proof that $\lim_{n\to\infty} \frac{2^n}{n!} = 0$ is complete. Since $0 < \frac{2}{3} < 1$, we know that for all $x, y \in \mathbb{R}, \text{with} x < y, (\frac{2}{3})^y \le (\frac{2}{3})^{x}$. Since this fact obviously extends to the natural numbers as well, we know the sequence is monotonously decreasing, and clearly upper and lower bounded by 1 and 0 respectively. Thus by the monotone convergence theorem, we know that the sequence $\frac{2}{3}^{n}$ must converge. Using this, I conjecture and will proceed to prove that $\lim_{n\to\infty} \frac{2^n}{n!} = 0$. Letting $N_2 > \log_{\frac{2}{3}}{\frac{2}{9}\epsilon}$, we know that for all $n \ge N_2$:
+	
+	\begin{align*}
+		|(\frac{2}{3})^n - 0 |
+		&= |(\frac{2}{3})^n| \\
+		&\le |(\frac{2}{3})^{N_2}| \\
+		&< |(\frac{2}{3}^{\log_{\frac{2}{3}}{(\frac{2}{9}\epsilon)}}) \\
+		&= |\frac{2}{9}\epsilon| \\
+		&= \frac{2}{9}\epsilon
+	\end{align*}
+	
+	Therefore, by definition of convergence, we know that $\lim_{n\to\infty}{(\frac{2}{3})^{n}} = 0$, furthermore by letting $N = max\{N_1, N_2\}$, for all $n \ge N$, we have:
+	
+	\begin{align*}
+		| \frac{2^n}{n!} - 0 |
+		&= | \frac{2^n}{n!} | \\
+		&\le  | 2(\frac{2}{3})^{n-2} | \\
+		&= |\frac{9}{2}(\frac{2}{3})^n| \\
+		&= \frac{9}{2}(\frac{2}{3})^n \\
+		&< \frac{9}{2}(\frac{2}{9}\epsilon) \\
+		&= \epsilon
+	\end{align*}
+	
+	Hence, we have successfully shown that $\lim_{n\to\infty} \frac{2^n}{n!} = 0$.
+\end{proof}
+
+\mysection{Question 3.17}
+
+\subsection{Give an example of a convergent sequence $(x_n)$ of positive numbers with $\lim_{n\to\infty}{\frac{(x_{n+1})}{(x_n)}} = 1$.}
+
+The constant sequence $(x_n) = 1$ is trivially convergent to 1 and has the property that $\lim_{n\to\infty}{\frac{(x_{n+1})}{(x_n)}} = 1$ since:
+
+\begin{align*}
+	\lim_{n\to\infty}{\frac{(x_{n+1})}{(x_n)}}
+	&= \lim_{n\to\infty}{\frac{1}{1}} \\
+	&= 1
+\end{align*}
+
+\subsection{Give an example of a divergent sequence with this property. (Thus, this property cannot be used as a test for convergence.)}
+
+The sequence $(x_n) = n$ is an example of a clearly divergent sequence (since it is clearly not bounded) with the property that $\lim_{n\to\infty}{\frac{(x_{n+1})}{(x_n)}} = 1$ since (by use of algebraic limit rules):
+
+\begin{align*}
+	\lim_{n\to\infty}{\frac{(x_{n+1})}{(x_n)}}
+	&= \lim_{n\to\infty}{\frac{n+1}{n}} \\
+	&= \lim_{n\to\infty}({1 + \frac{1}{n}}) \\
+	&= \lim_{n\to\infty}{1} + \lim_{n\to\infty}{\frac{1}{n}} \\
+	&= 1 + 0 \\
+	&= 1
+\end{align*}
+
+\section{Let $X = (x_n)$ be a sequence of positive real numbers such that $\lim_{n\to\infty}{\frac{x_{n+1}}{x_n}} = L > 1$. Show that X is not a bounded sequence and hence is not convergent.}
+
+\begin{proof}
+	Assume, for the purposes of contraction, that X is a bounded sequence. Then, by definition of boundedness, we know there must exist some $M > 0$ such that $\forall n \in \mathbb{N}, |x_n| < M$. Furthermore, by definition of convergence, for arbitrary $\epsilon > 0$ we know that there exists an $N \in \mathbb{N}$ such that $n \ge N \implies$
+
+	\begin{align*}
+		|\frac{x_{n+1}}{x_n} - L| &< \frac{\epsilon}{M}
+	\end{align*}
+
+	However, that would lead to the following implications:
+
+	\begin{align*}
+		|\frac{x_{n+1}}{x_n} - L| &< \frac{\epsilon}{M} \implies \\
+		|\frac{x_{n+1} - Lx_n}{x_n}| &< \frac{\epsilon}{M} \implies \\
+		|x_{n+1} - L{x_n}| &< \frac{\epsilon}{M}|x_n| \implies \\
+		|x_{n+1} - L{x_n}| &< \frac{\epsilon}{M}{M} \implies \\
+		|x_{n+1} - L{x_n}| &< \epsilon
+	\end{align*}
+
+	Thus, we know that for all $n \ge N, x_{n+1} = Lx_n$. Therefore, we can arrive at the conclusion that for all such n, $x_{n+k} = L^kx_n $ by recursion. Consider the case where $n = N$. Since $L > 1$, we know that there exists some $K \in \mathbb{N}$ such that $n \ge K \implies L^n \ge \frac{M}{x_{N}}$. However, this would mean, by our earlier property that:
+
+	\begin{align*}
+		x_{N+K} &= L^Kx_{N} \\
+		&\ge \frac{M}{x_{N}}x_{N} \\
+		&= M
+	\end{align*}
+
+	However, we had previously assumed that our sequence was bounded by M and thus $\forall n \in \mathbb{N} \; |x_n| < M $. Thus, by contradiction, our sequence X cannot be bounded and therefore, cannot be convergent.
+\end{proof}
+
+\mysection{3.3.12.) Establish the convergence and find the limits of the following sequences.}
+
+\subsection{$((1+\frac{1}{n})^{n+1})$}
+
+Let $(x_n) = 1$, $(y_n) = \frac{1}{n}$, and $z_n = (1+\frac{1}{n})^n$. We can therefore express $((1+\frac{1}{n})^{n+1})$ as:
+
+\begin{align*}
+	((1 + \frac{1}{n})^{n+1}) &= (1 + \frac{1}{n})(1 + \frac{1}{n})^n \\
+	&= (x_n + y_n)(z_n) \\
+	&= (x_n)(z_n) + (y_n)(z_n)
+\end{align*}
+
+Thus, we can express $((1+\frac{1}{n})^{n+1})$ as the sum of two sequences being multiplied together. However, we know that each such limit exists. $\lim_{n\to\infty}{x_n} = \lim_{n\to\infty}{1}$ is trivially 1, $\lim_{n\to\infty}{y_n} = \lim_{n\to\infty}{\frac{1}{n}} = 0$ which was proven in example 3.1.6, and $\lim_{n\to\infty}{z_n} = \lim_{n\to\infty}{(1 + \frac{1}{n})^{n}} = e_n$, as defined in example 3.3.6. Thus, by theorem 3.2.3, we know that $\lim_{n\to\infty}((x_n)(z_n))$ exists and $\lim_{n\to\infty}((y_n)(z_n))$ exists. So, once again appealing to theorem 3.2.3, we know $\lim_{n\to\infty}((x_n)(z_n) + (y_n)(z_n))$ also exists, and since $((1+\frac{1}{n})^{n+1}) = (x_n)(z_n) + (y_n)(z_n)$, we therefore know $\lim_{n\to\infty}((1+\frac{1}{n})^{n+1})$ exists. Appealing to theorem 3.2.3 one more time, we know that:
+
+\begin{align*}
+	\lim_{n\to\infty}((1+\frac{1}{n})^{n+1}) &= \lim_{n\to\infty}((x_n)(z_n) + (y_n)(z_n)) \\
+	&= \lim_{n\to\infty}{x_n}\lim_{n\to\infty}{z_n} + \lim_{n\to\infty}{y_n}\lim_{n\to\infty}{z_n} \\
+	&= (1)(e_n) + (0)(e_n) \\
+	&= e_n
+\end{align*}
+
+\subsection{$((1+\frac{1}{n})^{2n})$}
+
+Consider that:
+
+\begin{align*}
+	(1+\frac{1}{n})^{2n} &= ((1+\frac{1}{n})^{n})^{2} \\
+	&= (1+\frac{1}{n})^{n}(1+\frac{1}{n})^{n}
+\end{align*}
+
+By example 3.3.6, we know that $\lim_{n\to\infty}(1 + \frac{1}{n})^n$ exists and equals $e_n$. Therefore, by theorem 3.2.3, we know that $((1+\frac{1}{n})^{2n})$ exists and that:
+
+\begin{align*}
+	\lim_{n\to\infty}((1+\frac{1}{n})^{2n}) &= \lim_{n\to\infty}((1+\frac{1}{n})^n(1+\frac{1}{n})^n) \\
+	&= \lim_{n\to\infty}(1+\frac{1}{n})^n\lim_{n\to\infty}(1+\frac{1}{n})^n \\
+	&= (e_n)(e_n) \\
+	&= (e_n)^2
+\end{align*}
+
+\subsection{$((1+\frac{1}{n+1})^{n})$}
+
+Here we will prove that the sequence converges by squeeze theorem. Consider the sequences $(x_n) = e_n$ and $(y_n) = (1 + \frac{1}{n})^n$. Clearly, $\lim_{n\to\infty}(x_n) = e_n$ and by example 3.3.6, we know $\lim_{n\to\infty}(y_n) = e_n$. We also know from example 3.3.6 that $(y_n)$ is a decreasing sequence, and therefore that $e_n \le (1+\frac{1}{n})^{n} \quad \forall n \in \mathbb{N}$ by theorem 3.3.2.b, and because $(n+1) \in \mathbb{N}$, we therefore know $e_n = (x_n) \le (1+\frac{1}{n+1})^{n}$. Now, we know that $\frac{1}{n+1} \le \frac{1}{n}$, and therefore that $1 + \frac{1}{n+1} \le 1 + \frac{1}{n}$ and since $n > 0$, we know that $(1 + \frac{1}{n+1})^n \le (1 + \frac{1}{n})^n$.
+
+Therefore, since $(x_n) \le (1+\frac{1}{n+1})^{n} \le (y_n)$, and $(x_n) = (y_n) = e_n$ we can appeal to squeeze theorem to state both that $\lim_{n\to\infty}(1+\frac{1}{n+1})^{n}$ exists and equals $e_n$.
+
+\subsection{$(1 - \frac{1}{n})^n$}
+
+We will prove the convergence of $(1 - \frac{1}{n})^n$ by the monotone convergence theorem.
+
+\subsubsection{Prove that $(1 - \frac{1}{n})^n$ is bounded}
+
+Since $1 - \frac{1}{n} \le 1 \quad \forall n \in \mathbb{N}$, we know $(1 - \frac{1}{n})^n \le (1)^n = 1$. Furthermore, since $0 \le 1 - \frac{1}{n} \quad \forall n \in \mathbb{N}$, then $0 = 0^n \le (1 - \frac{1}{n})^n$.
+
+Therefore, since $0 \le (1 - \frac{1}{n})^n \le 1$, $(1 - \frac{1}{n})^n$ is bounded.
+
+\subsubsection{Prove that $(1 - \frac{1}{n})^n$ is monotone}
+
+Using the property that $\frac{1}{n} > \frac{1}{n + 1}$ we can derive that $1 - \frac{1}{n} < 1 - \frac{1}{n + 1}$. Also, since $0 \le 1 - \frac{1}{n} \le 1 \quad \forall n \in \mathbb{N}$, we know that $(1 - \frac{1}{n})^{n + 1} \le (1 - \frac{1}{n})^n$. Therefore, we know:
+
+\begin{align*}
+	(1 - \frac{1}{n+1})^n+1 &= (1 - \frac{1}{n + 1})^{n + 1} \\
+	&\ge (1 - \frac{1}{n})^{n+1} \\
+	&\ge (1 - \frac{1}{n})^n
+\end{align*}
+
+Therefore, $(1 - \frac{1}{n})^n$ is monotone.
+
+Thus, since $(1 - \frac{1}{n})^n$ is both bounded and monotone, by monotone convergence theorem, the sequence $(1 - \frac{1}{n})^n$ converges.
+
+We have already established that $(1 - \frac{1}{n})^n$ converges by the Monotone Convergence Theorem. To determine what it converges to, we will relate it to the sequence $(1 + \frac{1}{n})^n$, which we know converges to $e_n$.
+
+Observe that:
+\begin{align*}
+	(1 - \tfrac{1}{n})^n &= \frac{1}{(1 - \tfrac{1}{n})^{-n}} \\
+	&= \frac{1}{\left(\frac{1}{1 - \tfrac{1}{n}}\right)^n}.
+\end{align*}
+
+Now rewrite the fraction in the denominator:
+\begin{align*}
+	\frac{1}{1 - \tfrac{1}{n}} &= \frac{n}{n - 1} \\
+	&= 1 + \frac{1}{n - 1}.
+\end{align*}
+
+Hence,
+\begin{align*}
+	(1 - \tfrac{1}{n})^n &= \frac{1}{\left(1 + \tfrac{1}{n - 1}\right)^n}.
+\end{align*}
+
+We already know from Example 3.3.6 that:
+\begin{align*}
+	\lim_{n \to \infty} \left(1 + \tfrac{1}{n - 1}\right)^{n - 1} = e_n.
+\end{align*}
+
+We can now express our term in a way that uses this known limit:
+\begin{align*}
+	(1 - \tfrac{1}{n})^n &= \frac{1}{\left[\left(1 + \tfrac{1}{n - 1}\right)^{n - 1}\right]^{\tfrac{n}{n - 1}}}.
+\end{align*}
+
+Since $\tfrac{n}{n - 1} \to 1$ as $n \to \infty$, and since $\left(1 + \tfrac{1}{n - 1}\right)^{n - 1} \to e_n$, we can combine these two facts to conclude:
+\begin{align*}
+	\lim_{n \to \infty} (1 - \tfrac{1}{n})^n &= \frac{1}{e_n}.
+\end{align*}
+
+Therefore, $(1 - \tfrac{1}{n})^n$ converges to $\frac{1}{e_n}$
+\end{document}
