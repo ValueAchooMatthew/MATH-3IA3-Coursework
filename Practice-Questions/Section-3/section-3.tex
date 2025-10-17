@@ -1,0 +1,908 @@
+\documentclass[10pt]{article}
+\usepackage{tabularx}
+\usepackage{mathtools}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\pagestyle{fancy}
+\fancyhf{}
+\title{Section 3 - Practice Problems}
+\author{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\date{\today}
+
+\hypersetup{
+        colorlinks=true,
+        linkcolor=blue,
+        filecolor=magenta,
+        urlcolor=blue,
+        citecolor=blue,
+	anchorcolor=blue
+}
+
+\fancyhead{}
+\fancyhead[L]{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\fancyhead[R]{Section 3 - Practice Problems}
+
+\newcommand{\chaptertitle}[1]{
+  \refstepcounter{chapter}
+  \vspace{1.5em}
+  \begin{center}
+  \underline{\noindent\Large\bfseries{Chapter} \thechapter: #1}
+  \end{center}
+  \vspace{1em}
+}
+
+\newcommand{\sectiontitle}{Section 3 - Practice Problems}
+\setcounter{section}{3}
+
+\newcounter{chapter}[section]
+\renewcommand{\thechapter}{\thesection.\arabic{chapter}}
+
+\newcounter{exercise}[chapter]
+\renewcommand{\theexercise}{\thechapter.\arabic{exercise}}
+
+\newenvironment{exercise}[1][]{
+  \ifx\\#1\\
+    \refstepcounter{exercise}
+    \setcounter{currentstep}{0}
+  \else
+    \setcounter{exercise}{#1}
+    \setcounter{currentstep}{0}
+  \fi
+  \large{\par\noindent\textbf{Exercise \theexercise}}
+}{\vspace{0.8em}}
+
+\newenvironment{solution}{
+	\vspace{0.4cm}\par\noindent\large\textbf{{Solution:}}\par\vspace{0.4em}
+}{\vspace{0.8em}}
+
+\newcounter{partslist}
+
+\makeatletter
+\newcommand{\parts@seriesname}{parts@\theexercise}
+
+\newenvironment{parts}{
+  \edef\parts@ser{\parts@seriesname}
+  \ifcsname\parts@ser\endcsname
+    \begin{enumerate}[resume=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
+  \else
+    \begin{enumerate}[series=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
+    \expandafter\gdef\csname\parts@ser\endcsname{1}
+  \fi
+}{
+  \end{enumerate}
+}
+\makeatother
+
+\makeatletter
+
+% Step counter resets every exercise
+\newcounter{currentstep}[exercise]
+\renewcommand{\thecurrentstep}{\Roman{currentstep}}
+
+% ---------------------------
+% Steps environment
+% ---------------------------
+\newenvironment{steps}{
+  % Create unique series name for each exercise
+  \edef\steps@ser{steps@\theexercise}
+  \ifcsname\steps@ser\endcsname
+    \begin{enumerate}[resume=\steps@ser,
+                      label=\bfseries{(\Roman*)},
+                      leftmargin=3.15em,
+                      itemsep=0.4em,
+                      topsep=0.8em]
+  \else
+    \begin{enumerate}[series=\steps@ser,
+                      label=\bfseries{(\Roman*)},
+                      leftmargin=3.15em,
+                      itemsep=0.4em,
+                      topsep=0.8em]
+    \expandafter\gdef\csname\steps@ser\endcsname{1}%
+  \fi
+  % ensure \item increments currentstep
+  \let\steps@saved@item\item
+  \renewcommand{\item}{\stepcounter{currentstep}\steps@saved@item}%
+}{
+  \let\item\steps@saved@item
+  \end{enumerate}
+}
+
+% ---------------------------
+% Substeps environment
+% ---------------------------
+\newenvironment{substeps}{
+  % tie substeps to the latest currentstep
+  \edef\substeps@ser{substeps@\theexercise-\number\value{currentstep}}
+  \ifcsname\substeps@ser\endcsname
+    \begin{enumerate}[resume=\substeps@ser,
+                      label=\textbf{(\Roman{currentstep}.\roman*)},
+                      leftmargin=5em,
+                      itemsep=0.3em,
+                      topsep=0.3em]
+  \else
+    \begin{enumerate}[series=\substeps@ser,
+                      label=\textbf{(\Roman{currentstep}.\roman*)},
+                      leftmargin=5em,
+                      itemsep=0.3em,
+                      topsep=0.3em]
+    \expandafter\gdef\csname\substeps@ser\endcsname{1}%
+  \fi
+}{
+  \end{enumerate}
+}
+
+\makeatother
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\renewcommand{\arraystretch}{1.8}
+
+\fontsize{10pt}{14pt}\selectfont
+
+\begin{document}
+
+\maketitle
+
+\vspace{-1cm}
+
+\chaptertitle{Sequences and Their Limits}
+
+\begin{exercise}[7]
+	Let $x_n \coloneq \frac{1}{\ln{(n + 1)}}$ for $n \in \mathbb{N}$.
+\end{exercise}
+
+\begin{parts}
+	\item Use the definition of limits to show that $\lim_{n\to\infty}(x_n) = 0$.
+\end{parts}
+
+\begin{solution}
+	
+	Let $\epsilon > 0$ be arbitrary. Since $\ln$ is an increasing function, we know that $\ln(n) \le \ln{(n + 1)}$ and thus $\frac{1}{\ln{(n)}} \ge \frac{1}{\ln{(n + 1)}}$. Let $N > e^{\frac{1}{\epsilon}}$. We therefore know that $\forall n \ge N$:
+
+	\begin{align*}
+		|x_n - 0|
+		&= |x_n| \\
+		&= |\frac{1}{\ln{(n + 1)}}| \\
+		&= \frac{1}{\ln(n + 1)} \\
+		&\le \frac{1}{\ln{(n)}} \\
+		&\le \frac{1}{\ln{(N)}} \\
+		&< \frac{1}{\ln{(e^{\frac{1}{\epsilon}})}} \\
+		&= \frac{1}{\frac{1}{\epsilon}} \\
+		&= \epsilon
+	\end{align*}
+
+	Therefore, by definition of limits, $\lim_{n\to\infty}(x_n) = 0$.
+\end{solution}
+
+\begin{parts}
+	\item Find a specific value of $N$ as required in the definition of limits for each of the following $\epsilon$-challenges.
+\end{parts}
+
+\begin{steps}
+	\item $\epsilon = \frac{1}{2}$.
+\end{steps}
+
+\begin{solution}
+	From our prior definition of $N$, we can select any natural number greater than:
+
+	\begin{align*}
+		e^{\frac{1}{\epsilon}} &= e^{\frac{1}{\frac{1}{2}}} \\
+		&= e^{2} \\
+		&\approx 7.3890561
+	\end{align*}
+
+	Thus, we can choose $N = 8$ to satisfy this $\epsilon$-challenge.
+\end{solution}
+
+\begin{steps}
+	\item $\epsilon = \frac{1}{10}$
+\end{steps}
+
+\begin{solution}
+	For the same reason outlined earlier, we must select an $N$ greater than:
+
+	\begin{align*}
+		e^{\frac{1}{\epsilon}} &= e^{\frac{1}{\frac{1}{10}}} \\
+		&= e^{10} \\
+		&\approx 22026.46
+	\end{align*}
+
+	Thus, we can choose $N = 22027$ to satisfy this $\epsilon$-challenge.
+\end{solution}
+
+\begin{exercise}[8]
+\end{exercise}
+
+\begin{parts}
+	\item Prove that $\lim_{n\to\infty}(x_n) = 0$ if and only if $\lim_{n\to\infty}(|x_n|) = 0$.
+\end{parts}
+	
+\begin{solution}
+	\begin{proof}
+
+		\begin{steps}
+			\item Prove forward direction ($\lim_{n\to\infty}(x_n) = 0 \implies \lim_{n\to\infty}(|x_n|) = 0$).
+		\end{steps}
+
+		Let $\epsilon > 0$ be arbitrary.
+
+		We know that the sequence $(|x_n|)$ converges to zero if for any such $\epsilon$, there exists some $N \in \mathbb{N}$ such that $\forall n \ge N$,
+		$||x_n| - 0| < \epsilon$.
+
+		Let's briefly turn our attention to the sequence $(x_n)$. Since $x_n$ converges to zero, then we know that there exists an $N_0 \in \mathbb{N}$ such that $\forall n \ge N_0$, $|x_n - 0| < \epsilon$. However, considering that $||x_n|| = |x_n|$, we necessarily have, $\forall n \ge N_0$:
+
+		\begin{align*}
+			||x_n| - 0| &= ||x_n|| \\
+			&= |x_n| \\
+			&= |x_n - 0| \\
+			&< \epsilon \\
+		\end{align*}
+
+		Thus, since $||x_n| - 0| < \epsilon$ for arbitrary $\epsilon > 0$ so long as $n \ge N_0$, by definition of convergence, the sequence $(|x_n|)$ converges to zero and thus $\lim_{n\to\infty}(x_n) = 0 \implies \lim_{n\to\infty}(|x_n|) = 0$.
+
+		\begin{steps}
+			\item Prove reverse direction ($\lim_{n\to\infty}(|x_n|) = 0 \implies \lim_{n\to\infty}(x_n) = 0$).
+		\end{steps}
+
+		Once again, let $\epsilon > 0$ be arbitrary.
+
+		We know that the sequence $(x_n)$ converges to zero if, for any such $\epsilon$, there exists an $N \in \mathbb{N}$ such that $\forall n \ge N$, $|x_n - 0| < \epsilon$.
+
+		Using the same idea as before, we know that there exists an $N_0 \in \mathbb{N}$ such that $\forall n \ge N$, $||x_n| - 0| < \epsilon$ since $(|x_n|)$ converges to zero. Thus, $\forall n \ge N_0$:
+
+		\begin{align*}
+			|x_n - 0| &= |x_n| \\
+			&= ||x_n|| \\
+			&= ||x_n| - 0| \\
+			&< \epsilon
+		\end{align*}
+
+		Thus, since $|x_n - 0| < \epsilon$ for arbitrary $\epsilon > 0$ so long as $n \ge N_0$, by definition of convergence, the sequence $(x_n)$ converges to zero and thus $\lim_{n\to\infty}(|x_n|) = 0 \implies \lim_{n\to\infty}(x_n) = 0$. \\\\
+
+		Therefore, since:
+		\begin{align*}
+			\lim_{n\to\infty}(x_n) = 0 \implies \lim_{n\to\infty}(|x_n|) = 0 \\
+			\intertext{\centering and}
+			\lim_{n\to\infty}(|x_n|) = 0 \implies \lim_{n\to\infty}(x_n) = 0 \\
+		\end{align*}
+
+		$\lim_{n\to\infty}(x_n) = 0 \iff \lim_{n\to\infty}(|x_n|) = 0$
+	\end{proof}
+\end{solution}
+
+
+
+\begin{parts}
+	\item Give an example to show that the convergence of $|x_n|$ need not imply the convergence of $(x_n)$.
+\end{parts}
+
+\begin{solution}
+	The sequence $x_n = (-1)^n$ is a very simply example which illustrates this fact. Clearly, $x_n = (-1)^n$ is divergent, however $|x_n| = 1 \forall n \in \mathbb{N}$ and thus $|x_n|$ is clearly convergent to 1. Thus, $|x_n|$ being convergent does not necessarily imply that $x_n$ is.
+\end{solution}
+
+\begin{exercise}[14]
+	Let $b \in \mathbb{R}$ satisfy $0 < b < 1$. Show that $\lim_{n\to\infty}(nb^n) = 0$.
+\end{exercise}
+
+
+\begin{solution}
+
+\end{solution}
+
+
+\begin{exercise}[17]
+	Show that $\lim_{n\to\infty}(\frac{2^n}{n!}) = 0$. [\emph{Hint:} If $n \ge 3$, then $0 < \frac{2^n}{n!} < 2 \cdot (\frac{2}{3})^{n - 2}$]
+\end{exercise}
+
+\begin{solution}
+
+	$Let \epsilon > 0$ be arbitrary. To prove that $\lim_{n\to\infty}\frac{2^n}{n!} = 0$, we must show that there exists some $N \in \mathbb{N}$ such that $n \ge N \implies |\frac{2^n}{n!} - 0| < \epsilon$. To start, we begin by setting $N_1 = 3$. Thus, using the hint given in the question, $\forall n \ge N_1$, we have:
+
+
+	\begin{align*}
+		|\frac{2^n}{n!} - 0| &= |\frac{2^n}{n!}| \\
+		&\le |2 \cdot (\frac{2}{3})^{n - 2} | \\
+		&= |\frac{9}{2}(\frac{2}{3})^n| \\
+		&= \frac{9}{2}(\frac{2}{3}) \\
+	\end{align*}
+
+	Now let's consider the sequence $(\frac{2}{3})^n$. Our goal is to prove that this sequence converges to zero, because if it does, then we can make that term arbitrarily small in our previous expression and our proof that $\lim_{n\to\infty}(\frac{2^n}{N!}) = 0$ is complete. Let $N_2 > \log_{\frac{2}{3}}(\frac{2\epsilon}{9})$, we know that $\forall n \ge N_2 \implies$:
+
+	\begin{align*}
+		|(\frac{2}{3})^n - 0| &= |(\frac{2}{3})^n| \\
+		&\ge |(\frac{2}{3})^{N_2}|
+		< |(\frac{2}{3})^{\log_{\frac{2}{3}}(\frac{2\epsilon}{9})}| \\
+		&= |\frac{2\epsilon}{9}| \\
+		&= \frac{2\epsilon}{9}
+	\end{align*}
+
+	Therefore, by definition of convergence, we know that $\lim_{n\to\infty}(\frac{2}{3})^n = 0$. Thus, by letting $N = \text{max}\{N_1, N_2\}$, then $n \ge N \implies$:
+
+	\begin{align*}
+		|\frac{2^n}{n!} - 0| &= |\frac{2^n}{n!}| \\
+		&\le |2 \cdot (\frac{2}{3})^{n - 2}| \\
+		&= |\frac{9}{2} \cdot (\frac{2}{3})^n| \\
+		&= \frac{9}{2} \cdot (\frac{2}{3})^n \\
+		&< \frac{9}{2} \cdot \frac{2\epsilon}{9} \\
+		&= \epsilon \\
+	\end{align*}
+
+	Hence, by definition of convergence, $\lim_{n\to\infty} (\frac{2^n}{n!}) = 0$.
+\end{solution}
+
+\begin{exercise}
+	If $\lim_{n\to\infty}(x_n) = x > 0$, show that there exists a $K \in \mathbb{N}$ such that if $n \ge K$, then $\frac{1}{2}x < x_n < 2x$.
+\end{exercise}
+
+\begin{solution}
+	Let $\epsilon = \frac{1}{2}x$ (which we can do since $x > 0$). By definition of convergence, we know that there exists a $K \in \mathbb{N}$ such that $\forall n \ge K$:
+
+	\begin{align*}
+		|x_n - x| < \epsilon = \frac{1}{2}x \\
+	\end{align*}
+
+	However, notice that:
+
+	\begin{align*}
+		|x_n - x| < \frac{1}{2}x \implies \\
+	\end{align*}
+
+	\vspace{-1.5cm}
+
+	\begin{align*}
+		-\frac{1}{2}x < x_n& - x < \frac{1}{2}x \implies \\
+		-\frac{1}{2}x + x < x_n& - x + x  < \frac{1}{2}x + x \implies \\
+		\frac{1}{2}x < x_n& < \frac{3}{2}x \implies \\
+		\frac{1}{2}x < x_n& < 2x \\
+	\end{align*}
+
+	Thus, $\forall n \ge K$, $\frac{1}{2} < x_n < 2x$.
+\end{solution}
+
+\newpage
+
+\chaptertitle{Limit Theorems}
+
+\begin{exercise}[7]
+	If $(b_n)$ is a bounded sequence and $\lim_{n\to\infty}(a_n) = 0$, prove that $\lim_{n\to\infty}(a_n \cdot b_n) = 0$. Explain why theorem 3.2.3 \emph{cannot} be used.
+\end{exercise}
+
+\begin{solution}
+
+	\begin{proof}
+		Let $\epsilon > 0$ be arbitrary. Since $b_n$ is given to be bounded, we know that there exists an $M \in \mathbb{R}, M > 0$ such that $|b_n| \le M \; \forall n \in \mathbb{N}$. Furthermore, because $a_n$ converges to 0, we know that there exists an $N \in \mathbb{N}$ such that $n \ge N \implies |a_n - 0| = |a_n| < \frac{\epsilon}{M}$. Thus, $n \ge N \implies:$
+
+		\begin{align*}
+			|a_n \cdot b_n - 0| &= |a_n \cdot b_n| \\
+			&\le M \cdot |a_n| \\
+			&< M \cdot \frac{\epsilon}{M} \\
+			&< \epsilon \\
+		\end{align*}
+
+		Thus, by definition of convergence, $\lim_{n\to\infty}(a_n \cdot b_n) = 0$.
+	\end{proof}
+	
+	We could not have simply invoked theorem 3.2.3 to prove this since $b_n$ is simply given to be bounded, not convergent.
+
+\end{solution}
+
+\begin{exercise}[8]
+	Explain why the result in equation (3) before theorem 3.2.4 \emph{cannot} be used to evaluate the limit of the sequence $\lim_{n\to\infty}((1 + \frac{1}{n})^n)$.
+\end{exercise}
+
+\begin{solution}
+	Equation 3 states that:
+
+	\begin{align*}
+		\lim_{n\to\infty}(a_n^k) = (\lim_{n\to\infty}(a_n))^k \; \forall k \in \mathbb{N} \\
+	\end{align*}
+
+	We cannot use this to evaluate the limit of the sequence $\lim_{n\to\infty}((1 + \frac{1}{n})^n)$ since the exponent here is not a constant $k$ but rather a limiting variable. If we were to attempt to apply this law, we would get that $\lim_{n\to\infty}((1 + \frac{1}{n})^n) = 1$, which as was determined earlier, would be incorrect.
+\end{solution}
+
+\begin{exercise}[11]
+	Determine the following limits:
+\end{exercise}
+
+\begin{parts}
+	\item $\lim_{n\to\infty}((3\sqrt{n})^{\frac{1}{2n}})$.
+\end{parts}
+
+
+\begin{exercise}[16]
+	Apply theorem 3.2.11 to the following sequences, where $a, b$ satisfy $0 < a < 1, b > 1$.
+\end{exercise}
+
+\begin{parts}
+	\item $(a^n)$.
+\end{parts}
+
+\begin{solution}
+	Theorem 3.2.11 states that for a sequence $(x_n)$ of real numbers, that if the sequence $(\frac{x_{n + 1}}{x_n})$ exists and is less than 1, then $(x_n)$ converges and $\lim_{n\to\infty}(x_n) = 0$
+	
+	For the sequence $a^n$, we know that:
+	
+	\begin{align*}
+		\lim_{n\to\infty}(\frac{a^{n + 1}}{a^n}) &= \lim_{n\to\infty}(a) \\
+		&= a \\
+	\end{align*}
+
+	And since $0 < a < 1$, we know that the sequence $a^n$ converges and $\lim_{n\to\infty} = 0$.
+\end{solution}
+
+\begin{parts}
+	\item $(\frac{b^n}{2^n})$.
+\end{parts}
+
+\begin{solution}
+	
+	\begin{align*}
+		\lim_{n\to\infty}(\frac{b^{n + 1} / 2^{n + 1}}{{b^n} / {2^n}}) &= \lim_{n\to\infty}(\frac{b}{2}) \\
+	\end{align*}
+
+	Therefore, forall $b > 2$, the sequence diverges, and for all $1 < b < 2$ the sequence converges to 0. If b = $2$, we get that:
+
+	\begin{align*}
+		\lim_{n\to\infty}(\frac{b^n}{2^n}) &= \lim_{n\to\infty}(\frac{2^n}{2^n}) \\
+		&= \lim_{n\to\infty}(1) \\
+		&= 1
+	\end{align*}
+
+	Therefore, when $b = 2$, the sequence converges to $1$.
+\end{solution}
+
+\begin{parts}
+	\item $(\frac{n}{b^n})$.
+\end{parts}
+
+\begin{solution}
+	\begin{align*}
+		\lim_{n\to\infty}(\frac{n + 1 / b^{n + 1}}{n / b^{n}}) &= \lim_{n\to\infty}(\frac{n + 1}{b^{n + 1}} \cdot \frac{b^n}{n}) \\
+		&= \lim_{n\to\infty}(\frac{b^n(n + 1)}{b^{n + 1}(n)}) \\
+		&= \lim_{n\to\infty}(\frac{n + 1}{b(n)}) \\
+		&= \lim_{n\to\infty}(\frac{1}{b} + \frac{1}{b(n)}) \\
+		&= \frac{1}{b} \\
+	\end{align*}
+
+
+	Therefore, since $b > 1 \implies \frac{1}{b} < 1$, we know that $\lim_{n\to\infty}(\frac{n + 1 / b^{n + 1}}{n / b^{n}}) < 1$ and thus $\frac{n}{b^n}$ converges to zero.
+\end{solution}
+
+\begin{parts}
+	\item $(\frac{2^{3n}}{3^{2n}})$.
+\end{parts}
+
+\begin{solution}
+	\begin{align*}
+		\lim_{n\to\infty} \left( \frac{2^{3(n + 1)} / 3^{2(n + 1)}}{2^{3n} / 3^{2n}} \right) &= \lim_{n\to\infty} \left( \frac{(2^3 \cdot 2^{3n}) / (3^2 \cdot 3^{2n})}{(2^{3n}) / (3^{2n})} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{2^3}{3^2} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{8}{9} \right) \\
+		&= \frac{8}{9} \\
+	\end{align*}
+
+	Therefore, since $\lim_{n\to\infty} \left( \frac{2^{3(n + 1)} / 3^{2(n + 1)}}{2^{3n} / 3^{2n}} \right) = \frac{8}{9} < 1$, the sequence $(\frac{2^{3n}}{3^{2n}})$ converges to zero.
+\end{solution}
+
+
+\begin{exercise}[17]
+	
+\end{exercise}
+
+\begin{parts}
+	\item Give an example of a convergent sequence $(x_n)$ of positive numbers with $\lim_{n\to\infty} \left( \frac{x_{n + 1}}{x_n} \right)$.
+\end{parts}
+
+\begin{solution}
+	The sequence $x_n = 1$ is trivially convergent to 1 and has the property that:
+
+	\begin{align*}
+		\lim_{n\to\infty} \left( \frac{x_{n + 1}}{x_n} \right) &= \lim_{n\to\infty} \left( \frac{1}{1} \right) \\
+		&= \lim{n\to\infty} (1) \\
+		&= 1
+	\end{align*}
+\end{solution}
+
+\begin{parts}
+	\item Give an example of a divergent sequence with this property. (Thus, this property cannot be used as a test for convergence).
+\end{parts}
+
+\begin{solution}
+	The sequence $x_n = n$ is an example of a sequence which is clearly divergent (since $(x_n)$ is unbounded), with the property that:
+
+	\begin{align*}
+		\lim_{n\to\infty} \left( \frac{x_{n + 1}}{x_n} \right) &= \lim_{n\to\infty} \left( \frac{n + 1}{n} \right) \\
+		&= \lim_{n\to\infty} \left( 1 + \frac{1}{n} \right) \\
+		&= \lim_{n\to\infty} (1) + \lim_{n\to\infty} \left( \frac{1}{n} \right) \\
+		&= 1 + 0 \\
+		&= 1
+	\end{align*}
+
+\end{solution}
+
+\begin{exercise}[19]
+	Discuss the convergence of each of the following sequences, where $a, b$ satisfy $0 < a < 1, b > 1$.
+\end{exercise}
+
+\begin{parts}
+	\item $(n^2a^n)$.
+\end{parts}
+
+\begin{solution}
+	
+	\begin{align*}
+		\lim_{n\to\infty} \left( \frac{(n + 1)^2 / a^{n + 1}}{n^2 / a^n} \right) &= \lim_{n\to\infty} \left( \frac{(n + 1)^2}{a^{n + 1}} \cdot \frac{a^n}{n^2} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{(n + 1)^2(a^n)}{a^{n + 1}(n)^2} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{(n + 1)^2}{a(n)^2} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{n^2 + 2n + 1}{a(n)^2} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{1}{a} + \frac{2}{a(n)} + \frac{1}{a(n)^2} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{1}{a} \right) + \lim_{n\to\infty} \left( \frac{2}{a(n)} \right) + \lim_{n\to\infty} \left( \frac{1}{a(n)^2} \right) \\
+		&= \frac{1}{a} \\
+	\end{align*}
+
+	Since $ 0 < a < 1 \implies \frac{1}{a} > 1 $, $\lim_{n\to\infty} \left( \frac{(n + 1)^2 / a^{n + 1}}{n^2 / a^2} \right) > 1$ and thus the sequence is divergent.
+
+\end{solution}
+
+\begin{parts}
+	\item $\frac{b^n}{n^2}$.
+\end{parts}
+
+\begin{solution}
+	\begin{align*}
+		\lim_{n\to\infty} \left( \frac{b^{n + 1} / (n + 1)^2}{b^n / n^2} \right) &= \lim_{n\to\infty} \left( \frac{b^{n + 1}}{(n + 1)^2} \cdot \frac{n^2}{b^n} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{b^{n + 1}(n)^2}{(n + 1)^2b^n} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{b(n)^2}{(n + 1)^2} \right) \\
+		&= \lim_{n\to\infty}(b) \cdot \lim_{n\to\infty} \left( \frac{n^2}{(n + 1)^2} \right) \\
+		&= b \cdot 1 \\
+		&= b
+	\end{align*}
+
+	Therefore, since $b > 1$, $\lim_{n\to\infty} \left( \frac{b^{n + 1} / (n + 1)^2}{b^n / n^2} \right) > 1$ and thus the sequence is divergent.
+\end{solution}
+
+\begin{parts}
+	\item $\frac{b^n}{n!}$
+\end{parts}
+
+\begin{solution}
+	
+	\begin{align*}
+		\lim_{n\to\infty} \left( \frac{b^{n + 1} / (n + 1)!}{b^n / n!} \right) &= \lim_{n\to\infty} \left( \frac{b^{n + 1}}{(n + 1)!} \cdot \frac{n!}{b^n} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{b^{n + 1}n!}{b^n(n + 1)!} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{(b)n!}{(n + 1)!} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{(b)n!}{(n + 1)n!} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{b}{n + 1} \right) \\
+		&= 0 \\
+	\end{align*}
+
+	Therefore, since $\lim_{n\to\infty} \frac{b^{n + 1} / (n + 1)!}{b^n / n!} \left( \right) = 0 < 1$, the sequence is convergent.
+
+\end{solution}
+
+\begin{parts}
+	\item $\frac{n!}{n^n}$
+\end{parts}
+
+\begin{solution}
+	\begin{align*}
+		\lim_{n\to\infty} \left( \frac{(n + 1)! / (n + 1)^{n + 1}}{n! / n^n} \right) &= \lim_{n\to\infty} \left( \frac{(n + 1)!}{(n + 1)^{n + 1}} \cdot \frac{n^n}{n!} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{(n + 1)! n^n}{n!(n + 1)^{n + 1}} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{(n + 1)n! n^n}{n!(n + 1)^{n + 1}} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{(n + 1)n^n}{(n + 1)^{n + 1}} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{n^n}{{n + 1}^n} \right) \\
+		&= \lim_{n\to\infty} \left( {\left( \frac{n}{n + 1} \right)}^n \right) \\
+		&= \lim_{n\to\infty} \left( {\left( 1 - \frac{1}{n + 1} \right) }^n \right) \\
+		&< \lim_{n\to\infty} (1)^n \\
+		&= 1 \\
+	\end{align*}
+
+	Therefore, since $\lim_{n\to\infty} \left( \frac{(n + 1)! / (n + 1)^{n + 1}}{n! / n^n} \right) < 1$, the sequence is convergent.
+\end{solution}
+
+\begin{exercise}[20]
+	Let $(x_n)$ be a sequence of positive numbers such that $\lim_{n\to\infty}((x_n)^{\frac{1}{n}}) = L < 1$. Show that there exists a number $r$ with $0 < r < 1$ such that $0 < x_n < r^n$ for all sufficiently large $n \in \mathbb{N}$. Use this to show that $\lim_{n\to\infty}(x_n) = 0$.
+\end{exercise}
+
+\begin{solution}
+	Let $\epsilon \in (0, 1 - L)$ and let $r = L + \epsilon$ (clearly then $0 < r < 1$). By definition of convergence, since the sequence $\lim_{n\to\infty}((x_n)^{\frac{1}{n}})$ converges to $L$, we know that there exists an $N \in \mathbb{N}$ such that $\forall n \ge N$:
+
+	\begin{align*}
+		|x_n^{\frac{1}{n}} - L| &< \epsilon \\
+	\end{align*}
+
+	But that means:
+
+	\begin{align*}
+		x_n^{\frac{1}{n}} &- L < \epsilon \implies \\
+		x_n^{\frac{1}{n}} &< \epsilon + L \implies \\
+		(x_n^{\frac{1}{n}})^n &< (\epsilon + L)^n \implies \\
+		x_n &< (\epsilon + L)^n \implies \\
+		x_n &< r^n \\
+	\end{align*}
+
+	Therefore, since $x_n$ is given to be positive, we have $0 < x_n < r^n$ for all $n \ge N$. Since $0 < r < 1$, we know that $\lim_{n\to\infty}(r^n) = 0$. Thus, by squeeze theorem, since $\lim_{n\to\infty}(0) = \lim_{n\to\infty} (r^n) = 0$, and $0 < x_n < r^n$ for sufficiently large n, $\lim_{n\to\infty} (x_n) = 0$.
+\end{solution}
+
+\begin{exercise}[21]
+\end{exercise}
+
+\begin{parts}
+	\item Give an example of a convergent sequence $(x_n)$ of positive numbers such that $\lim_{n\to\infty} \left( (x_n)^{\frac{1}{n}} \right) = 1$.
+\end{parts}
+
+\begin{solution}
+	The sequence $x_n = 1$ trivially converges to 1 with the property that:
+
+	\begin{align*}
+		\lim_{n\to\infty} \left( (x_n)^{\frac{1}{n}} \right) &= \lim_{n\to\infty} ((1)^{\frac{1}{n}}) \\
+		&= \lim_{n\to\infty}(1) \\
+		&= 1 \\
+	\end{align*}
+\end{solution}
+
+\begin{parts}
+	\item Give an example of a divergent sequence $(x_n)$ of positive numbers with $\lim_{n\to\infty} \left( (x_n)^{\frac{1}{n}} \right)$. (Thus, this property cannot be used as a test for convergence).
+\end{parts}
+
+%TODO: FLESH OUT PROOF
+
+\begin{solution}
+	The sequence $(x_n) = n$ is clearly divergent (since it is unbounded), with the property that:
+
+	\begin{align*}
+		\lim_{n\to\infty} \left( (x_n)^{\frac{1}{n}} \right) &= \lim_{n\to\infty} (n)^{\frac{1}{n}} \\
+		&= 1 \\
+	\end{align*}
+\end{solution}
+
+\begin{exercise}[24]
+	Show that if $(x_n), (y_n)$, and $(z_n)$ are convergent sequences, then the sequence $(w_n)$ defined by $w_n \coloneq \text{mid}{x_n, y_n, z_n}$ is convergent.
+\end{exercise}
+
+%TODO: COMPLETE PROOF
+
+\begin{solution}
+
+\end{solution}
+
+\newpage
+
+\chaptertitle{Monotone Sequences}
+
+\begin{exercise}[3]
+	Let $x_1 \ge 2$ and $x_{n + 1} \coloneq 1 + \sqrt{x_n - 1}, \; \forall n \in \mathbb{N}, n > 1$. Show that $(x_n)$ converges and find the limit.
+\end{exercise}
+
+\begin{solution}
+	
+	To show that $(x_n)$ is convergent, we can use the monotone convergence theorem if we are able to prove that the sequence is bounded and monotone. Let's first start with boundedness. Conjecturing that $x_n \ge 2, \forall n \in \mathbb{N}$, let $P(n)$ be the statement $P(n): 2 \le x_n$.
+
+	\begin{steps}
+		\item Show that $(x_n)$ is lowerbounded.
+	\end{steps}
+
+	\begin{substeps}
+		\item Show the base case holds ($P(1)$ is true).
+	\end{substeps}
+
+	\begin{align*}
+		&\text{LHS:}& &\text{RHS:} \\
+		&=x_1& &=2 \\
+	\end{align*}
+
+	Since we are given that $x_1 \ge 2$, we have $\text{LHS} \ge \text{RHS}$ and thus $P(1)$ is true.
+
+	\begin{substeps}
+		\item Formulate induction hypothesis (State $P(k)$).
+	\end{substeps}
+
+	Letting $k \in \mathbb{N}$ be arbitrary, we can formulate $P(k)$ as:
+
+	\begin{align*}
+		P(k): 2 \le x_k \\
+	\end{align*}
+
+	\begin{substeps}
+		\item Prove $P(k) \implies P(k + 1)$.
+	\end{substeps}
+
+	\begin{align*}
+		x_{k + 1} &= 1 + \sqrt{x_k - 1} \\
+		&\ge 1 + \sqrt{2 - 1} \\
+		&= 1 + 1 \\
+		&= 2 \\
+	\end{align*}
+
+	Hence, $P(k) \implies P(k + 1)$ for arbitrary $k \in \mathbb{N}$.
+
+	Thus, since $P(1)$ is true, and for arbitrary $k \in \mathbb{N}$, $P(k) \implies P(k + 1)$, by principle of mathematical induction, $P(n)$ is true $\forall n \in \mathbb{N}$ and thus $(x_n)$ is lowerbounded by 2.
+
+	\begin{steps}
+		\item Show that $(x_n)$ is monotonously decreasing.
+	\end{steps}
+
+	Selecting $x_1 = 5$ and computing $x_2 = 1 + \sqrt{x_1 - 1} = 1 + \sqrt{4} = 3$, I conjecture that the sequence $(x_n)$ is monotonously decreasing and thus that $x_{n + 1} \le x_n \forall n \in \mathbb{N}$. Let $P(n)$ be the statement $P(n): x_{n + 1} \le x_n$. We can rigorously show this to be true for all choices of $x_1$ using induction in conjunction with the fact that $x_1 \ge 2 \implies x_1 - 1 \ge 1 \implies x_1 - 1 \ge \sqrt{x_1 - 1}$.
+
+	\begin{substeps}
+		\item Show the base case holds ($P(1)$ is true).
+	\end{substeps}
+
+	\begin{align*}
+		&\text{LHS:}& &\text{RHS:} \\
+		&= x_1& &=x_2 \\
+		&= x_1& &=1 + \sqrt{x_1 - 1} \\
+		&= x_1& &\le 1 + x_1 - 1 \\
+		&= x_1& &=x_1
+	\end{align*}
+
+	\begin{substeps}
+		\item Formulate induction hypothesis (State $P(k)$).
+	\end{substeps}
+
+	Letting $k \in \mathbb{N}$ be arbitrary, we can formulate $P(k)$ as:
+
+	\begin{align*}
+		P(k): x_{k + 1} \le x_k \\
+	\end{align*}
+	
+	\begin{substeps}
+		\item Prove $P(k) \implies P(k + 1)$
+	\end{substeps}
+
+	\begin{align*}
+		x_{k + 2} &= 1 + \sqrt{x_{k + 1} - 1} \\
+		&\le 1 + x_{k + 1} - 1 \\
+		&= x_{k + 1}
+	\end{align*}
+
+	Hence, $P(k) \implies P(k + 1)$ for arbitrary $k \in \mathbb{N}$.
+
+	Thus, since $P(1)$ is true, and for arbitrary $k \in \mathbb{N}$, $P(k) \implies P(k + 1)$, by principle of mathematical induction, $P(n)$ is true $\forall n \in \mathbb{N}$, and thus we know that the sequence $(x_n)$ is monotonously decreasing.
+
+	Therefore, since $(x_n)$ is both bounded below and monotonously decreasing by monotone convergence theorem, $(x_n)$ converges. To find the limit, let $L = \lim{n\to\infty}(x_n)$. Then we know:
+
+	\begin{align*}
+		L &= \lim_{n\to\infty} \left( x_n \right) \implies \\
+		L &= \lim_{n\to\infty} \left( 1 + \sqrt{x_{n - 1} - 1} \right) \implies \\
+		L &= 1 + \sqrt{L - 1} \implies \\
+		&L - 1 = \sqrt{L - 1} \implies \\
+		&(L - 1)^2 = L - 1 \implies \\
+		&L^2 -2L + 1 = L - 1 \implies \\
+		&L^2 -3L + 2 = 0 \implies \\
+		&(L - 2)(L - 1) = 0 \\
+	\end{align*}
+
+	Thus, since we know that $2$ is a lower bound of the sequence $(x_n)$, we know that $L = 2$ and thus $\lim_{n\to\infty}(x_n) = 2$.
+\end{solution}
+
+\begin{exercise}[5]
+	Let $y_1 \coloneq \sqrt{p}$ where $p > 0$ and $y_{n + 1} = \sqrt{p + y_{n}}, \; \forall n \in \mathbb{N}$. Show that $(y_n)$ converges and find the limit. [\emph{Hint:} One upper bound is $1 + 2\sqrt{p}$].
+\end{exercise}
+
+\begin{solution}
+
+	To prove the convergence of $(y_n)$, we first demonstrate that is is both upperbounded and increasing. Therefore, let $P_1(n)$ and $P_2(n)$ be the statements $P_1(n): y_n \le 1 + 2\sqrt{p}$ and $P_2(n): y_n \le y_{n + 1}$ respectively. We will prove that both $P_1(n)$ and $P_2(n)$ hold $\forall n \in \mathbb{N}$ by induction.
+
+	\begin{steps}
+		\item Prove $(y_n)$ is upperbouded.
+	\end{steps}
+
+	\begin{substeps}
+		\item Show the base case holds ($P_1(1)$ is true).
+	\end{substeps}
+
+	\begin{align*}
+		&\text{LHS:}& &\text{RHS:} \\
+		&y_1 &1 + 2\sqrt{p} \\
+		&=\sqrt{p} &= 1 + 2\sqrt{p} \\
+	\end{align*}
+
+	Therefore, $P_1(1)$ is true.
+
+	\begin{substeps}
+		\item Formulate induction hypothesis (State $P_1(k)$).
+	\end{substeps}
+
+	Letting $k \in \mathbb{N}$ be arbitrary, assume that the statement:
+
+	\begin{align*}
+		P(k): y_k \le 1 + 2\sqrt{p} \\
+	\end{align*}
+
+	is true.
+
+	\begin{substeps}
+		\item Prove $P_1(k) \implies P_1(k + 1)$.
+	\end{substeps}
+
+	\begin{align*}
+		y_{k + 1} &= \sqrt{p + y_k} \implies \\
+		(y_{k + 1})^2 &= p + y_k \implies \\
+		(y_{k + 1})^2 &\le 1 + 2\sqrt{p} + p \implies \\
+		(y_{k + 1})^2 &\le (1 + \sqrt{p})^2 \implies \\
+		y_{k + 1} &\le 1 + \sqrt{p} \\
+		&\le 1 + 2\sqrt{p} \\
+	\end{align*}
+
+	Hence, $P_1(k) \implies P_1(k + 1)$ for arbitrary $k \in \mathbb{N}$.
+
+	Thus, since $P_1(1)$ is true, and for arbitrary $k \in \mathbb{N}$, $P_1(k) \implies P_1(k + 1)$, by principle of mathematical induction, $P_1(n)$ is true $\forall n \in \mathbb{N}$, and thus we know that the sequence $(y_n)$ is upper bounded by $1 + 2\sqrt{p}$.
+
+	\begin{steps}
+		\item Show that $(y_n)$ is monotonously increasing.
+	\end{steps}
+
+	\begin{substeps}
+		\item Show the base case holds ($P_2(1)$ is true).
+	\end{substeps}
+
+	\begin{align*}
+		&\text{LHS}& &\text{RHS:} \\
+		&=y_{1}& &=y_{2} \\
+		&= \sqrt{p}& &=\sqrt{p + y_1} \\
+		&= \sqrt{p}& &=\sqrt{2p} \\
+		&=\sqrt{p}& &=\sqrt{2}\sqrt{p} \\
+	\end{align*}
+
+	Thus, since $\text{LHS} \le \text{RHS}$, $P_2(1)$ is true.
+
+	\begin{substeps}
+		\item Formulate inductive hypothesis (State $P_2(k)$).
+	\end{substeps}
+
+	Letting $k \in \mathbb{N}$ be arbitrary, assume that the statement:
+	
+	\begin{align*}
+		P_2(k): y_{k} \le y_{k + 1} \\
+	\end{align*}
+
+	is true.
+
+	\begin{substeps}
+		\item Prove that $P_2(k) \implies P_2(k + 1)$.
+	\end{substeps}
+
+	\begin{align*}
+		&\text{LHS:}& &\text{RHS:} \\
+		&y_{k + 1}& &y_{k + 2} \\
+		&=\sqrt{p + y_k}& &=\sqrt{p + y_{k + 1}} \\
+		&=\sqrt{p + y_k}& &\ge \sqrt{p + y_{k}} \\
+	\end{align*}
+
+	Hence, $P_2(k) \implies P_2(k + 1)$ for arbitrary $k \in \mathbb{N}$.
+
+	Thus, since $P_2(2)$ is true, and for arbitrary $k \in \mathbb{N}$, $P_2(k) \implies P_2(k + 1)$, by principle of mathematical induction, $P_2(n)$ is true $\forall n \in \mathbb{N}$, and thus we know that the sequence is monotonously increasing.
+
+	Therefore, since the sequence is upperbounded and monotonously increasing, by the monotone convergence theorem, $(y_n)$ converges.
+
+	Let $L = \lim_{n\to\infty}(y_n)$. We therefore know that:
+
+	\begin{align*}
+		L &= \lim_{n\to\infty}(y_n) = \lim_{n\to\infty}(y_{n + 1}) \implies \\
+		L &= \lim_{n\to\infty}\left( \sqrt{p + y_n} \right) \implies \\
+		L &= \sqrt{p + L} \implies \\
+		L^2 &= p + L \implies \\
+		L^2 - L - p &= 0 \implies \\
+		L &= \frac{1 \pm \sqrt{1 - 4(1)(p)}}{2} \\
+		&= \frac{1 \pm \sqrt{1 + 4p}}{2} \\
+	\end{align*}
+
+	For all $p > 0$, we know that $1 + 4p > 1$ and thus $\frac{1 - \sqrt{1 + 4p}}{2} < 0$ for all $p$. Since the sequence is increasing, and $y_1 > 0$, we know that $L > 0$ as well and thus $L = \lim_{n\to\infty}(y_n) = \frac{1 + \sqrt{1 + 4p}}{2}$.
+
+
+\end{solution}
+
+
+
+
+
+
+
+
+
+\end{document}
