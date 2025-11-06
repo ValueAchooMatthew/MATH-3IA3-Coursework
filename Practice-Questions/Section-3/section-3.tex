@@ -1,4 +1,9 @@
+\ifdefined\iscombined
+	\sectiontitle{Section 3 - Practice Problems}
+	\setcounter{section}{3}
+\else
 \documentclass[10pt]{article}
+\usepackage{etoolbox}
 \usepackage{tabularx}
 \usepackage{mathtools}
 \usepackage{amsmath, amssymb, amsthm}
@@ -58,7 +63,7 @@
 }{\vspace{0.8em}}
 
 \newenvironment{solution}{
-	\vspace{0.4cm}\par\noindent\large\textbf{{Solution:}}\par\vspace{0.4em}
+	\vspace{0.4cm}\par\noindent\large\textbf{{Solution:}}\par\vspace{1em}
 }{\vspace{0.8em}}
 
 \newcounter{partslist}
@@ -67,16 +72,17 @@
 \newcommand{\parts@seriesname}{parts@\theexercise}
 
 \newenvironment{parts}{
-  \edef\parts@ser{\parts@seriesname}
-  \ifcsname\parts@ser\endcsname
-    \begin{enumerate}[resume=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
-  \else
-    \begin{enumerate}[series=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
-    \expandafter\gdef\csname\parts@ser\endcsname{1}
-  \fi
+	\edef\parts@ser{\parts@seriesname}
+	\ifcsname\parts@ser\endcsname
+		\begin{enumerate}[resume=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
+	\else
+		\begin{enumerate}[series=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
+		\expandafter\gdef\csname\parts@ser\endcsname{1}
+	\fi
 }{
-  \end{enumerate}
+	\end{enumerate}
 }
+
 \makeatother
 
 \makeatletter
@@ -139,6 +145,25 @@
 
 \makeatother
 
+\newcommand{\forcepar}{\par\noindent}
+
+\AtBeginEnvironment{exercise}{\forcepar\vspace{0.8em}}
+\AtBeginEnvironment{parts}{\forcepar\vspace{0.5em}}
+\AtBeginEnvironment{steps}{\forcepar\vspace{0.6em}}
+\AtBeginEnvironment{substeps}{\forcepar\vspace{0.5em}}
+\AtBeginEnvironment{solution}{\forcepar\vspace{0.5em}}
+
+\AtEndEnvironment{exercise}{\vspace{0.8em}}
+\AtEndEnvironment{parts}{\vspace{0.5em}}
+\AtEndEnvironment{steps}{\vspace{1em}}
+\AtEndEnvironment{substeps}{\vspace{0.5em}}
+\AtEndEnvironment{solution}{\forcepar\vspace{0.5em}}
+
+\pretocmd{\endsteps}{\vspace{-0.6em}}{}{}
+\pretocmd{\endsubsteps}{\vspace{-0.5em}}{}{}
+\pretocmd{\endparts}{\vspace{-0.5em}}{}{}
+\pretocmd{\endexercise}{\vspace{-2em}}{}{}
+
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 \renewcommand{\arraystretch}{1.8}
 
@@ -147,6 +172,7 @@
 \begin{document}
 
 \maketitle
+\fi
 
 \vspace{-1cm}
 
@@ -180,7 +206,7 @@
 \end{solution}
 
 \begin{parts}
-	\item Find a specific value of $N$ as required in the definition of limits for each of the following $\epsilon$-challenges.
+	\item Find a specific value of $N$ as required in the definition of limits for each of the following $\epsilon$-challenges:
 \end{parts}
 
 \begin{steps}
@@ -226,7 +252,7 @@
 	\begin{proof}
 
 		\begin{steps}
-			\item Prove forward direction ($\lim_{n\to\infty}(x_n) = 0 \implies \lim_{n\to\infty}(|x_n|) = 0$).
+			\item Prove forward direction ($\lim_{n\to\infty}(x_n) = 0 \implies \lim_{n\to\infty}(|x_n|) = 0$)
 		\end{steps}
 
 		Let $\epsilon > 0$ be arbitrary.
@@ -301,7 +327,7 @@
 
 \begin{solution}
 
-	$Let \epsilon > 0$ be arbitrary. To prove that $\lim_{n\to\infty}\frac{2^n}{n!} = 0$, we must show that there exists some $N \in \mathbb{N}$ such that $n \ge N \implies |\frac{2^n}{n!} - 0| < \epsilon$. To start, we begin by setting $N_1 = 3$. Thus, using the hint given in the question, $\forall n \ge N_1$, we have:
+	Let $\epsilon > 0$ be arbitrary. To prove that $\lim_{n\to\infty}\frac{2^n}{n!} = 0$, we must show that there exists some $N \in \mathbb{N}$ such that $n \ge N \implies |\frac{2^n}{n!} - 0| < \epsilon$. To start, we begin by setting $N_1 = 3$. Thus, using the hint given in the question, $\forall n \ge N_1$, we have:
 
 
 	\begin{align*}
@@ -349,16 +375,11 @@
 	However, notice that:
 
 	\begin{align*}
-		|x_n - x| < \frac{1}{2}x \implies \\
-	\end{align*}
-
-	\vspace{-1.5cm}
-
-	\begin{align*}
-		-\frac{1}{2}x < x_n& - x < \frac{1}{2}x \implies \\
-		-\frac{1}{2}x + x < x_n& - x + x  < \frac{1}{2}x + x \implies \\
-		\frac{1}{2}x < x_n& < \frac{3}{2}x \implies \\
-		\frac{1}{2}x < x_n& < 2x \\
+		|x_n - x| < \frac{1}{2}x &\implies \\
+		-\frac{1}{2}x < x_n - x < \frac{1}{2}x &\implies \\
+		-\frac{1}{2}x + x < x_n - x + x  < \frac{1}{2}x + x &\implies \\
+		\frac{1}{2}x < x_n < \frac{3}{2}x &\implies \\
+		\frac{1}{2}x < x_n < 2x& \\
 	\end{align*}
 
 	Thus, $\forall n \ge K$, $\frac{1}{2} < x_n < 2x$.
@@ -369,11 +390,10 @@
 \chaptertitle{Limit Theorems}
 
 \begin{exercise}[7]
-	If $(b_n)$ is a bounded sequence and $\lim_{n\to\infty}(a_n) = 0$, prove that $\lim_{n\to\infty}(a_n \cdot b_n) = 0$. Explain why theorem 3.2.3 \emph{cannot} be used.
+	If $(b_n)$ is a bounded sequence and $\lim_{n\to\infty}(a_n) = 0$, prove that $\lim_{n\to\infty}(a_n \cdot b_n) = 0$. Explain why Theorem 3.2.3 \emph{cannot} be used.
 \end{exercise}
 
 \begin{solution}
-
 	\begin{proof}
 		Let $\epsilon > 0$ be arbitrary. Since $b_n$ is given to be bounded, we know that there exists an $M \in \mathbb{R}, M > 0$ such that $|b_n| \le M \; \forall n \in \mathbb{N}$. Furthermore, because $a_n$ converges to 0, we know that there exists an $N \in \mathbb{N}$ such that $n \ge N \implies |a_n - 0| = |a_n| < \frac{\epsilon}{M}$. Thus, $n \ge N \implies:$
 
@@ -387,8 +407,7 @@
 		Thus, by definition of convergence, $\lim_{n\to\infty}(a_n \cdot b_n) = 0$.
 	\end{proof}
 	
-	We could not have simply invoked theorem 3.2.3 to prove this since $b_n$ is simply given to be bounded, not convergent.
-
+	We could not have simply invoked Theorem 3.2.3 to prove this since $(b_n$) is simply given to be bounded, not convergent.
 \end{solution}
 
 \begin{exercise}[8]
@@ -399,7 +418,7 @@
 	Equation 3 states that:
 
 	\begin{align*}
-		\lim_{n\to\infty}(a_n^k) = (\lim_{n\to\infty}(a_n))^k \; \forall k \in \mathbb{N} \\
+		\lim_{n\to\infty}(a_n^k) = (\lim_{n\to\infty}(a_n))^k, \quad \forall k \in \mathbb{N} \\
 	\end{align*}
 
 	We cannot use this to evaluate the limit of the sequence $\lim_{n\to\infty}((1 + \frac{1}{n})^n)$ since the exponent here is not a constant $k$ but rather a limiting variable. If we were to attempt to apply this law, we would get that $\lim_{n\to\infty}((1 + \frac{1}{n})^n) = 1$, which as was determined earlier, would be incorrect.
@@ -445,7 +464,7 @@
 		\lim_{n\to\infty}(\frac{b^{n + 1} / 2^{n + 1}}{{b^n} / {2^n}}) &= \lim_{n\to\infty}(\frac{b}{2}) \\
 	\end{align*}
 
-	Therefore, forall $b > 2$, the sequence diverges, and for all $1 < b < 2$ the sequence converges to 0. If b = $2$, we get that:
+	Therefore, $\forall b > 2$, the sequence diverges, and for all $1 < b < 2$ the sequence converges to 0. If b = $2$, we get that:
 
 	\begin{align*}
 		\lim_{n\to\infty}(\frac{b^n}{2^n}) &= \lim_{n\to\infty}(\frac{2^n}{2^n}) \\
@@ -502,7 +521,7 @@
 
 	\begin{align*}
 		\lim_{n\to\infty} \left( \frac{x_{n + 1}}{x_n} \right) &= \lim_{n\to\infty} \left( \frac{1}{1} \right) \\
-		&= \lim{n\to\infty} (1) \\
+		&= \lim_{n\to\infty} (1) \\
 		&= 1
 	\end{align*}
 \end{solution}
@@ -521,7 +540,6 @@
 		&= 1 + 0 \\
 		&= 1
 	\end{align*}
-
 \end{solution}
 
 \begin{exercise}[19]
@@ -533,7 +551,6 @@
 \end{parts}
 
 \begin{solution}
-	
 	\begin{align*}
 		\lim_{n\to\infty} \left( \frac{(n + 1)^2 / a^{n + 1}}{n^2 / a^n} \right) &= \lim_{n\to\infty} \left( \frac{(n + 1)^2}{a^{n + 1}} \cdot \frac{a^n}{n^2} \right) \\
 		&= \lim_{n\to\infty} \left( \frac{(n + 1)^2(a^n)}{a^{n + 1}(n)^2} \right) \\
@@ -618,11 +635,11 @@
 	But that means:
 
 	\begin{align*}
-		x_n^{\frac{1}{n}} &- L < \epsilon \implies \\
-		x_n^{\frac{1}{n}} &< \epsilon + L \implies \\
-		(x_n^{\frac{1}{n}})^n &< (\epsilon + L)^n \implies \\
-		x_n &< (\epsilon + L)^n \implies \\
-		x_n &< r^n \\
+		(x_n)^{\frac{1}{n}} - L < \epsilon &\implies \\
+		(x_n)^{\frac{1}{n}} < \epsilon + L &\implies \\
+		((x_n)^{\frac{1}{n}})^n < (\epsilon + L)^n &\implies \\
+		x_n < (\epsilon + L)^n &\implies \\
+		x_n < r^n& \\
 	\end{align*}
 
 	Therefore, since $x_n$ is given to be positive, we have $0 < x_n < r^n$ for all $n \ge N$. Since $0 < r < 1$, we know that $\lim_{n\to\infty}(r^n) = 0$. Thus, by squeeze theorem, since $\lim_{n\to\infty}(0) = \lim_{n\to\infty} (r^n) = 0$, and $0 < x_n < r^n$ for sufficiently large n, $\lim_{n\to\infty} (x_n) = 0$.
@@ -632,7 +649,7 @@
 \end{exercise}
 
 \begin{parts}
-	\item Give an example of a convergent sequence $(x_n)$ of positive numbers such that $\lim_{n\to\infty} \left( (x_n)^{\frac{1}{n}} \right) = 1$.
+	\item Give an example of a convergent sequence $(x_n)$ of positive numbers such that \\ $ \lim_{n\to\infty} \left( (x_n)^{\frac{1}{n}} \right) = 1$.
 \end{parts}
 
 \begin{solution}
@@ -661,8 +678,13 @@
 \end{solution}
 
 \begin{exercise}[24]
-	Show that if $(x_n), (y_n)$, and $(z_n)$ are convergent sequences, then the sequence $(w_n)$ defined by $w_n \coloneq \text{mid}{x_n, y_n, z_n}$ is convergent.
+	Show that if $(x_n), (y_n)$, and $(z_n)$ are convergent sequences, then the sequence $(w_n)$ defined by $w_n \coloneq \text{mid}\{x_n, y_n, z_n\}$ is convergent.
 \end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
 
 %TODO: COMPLETE PROOF
 
@@ -757,24 +779,24 @@
 	\begin{align*}
 		x_{k + 2} &= 1 + \sqrt{x_{k + 1} - 1} \\
 		&\le 1 + x_{k + 1} - 1 \\
-		&= x_{k + 1}
+		&= x_{k + 1} \\
 	\end{align*}
 
 	Hence, $P(k) \implies P(k + 1)$ for arbitrary $k \in \mathbb{N}$.
 
 	Thus, since $P(1)$ is true, and for arbitrary $k \in \mathbb{N}$, $P(k) \implies P(k + 1)$, by principle of mathematical induction, $P(n)$ is true $\forall n \in \mathbb{N}$, and thus we know that the sequence $(x_n)$ is monotonously decreasing.
 
-	Therefore, since $(x_n)$ is both bounded below and monotonously decreasing by monotone convergence theorem, $(x_n)$ converges. To find the limit, let $L = \lim{n\to\infty}(x_n)$. Then we know:
+	Therefore, since $(x_n)$ is both bounded below and monotonously decreasing by monotone convergence theorem, $(x_n)$ converges. To find the limit, let $L = \lim_{n\to\infty}(x_n)$. Then we know:
 
 	\begin{align*}
-		L &= \lim_{n\to\infty} \left( x_n \right) \implies \\
-		L &= \lim_{n\to\infty} \left( 1 + \sqrt{x_{n - 1} - 1} \right) \implies \\
-		L &= 1 + \sqrt{L - 1} \implies \\
-		&L - 1 = \sqrt{L - 1} \implies \\
-		&(L - 1)^2 = L - 1 \implies \\
-		&L^2 -2L + 1 = L - 1 \implies \\
-		&L^2 -3L + 2 = 0 \implies \\
-		&(L - 2)(L - 1) = 0 \\
+		L = \lim_{n\to\infty} \left( x_n \right) \implies& \\
+		L = \lim_{n\to\infty} \left( 1 + \sqrt{x_{n - 1} - 1} \right) \implies& \\
+		L = 1 + \sqrt{L - 1} \implies& \\
+		L - 1 = \sqrt{L - 1} \implies& \\
+		(L - 1)^2 = L - 1 \implies& \\
+		L^2 -2L + 1 = L - 1 \implies& \\
+		L^2 -3L + 2 = 0 \implies& \\
+		(L - 2)(L - 1) = 0 \qquad \; \,& \\
 	\end{align*}
 
 	Thus, since we know that $2$ is a lower bound of the sequence $(x_n)$, we know that $L = 2$ and thus $\lim_{n\to\infty}(x_n) = 2$.
@@ -785,11 +807,10 @@
 \end{exercise}
 
 \begin{solution}
-
-	To prove the convergence of $(y_n)$, we first demonstrate that is is both upperbounded and increasing. Therefore, let $P_1(n)$ and $P_2(n)$ be the statements $P_1(n): y_n \le 1 + 2\sqrt{p}$ and $P_2(n): y_n \le y_{n + 1}$ respectively. We will prove that both $P_1(n)$ and $P_2(n)$ hold $\forall n \in \mathbb{N}$ by induction.
+	To prove the convergence of $(y_n)$, we first demonstrate that $(y_n)$ is both upperbounded and increasing. Therefore, let $P_1(n)$ and $P_2(n)$ be the statements $P_1(n): y_n \le 1 + 2\sqrt{p}$ and $P_2(n): y_n \le y_{n + 1}$ respectively. We will prove that both $P_1(n)$ and $P_2(n)$ hold $\forall n \in \mathbb{N}$ by induction.
 
 	\begin{steps}
-		\item Prove $(y_n)$ is upperbouded.
+		\item Prove $(y_n)$ is upperbounded.
 	\end{steps}
 
 	\begin{substeps}
@@ -798,8 +819,8 @@
 
 	\begin{align*}
 		&\text{LHS:}& &\text{RHS:} \\
-		&y_1 &1 + 2\sqrt{p} \\
-		&=\sqrt{p} &= 1 + 2\sqrt{p} \\
+		&y_1& &1 + 2\sqrt{p} \\
+		&=\sqrt{p}& &= 1 + 2\sqrt{p} \\
 	\end{align*}
 
 	Therefore, $P_1(1)$ is true.
@@ -821,12 +842,12 @@
 	\end{substeps}
 
 	\begin{align*}
-		y_{k + 1} &= \sqrt{p + y_k} \implies \\
-		(y_{k + 1})^2 &= p + y_k \implies \\
-		(y_{k + 1})^2 &\le 1 + 2\sqrt{p} + p \implies \\
-		(y_{k + 1})^2 &\le (1 + \sqrt{p})^2 \implies \\
-		y_{k + 1} &\le 1 + \sqrt{p} \\
-		&\le 1 + 2\sqrt{p} \\
+		y_{k + 1} = \sqrt{p + y_k} &\implies \\
+		(y_{k + 1})^2 = p + y_k &\implies \\
+		(y_{k + 1})^2 \le 1 + 2\sqrt{p} + p &\implies \\
+		(y_{k + 1})^2 \le (1 + \sqrt{p})^2 &\implies \\
+		y_{k + 1} \le 1 + \sqrt{p} &\implies \\
+		y_{k + 1} \le 1 + 2\sqrt{p} \\
 	\end{align*}
 
 	Hence, $P_1(k) \implies P_1(k + 1)$ for arbitrary $k \in \mathbb{N}$.
@@ -845,8 +866,8 @@
 		&\text{LHS}& &\text{RHS:} \\
 		&=y_{1}& &=y_{2} \\
 		&= \sqrt{p}& &=\sqrt{p + y_1} \\
-		&= \sqrt{p}& &=\sqrt{2p} \\
-		&=\sqrt{p}& &=\sqrt{2}\sqrt{p} \\
+		&= \sqrt{p}& &=\sqrt{p + \sqrt{p}} \\
+		&=\sqrt{p}& &\ge \sqrt{p} \\
 	\end{align*}
 
 	Thus, since $\text{LHS} \le \text{RHS}$, $P_2(1)$ is true.
@@ -883,17 +904,115 @@
 	Let $L = \lim_{n\to\infty}(y_n)$. We therefore know that:
 
 	\begin{align*}
-		L &= \lim_{n\to\infty}(y_n) = \lim_{n\to\infty}(y_{n + 1}) \implies \\
-		L &= \lim_{n\to\infty}\left( \sqrt{p + y_n} \right) \implies \\
-		L &= \sqrt{p + L} \implies \\
-		L^2 &= p + L \implies \\
-		L^2 - L - p &= 0 \implies \\
-		L &= \frac{1 \pm \sqrt{1 - 4(1)(p)}}{2} \\
-		&= \frac{1 \pm \sqrt{1 + 4p}}{2} \\
+		L = \lim_{n\to\infty}(y_n) = \lim_{n\to\infty}(y_{n + 1}) &\implies \\
+		L = \lim_{n\to\infty}\left( \sqrt{p + y_n} \right) &\implies \\
+		L = \sqrt{p + L} &\implies \\
+		L^2 = p + L &\implies \\
+		L^2 - L - p = 0 &\implies \\
+		L = \frac{1 \pm \sqrt{1 - 4(1)(p)}}{2} &\implies \\
+		L = \frac{1 \pm \sqrt{1 + 4p}}{2}& \\
 	\end{align*}
 
 	For all $p > 0$, we know that $1 + 4p > 1$ and thus $\frac{1 - \sqrt{1 + 4p}}{2} < 0$ for all $p$. Since the sequence is increasing, and $y_1 > 0$, we know that $L > 0$ as well and thus $L = \lim_{n\to\infty}(y_n) = \frac{1 + \sqrt{1 + 4p}}{2}$.
+\end{solution}
 
+\begin{exercise}[8]
+	Let $(a_n)$ be an increasing sequence, $(b_n)$ be a decreasing sequence, and assume that $a_n \le b_n, \; \forall n \in \mathbb{N}$. Show that $\lim_{n\to\infty}(a_n) \le \lim_{n\to\infty}(b_n)$, and thereby deduce the Nested Interval Property from the Monotone Convergence Theorem.
+\end{exercise}
+
+\begin{solution}
+	\begin{steps}
+		\item Prove $\lim_{n\to\infty}(a_n) \le \lim_{n\to\infty}$.
+	\end{steps}
+
+	\begin{proof}
+		We know that $(b_n)$ is a decreasing sequence and lower bounded by any term (such as $a_1$) in $a_n$. Therefore, by the Monotone Convergence Theorem, we know that $\lim_{n\to\infty}(b_n)$ exists. Likewise, we know $\lim_{n\to\infty}(a_n)$ exists, since $(a_n)$ is an increasing sequence and bounded above by any term in $(b_n)$. Thus, since $(a_n)$ and $(b_n)$ are both convergent sequences satisfying $a_n \le b_n \; \forall n \in \mathbb{N}$, we can invoke Theorem 3.2.5 to conclude that $\lim_{n\to\infty}(a_n) \le \lim_{n\to\infty}(b_n)$.
+	\end{proof}
+
+	\begin{steps}
+		\item Prove the Nested Interval Property using the Monotone Convergence Theorem.
+	\end{steps}
+
+	\begin{proof}
+		Let $I_1 \supseteq I_2 \supseteq \ldots \supseteq I_n \supseteq \ldots$ be a sequence of non-empty, nested, and closed intervals where $I_n = [a_n, b_n]$. We know, for the sequences to be nested, that $a_n \le a_{n + 1}$ and $b_n \ge b_{n + 1}, \; \forall n \in \mathbb{N}$ (see Exercise 2.5.6 for proof), implying that the sequence $(a_n)$ and $(b_n)$ are increasing and decreasing sequences respectively. Furthermore, for each $I_n$ to be non-empty, we also know that $a_n \le b_n$. Thus, using our proior findings, we know $\lim_{n\to\infty} (a_n)$ and $\lim_{n\to\infty}(b_n)$ both exist with $\lim_{n\to\infty}(a_n) \le \lim_{n\to\infty}(b_n)$ .Now consider $\bigcap_{n = 0}^{\infty}{I_n}$. Since each set is nested, we know that $\bigcap_{n = 0}^{\infty}{I_n} = [\lim_{n\to\infty} (a_n), \lim_{n\to\infty} (b_n)]$. However, since $\lim_{n\to\infty}(a_n) \le \lim_{n\to\infty}(b_n)$, we know that the closed interval $[\lim_{n\to\infty} (a_n), \lim_{n\to\infty} (b_n)]$ is non-empty and hence we have derived the Nested Interval Property from the Monotone Convergence Theorem.
+	\end{proof}
+\end{solution}
+
+\begin{exercise}[9]
+	Let $A$ be an infinite subset of $\mathbb{R}$ that is bounded above and let $u \coloneq \text{sup}(A)$. Show that there exists an increasing sequence $(x_n)$ with $x_n \in A \; \forall n \in \mathbb{N}$ such that $\lim_{n\to\infty}(x_n) = u$.
+\end{exercise}
+
+\begin{solution}
+	\begin{proof}
+		If $u \in A$, then trivially we know that the sequence $(x_n) = u$ is an increasing sequence (since $x_n \le x_{n+1}, \; \forall n \in \mathbb{N}$) that converges to $u$. If $u \notin A$, then we can rely on the definition of the supremum to construct $x_n$. Consider the sequence $\epsilon_n = \frac{1}{n}$. By definition of supremum, we know that $\exists \; a_n, a_{n + 1} \in A$ such that $u - \epsilon_n < a_n$ and $u - \epsilon_{n + 1} < a_{n + 1}$. Using this notion, we can construct an increasing $(x_n)$ such that $x_1 \in (a_1, a_2), \; x_2 \in (a_2, a_3), \; \ldots, \; x_n \in (a_n, a_{n + 1}), \; \ldots$. To prove that $(x_n)$ converges to $u$, consider any $\epsilon > 0$. By the Archimedean principle, we know that there exists an $N \in \mathbb{N}$ such that $\epsilon_N = \frac{1}{N} < \epsilon$. This also clearly means that $\forall n \ge N, \epsilon_n = \frac{1}{n} < \epsilon$. Thus, $\forall x_n, \; n \ge N$, we have that:
+
+		\begin{align*}
+			x_n \in (a_n, a_{n + 1}) \implies \\
+			a_n < x_n < a_{n + 1} \implies \\
+			u - \epsilon_n < x_n \implies \\
+			u - x_n < \epsilon_n \implies \\
+			u - x_n < \epsilon \implies \\
+			|u - x_n| < \epsilon \\
+		\end{align*}
+
+		Therefore, by definition of convergence, the sequence $(x_n)$ converges and therefore, for all infinite subsets of $\mathbb{R}$ which are bounded above, there always exists a sequence contained within the set which converges to its supremum.
+	\end{proof}
+\end{solution}
+
+\begin{exercise}[10]
+	Establish the convergence or divergence of the sequence $(y_n) \coloneq \frac{1}{n + 1} + \frac{1}{n + 2} + \ldots + \frac{1}{2n}, \; \forall n \in \mathbb{N}$.
+\end{exercise}
+
+\begin{solution}
+
+	I conjecture that $(y_n)$ is a convergent sequence and will attempt to prove this using the monotone convergence theorem by showing that $(y_n)$ is both upperbounded and increasing.
+
+	\begin{steps}
+		\item Prove $(y_n)$ is bounded above.
+	\end{steps}
+
+	\begin{align*}
+		y_n = \frac{1}{n + 1} + \frac{1}{n + 2} + \ldots + \frac{1}{2n} \\
+		&\le \frac{1}{n + 1} + \frac{1}{n + 1} + \ldots + \frac{1}{n + 1} \\
+		&= \frac{n}{n + 1} \\
+		&= 1 - \frac{1}{n + 1} \\
+		&< 1 \\
+	\end{align*}
+
+	Thus, the sequence $(y_n)$ is bounded above by 1.
+
+	\begin{steps}
+		\item Prove $(y_n)$ is monotonously increasing.
+	\end{steps}
+
+	We can likewise prove that $(y_n)$ is increasing simply through algebraic manipulation
+
+	\begin{align*}
+		y_{n + 1} &= \frac{1}{(n + 1) + 1} + \frac{1}{(n + 1) + 2} + \ldots + \frac{1}{(n + 1) + n - 1} + \frac{1}{(n + 1) + n} + \frac{1}{(n + 1) + n + 1} \\
+		&= \frac{1}{n + 2} + \frac{1}{n + 3} + \ldots + \frac{1}{2n} + \frac{1}{2n + 1} + \frac{1}{2n + 2} \\
+		&= \frac{1}{n + 1} - \frac{1}{n + 1} + \frac{1}{n + 2} + \frac{1}{n + 3} + \ldots + \frac{1}{2n} + \frac{1}{2n + 1} + \frac{1}{2n + 2} \\
+		&= \left( \frac{1}{n + 1} + \frac{1}{n + 2} + \frac{1}{n + 3} + \ldots + \frac{1}{2n} \right) + \frac{1}{2n + 1} + \frac{1}{2n + 2} - \frac{1}{n + 1} \\
+		&= y_n + \frac{1}{2n + 1} + \frac{1}{2n + 2} - \frac{1}{n + 1} \\
+		&\ge y_n + \frac{1}{2n + 2} + \frac{1}{2n + 2} - \frac{1}{n + 1} \\
+		&= y_n + \frac{1 + 1 - 2}{2n + 2} \\
+		&= y_n + 0 \\
+		&= y_n \\
+	\end{align*}
+
+	Therefore, since $y_{n + 1} \ge y_n, \; \forall n \in \mathbb{N}$, the sequence $(y_n)$ is increasing.
+
+	Thus, since $(y_n)$ is bounded above and increasing, by the Monotone Convergence Theorem, $(y_n)$ converges.
+\end{solution}
+
+\begin{exercise}[12]
+	Establish the convergence and find the limit of the following sequences:
+\end{exercise}
+
+\begin{parts}
+	\item ${\left( 1 + \frac{1}{n} \right)}^{n + 1}$.
+\end{parts}
+
+\begin{solution}
 
 \end{solution}
 
@@ -905,4 +1024,9 @@
 
 
 
-\end{document}
+
+\ifdefined\iscombined
+\newpage
+\else
+  \end{document}
+\fi

@@ -1,3 +1,8 @@
+\ifdefined\iscombined
+	\sectiontitle{Section 1 - Practice Problems}
+	\setcounter{section}{1}
+  % being included -> skip preamble
+\else
 \documentclass[10pt]{article}
 \usepackage{tabularx}
 \usepackage{mathtools}
@@ -29,12 +34,12 @@
 \fancyhead[R]{Section 1 - Practice Problems}
 
 \newcommand{\chaptertitle}[1]{
-  \refstepcounter{chapter}
-  \vspace{1.5em}
-  \begin{center}
-  \underline{\noindent\Large\bfseries{Chapter} \thechapter: #1}
-  \end{center}
-  \vspace{1em}
+	\refstepcounter{chapter}
+	\vspace{1.5em}
+	\begin{center}
+	\underline{\noindent\Large\bfseries{Chapter} \thechapter: #1}
+	\end{center}
+	\vspace{1em}
 }
 
 \newcommand{\sectiontitle}{Section 1 - Practice Problems}
@@ -47,12 +52,12 @@
 \renewcommand{\theexercise}{\thechapter.\arabic{exercise}}
 
 \newenvironment{exercise}[1][]{
-  \ifx\\#1\\
-    \refstepcounter{exercise}
-  \else
-    \setcounter{exercise}{#1}
-  \fi
-  \large{\par\noindent\textbf{Exercise \theexercise}}
+	\ifx\\#1\\
+		\refstepcounter{exercise}
+	\else
+		\setcounter{exercise}{#1}
+	\fi
+	\large{\par\noindent\textbf{Exercise \theexercise}}
 }{\vspace{0.8em}}
 
 \newenvironment{solution}{
@@ -65,15 +70,15 @@
 \newcommand{\parts@seriesname}{parts@\theexercise}
 
 \newenvironment{parts}{
-  \edef\parts@ser{\parts@seriesname}
-  \ifcsname\parts@ser\endcsname
-    \begin{enumerate}[resume=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
-  \else
-    \begin{enumerate}[series=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
-    \expandafter\gdef\csname\parts@ser\endcsname{1}
-  \fi
+	\edef\parts@ser{\parts@seriesname}
+	\ifcsname\parts@ser\endcsname
+		\begin{enumerate}[resume=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
+	\else
+		\begin{enumerate}[series=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
+		\expandafter\gdef\csname\parts@ser\endcsname{1}
+	\fi
 }{
-  \end{enumerate}
+	\end{enumerate}
 }
 \makeatother
 
@@ -81,16 +86,17 @@
 \newcommand{\steps@seriesname}{steps@\theexercise}
 
 \newenvironment{steps}{
-  \edef\steps@ser{\steps@seriesname}
-  \ifcsname\steps@ser\endcsname
-    \begin{enumerate}[resume=\steps@ser,label=(\Roman*),leftmargin=3.15em,itemsep=0.4em,topsep=0.6em]
-  \else
-    \begin{enumerate}[series=\steps@ser,label=(\Roman*),leftmargin=3.15em,itemsep=0.4em,topsep=0.6em]
-    \expandafter\gdef\csname\steps@ser\endcsname{1}
-  \fi
+	\edef\steps@ser{\steps@seriesname}
+	\ifcsname\steps@ser\endcsname
+		\begin{enumerate}[resume=\steps@ser,label=(\Roman*),leftmargin=3.15em,itemsep=0.4em,topsep=0.6em]
+	\else
+		\begin{enumerate}[series=\steps@ser,label=(\Roman*),leftmargin=3.15em,itemsep=0.4em,topsep=0.6em]
+		\expandafter\gdef\csname\steps@ser\endcsname{1}
+	\fi
 }{
-  \end{enumerate}
+	\end{enumerate}
 }
+
 \makeatother
 
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
@@ -102,12 +108,16 @@
 
 \maketitle
 
+\fi
+
 \vspace{-1cm}
+
 
 \chaptertitle{Sets and Functions}
 
 \begin{exercise}[5]
-Prove the following distributive laws:
+	Prove the following distributive laws:
+\end{exercise}
 
 \begin{parts}
 	\item $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$.
@@ -165,10 +175,10 @@ Prove the following distributive laws:
 	Therefore, since $A \cup (B \cap C) \subseteq (A \cup B) \cap (A \cup C)$ and $A \cup (B \cap C) \supseteq (A \cup B) \cap (A \cup C)$, $A \cap (B \cap C) = (A \cup B) \cap (A \cup C)$.
 \end{solution}
 
-\end{exercise}
 
 \begin{exercise}[11]
 	Let $g(x) \coloneq x^2$ and $f(x) \coloneq x + 2$ for $x \in \mathbb{R}$, and let $h$ be the composite function $h \coloneq g \circ f$.
+\end{exercise}
 
 \begin{parts}
 	\item Find the direct image $h(E)$ of $E \coloneq \{x \in \mathbb{R}: 0 \le x \le 1\}$.
@@ -192,88 +202,83 @@ Prove the following distributive laws:
 	\end{align*}
 
 	Therefore, $h{-1}(x) = -2 \pm \sqrt{x}$. Thus, the inverse image of $h$ under $G$ is $\{x \in \mathbb{R}: -2 \le x \le 2 \}$.
-
 \end{solution}
-
-\end{exercise}
 
 \begin{exercise}[19]
 
-	\begin{parts}
-		\item Show that if $f: A \rightarrow B$ is injective and $E \subseteq A$, then $f^{-1}(f(E)) = E$. Give an example to show that equality need not hold if $f$
-		is not injective.
-		
-		\begin{solution}
-			\begin{proof}
-				Let $x \in E$. By definition of inverse, we know trivially that $x \in E \implies x \in f^{-1}(f(E))$ and thus $E \subseteq f^{-1}f(E)$. Now consider $x \in f^{-1}(f(E))$. To prove that $x$ must necessarily be in $E$, we rely on a proof by contradiction. Assume for the purposes of contradiction that $x \notin f^{-1}(f(E))$. Since we are taking the inverse of $f(E)$, that implies $\exists y \in E$ such that $f(y) = f(x)$. But since $x \notin E$ and $y \in E$, we necessarily know that $x \neq y$. However, this would violate the assumption that $f$ is injective since, if this were true $\exists x, y \in A, x \neq y$ such that $f(x) = f(y)$. Thus, by contradiction, $x \in f^{-1}(f(E)) \implies x \in E$ and $f^{-1}(f(E)) \subseteq E$.
-	
-				Therefore, since $E \subseteq f^{-1}(f(E))$ and $f^{-1}(f(E)) = \subseteq E$, $E = f^{-1}(f(x))$ for injective $f$.
-			\end{proof}
-
-			If injectivity is not assumed, this is not necessarily true. Taking $f(x) = x^2$ and $E = [0, 1]$ as an example, $f^{-1}(f(x)) = [-1, 1]$. Clearly then, for non-injective $f$, equality need not hold.
-		\end{solution}
-	\end{parts}
-	
-	\begin{parts}
-		\item Show that if $f: A \rightarrow B$ is surjective and $H \subseteq B$, then $f(f^{-1}(H)) = H$. Give an example to show that equality need not hold if $f$ is not surjective.
-	\end{parts}
-
-	\begin{solution}
-		
-		\begin{proof}
-			Let $K = f^{-1}(H)$. Since $f$ is surjective, we know that $f(K) = H$ and since $K = f^{-1}(H)$, then $H = f(f^{-1}(H))$. Thus, if $x \in f(f^{-1}(H))$, then $x \in H$ and therefore $H \subseteq f(f^{-1}(H))$. \\
-		\end{proof}
-		
-		Kind of a gross counter example but i'm tired sorry.
-
-		If surjectivity is not assumed, this is not necessarily true. Once again, take $f(x) = x^2$  and $H = (-\infty, \infty)$. $f(f^{-1}(H)) = [0, \infty)$. Clearly then, for non-surjective $f$, equaltiy need not hold.
-
-	\end{solution}
-
 \end{exercise}
+
+\begin{parts}
+	\item Show that if $f: A \rightarrow B$ is injective and $E \subseteq A$, then $f^{-1}(f(E)) = E$. Give an example to show that equality need not hold if $f$
+	is not injective.
+	
+	\begin{solution}
+		\begin{proof}
+			Let $x \in E$. By definition of inverse, we know trivially that $x \in E \implies x \in f^{-1}(f(E))$ and thus $E \subseteq f^{-1}f(E)$. Now consider $x \in f^{-1}(f(E))$. To prove that $x$ must necessarily be in $E$, we rely on a proof by contradiction. Assume for the purposes of contradiction that $x \notin f^{-1}(f(E))$. Since we are taking the inverse of $f(E)$, that implies $\exists y \in E$ such that $f(y) = f(x)$. But since $x \notin E$ and $y \in E$, we necessarily know that $x \neq y$. However, this would violate the assumption that $f$ is injective since, if this were true $\exists x, y \in A, x \neq y$ such that $f(x) = f(y)$. Thus, by contradiction, $x \in f^{-1}(f(E)) \implies x \in E$ and $f^{-1}(f(E)) \subseteq E$.
+
+			Therefore, since $E \subseteq f^{-1}(f(E))$ and $f^{-1}(f(E)) = \subseteq E$, $E = f^{-1}(f(x))$ for injective $f$.
+		\end{proof}
+
+		If injectivity is not assumed, this is not necessarily true. Taking $f(x) = x^2$ and $E = [0, 1]$ as an example, $f^{-1}(f(x)) = [-1, 1]$. Clearly then, for non-injective $f$, equality need not hold.
+	\end{solution}
+\end{parts}
+
+\begin{parts}
+	\item Show that if $f: A \rightarrow B$ is surjective and $H \subseteq B$, then $f(f^{-1}(H)) = H$. Give an example to show that equality need not hold if $f$ is not surjective.
+\end{parts}
+
+\begin{solution}
+	
+	\begin{proof}
+		Let $K = f^{-1}(H)$. Since $f$ is surjective, we know that $f(K) = H$ and since $K = f^{-1}(H)$, then $H = f(f^{-1}(H))$. Thus, if $x \in f(f^{-1}(H))$, then $x \in H$ and therefore $H \subseteq f(f^{-1}(H))$. \\
+	\end{proof}
+	
+	Kind of a gross counter example but i'm tired sorry.
+
+	If surjectivity is not assumed, this is not necessarily true. Once again, take $f(x) = x^2$  and $H = (-\infty, \infty)$. $f(f^{-1}(H)) = [0, \infty)$. Clearly then, for non-surjective $f$, equaltiy need not hold.
+\end{solution}
 
 \begin{exercise}[21]
 	Prove that if $f: A \rightarrow B$ and $g: B \rightarrow C$ are bijective, then the composite $g \circ f$ is a bijective map of $A$ onto $C$.
-
-	\begin{solution}
-		\begin{proof}
-			To prove that $g \circ f$ is a bijective map of A onto C, we must show that $g \circ f$ is both injective and surjective.
-
-			\begin{steps}
-				\item Prove $g \circ f$ is injective.
-			\end{steps}
-
-			Since it is given that $f$ and $g$ are injective, then we know $\forall i, j \in A, i \neq j$, $f(i) \neq f(j)$ and $\forall k, l \in B$, $g(k) \neq g(l)$. Thus:
-
-			\begin{align*}
-				\forall x, y \in A, x \neq y &\implies \\
-				f(x) \neq f(y) &\implies \\
-				g(f(x)) \neq g(f(y))&
-			\end{align*}
-
-			Therefore, $g \circ f$ is an injective map of $A$ onto $C$.
-
-			\begin{steps}
-				\item Prove $g \circ f$ is surjective.
-			\end{steps}
-
-			Since it is given that $f$ and $g$ are surjective, $i \in B \implies \exists \, j \in A$ such that $f(j) = i$ and $k \in C \implies \exists \, l \in B$ such that $g(l) = k$. Thus:
-
-			\begin{align*}
-				x &\in C \implies \\
-				\exists \; y \in B \ \text{such that} \ g(y) &= x \implies \\
-				\exists \; z \in A \ \text{such that} \ f(z) &= x \implies \\
-				g(f(z)) &= x
-			\end{align*}
-
-			Therefore $g \circ f$ is a surjective map of $A$ onto $C$.
-
-			Thus, since $g \circ f$ is both an injective and surjective map of $A$ onto $C$, $g \circ f$ is bijective.
-
-		\end{proof}
-	\end{solution}
-
 \end{exercise}
+
+\begin{solution}
+	\begin{proof}
+		To prove that $g \circ f$ is a bijective map of A onto C, we must show that $g \circ f$ is both injective and surjective.
+
+		\begin{steps}
+			\item Prove $g \circ f$ is injective.
+		\end{steps}
+
+		Since it is given that $f$ and $g$ are injective, then we know $\forall i, j \in A, i \neq j$, $f(i) \neq f(j)$ and $\forall k, l \in B$, $g(k) \neq g(l)$. Thus:
+
+		\begin{align*}
+			\forall x, y \in A, x \neq y &\implies \\
+			f(x) \neq f(y) &\implies \\
+			g(f(x)) \neq g(f(y))&
+		\end{align*}
+
+		Therefore, $g \circ f$ is an injective map of $A$ onto $C$.
+
+		\begin{steps}
+			\item Prove $g \circ f$ is surjective.
+		\end{steps}
+
+		Since it is given that $f$ and $g$ are surjective, $i \in B \implies \exists \, j \in A$ such that $f(j) = i$ and $k \in C \implies \exists \, l \in B$ such that $g(l) = k$. Thus:
+
+		\begin{align*}
+			x &\in C \implies \\
+			\exists \; y \in B \ \text{such that} \ g(y) &= x \implies \\
+			\exists \; z \in A \ \text{such that} \ f(z) &= x \implies \\
+			g(f(z)) &= x
+		\end{align*}
+
+		Therefore $g \circ f$ is a surjective map of $A$ onto $C$.
+
+		Thus, since $g \circ f$ is both an injective and surjective map of $A$ onto $C$, $g \circ f$ is bijective.
+
+	\end{proof}
+\end{solution}
 
 \newpage
 
@@ -281,6 +286,7 @@ Prove the following distributive laws:
 
 \begin{exercise}[1]
 	Prove that $\frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + \ldots \frac{1}{n \cdot (n + 1)} = \frac{n}{n + 1} \quad \forall n \in \mathbb{N}$.
+\end{exercise}
 
 \begin{solution}
 	
@@ -328,14 +334,13 @@ Prove the following distributive laws:
 		Therefore, since $P(1)$ is true, and $P(k) \implies P(k + 1)$ for arbitrary $k \in \mathbb{N}$, $P(n)$ is true $\forall n \in \mathbb{N}$.
 	\end{proof}
 \end{solution}
-\end{exercise}
 
 \begin{exercise}[7]
 	Prove that $5^{2n} - 1$ is divisible by $8 \; \forall n \in \mathbb{N}$.
+\end{exercise}
 
 \begin{solution}
 	\begin{proof}
-		
 		Let $P(n)$ be the statement $P(n): 8 \; \text{mod} \; (5^{2n} - 1) = 0$.
 
 		\begin{steps}
@@ -374,69 +379,66 @@ Prove the following distributive laws:
 		Therefore, since $P(1)$ is true, and $P(k) \implies P(k + 1)$ for arbitrary $k \in \mathbb{N}$, $P(n)$ is true $\forall n \in \mathbb{N}$.
 	\end{proof}
 \end{solution}
-\end{exercise}
 
 \begin{exercise}[11]
 	Conjecture a formula for the sum of the first $n$ odd natural numbers $1 + 3 + \ldots + (2n - 1)$, and prove your formula using mathematical induction
-
-	\begin{solution}
-
-		\begin{tabularx}{\linewidth}{ c || Y Y Y Y Y Y }
-			First $n$ odd natural numbers & $1$ & $2$ & $3$ & $4$ & $5$ & $\ldots$ \\
-			\hline
-			$1 + 3 + \ldots + (2n - 1)$ & $1$ & $4$ & $9$ & $16$ & $25$ & $\ldots$ \\
-		\end{tabularx}
-
-		\vspace{.75cm}
-
-		Based on this, I conjecture that $1 + 3 + \ldots + (2n - 1) = n^2$. Next, I will prove this fact.
-
-		\begin{proof}
-			Let $P(n)$ be the statement $P(n): 1 + 3 + \ldots + (2n - 1) = n^2$.
-
-			\begin{steps}
-				\item Show base case holds (Prove $P(1)$ true).
-			\end{steps}
-
-			\begin{align*}
-				&\text{LHS:}& &\text{RHS:} \\
-				&(2n - 1)& &n^2 \\
-				&= (2(1) - 1)& &(1)^2 \\
-				&=1& &=1
-			\end{align*}
-
-			Therefore, $P(1)$ is true.
-			
-			\begin{steps}
-				\item State induction hypothesis (State $P(k)$).
-			\end{steps}
-
-			Assuming there exists a $k \in \mathbb{N}$ for which $P(k)$ is true we can formulate our induction hypothesis as:
-
-			\begin{align*}
-				P(k): 1 + 3 + \ldots + (2k - 1) = k^2
-			\end{align*}
-
-			\begin{steps}
-				\item Prove $P(k) \implies P(k + 1)$
-			\end{steps}
-
-			\begin{align*}
-				1 + 3 + \ldots + (2k - 1) + (2k + 1) &= k^2 + (2k + 1) \\
-				&= (k + 1)^2 \\
-			\end{align*}
-
-			Therefore, since $P(1)$ is true, and $P(k) \implies P(k + 1)$ for arbitrary $k \in \mathbb{N}$, $P(n)$ is true $\forall n \in \mathbb{N}$.
-		\end{proof}
-	\end{solution}
 \end{exercise}
+
+\begin{solution}
+	\begin{tabularx}{\linewidth}{ c || Y Y Y Y Y Y }
+		First $n$ odd natural numbers & $1$ & $2$ & $3$ & $4$ & $5$ & $\ldots$ \\
+		\hline
+		$1 + 3 + \ldots + (2n - 1)$ & $1$ & $4$ & $9$ & $16$ & $25$ & $\ldots$ \\
+	\end{tabularx}
+
+	\vspace{.75cm}
+
+	Based on this, I conjecture that $1 + 3 + \ldots + (2n - 1) = n^2$. Next, I will prove this fact.
+
+	\begin{proof}
+		Let $P(n)$ be the statement $P(n): 1 + 3 + \ldots + (2n - 1) = n^2$.
+
+		\begin{steps}
+			\item Show base case holds (Prove $P(1)$ true).
+		\end{steps}
+
+		\begin{align*}
+			&\text{LHS:}& &\text{RHS:} \\
+			&(2n - 1)& &n^2 \\
+			&= (2(1) - 1)& &(1)^2 \\
+			&=1& &=1
+		\end{align*}
+
+		Therefore, $P(1)$ is true.
+		
+		\begin{steps}
+			\item State induction hypothesis (State $P(k)$).
+		\end{steps}
+
+		Assuming there exists a $k \in \mathbb{N}$ for which $P(k)$ is true we can formulate our induction hypothesis as:
+
+		\begin{align*}
+			P(k): 1 + 3 + \ldots + (2k - 1) = k^2
+		\end{align*}
+
+		\begin{steps}
+			\item Prove $P(k) \implies P(k + 1)$
+		\end{steps}
+
+		\begin{align*}
+			1 + 3 + \ldots + (2k - 1) + (2k + 1) &= k^2 + (2k + 1) \\
+			&= (k + 1)^2 \\
+		\end{align*}
+
+		Therefore, since $P(1)$ is true, and $P(k) \implies P(k + 1)$ for arbitrary $k \in \mathbb{N}$, $P(n)$ is true $\forall n \in \mathbb{N}$.
+	\end{proof}
+\end{solution}
 
 \begin{exercise}[13]
 	Prove that $n < 2^n \; \forall n \in \mathbb{N}$.
 \end{exercise}
 
 \begin{solution}
-	
 	Let $P(n)$ be the statement $P(n): n < 2^n$.
 
 	\begin{proof}
@@ -524,8 +526,8 @@ Prove the following distributive laws:
 \end{exercise}
 
 \begin{solution}
-	
-	\begin{proof} We prove this by first independently proving the forward and reverse directions of this statement.
+	\begin{proof}
+		We prove this by first independently proving the forward and reverse directions of this statement.
 
 		\begin{steps}
 			\item Prove the forward direction ($T_1$ is denumerable $\implies$ there exists a bijection from $T_1$ to a denumerable set $T_2$).
@@ -547,25 +549,29 @@ Prove the following distributive laws:
 	Prove that the collection $\mathcal{F}(\mathbb{N})$ of all \emph{finite} subsets of $\mathbb{N}$ is countable.
 \end{exercise}
 
-%TODO: SOLVE
-
 \begin{solution}
+	\begin{proof}
+		\underline{Note}: this proof is technically incorrect since certain numbers, such as 4, map to the singleton set $\{2\}$, which is undesirable, but I feel like this approach is in the right direction. Will update with a more correct proof in future.
 
-	IDK how to do this one lolmao I have to think about it
+		To prove that $\mathcal{F}$ is bijective, consider the fact that every natural number (besides 1) can be decomposed into the product of primes. Using this fact, we can construct a bijection between $\mathbb{N}$ and $\mathcal{F}$ with the function:
 
+		\begin{align*}
+			f(n) &=
+			\begin{cases}
+				\{1\} \; \text{if} \; n = 1 \\
+				\{i + 1\} \; \text{if} \; n \; \text{is the} \; i^{th} \; \text{prime number.} \\
+				\{j, k\} \; \text{if} \; n \; \text{has two prime factors} \; n_1, n_2 \; \text{and where}\\ \; n_1, n_2 \; \text{are the} \; j^{th}\ \text{and} \; k^{th} \; \text{prime numbers respectively.} \\
+				\vdots
+			\end{cases}
+		\end{align*}
 
+		Thus, since there exists a bijective mapping from $\mathbb{N}$ to $\mathcal{F}$, by definition of denumerability, $\mathcal{F}$ is denumerable and is thus countable.
+
+	\end{proof}
 \end{solution}
 
-
-
-
-
-
-
-
-
-
-
-
-
-\end{document}
+\ifdefined\iscombined
+\newpage
+\else
+  \end{document}
+\fi

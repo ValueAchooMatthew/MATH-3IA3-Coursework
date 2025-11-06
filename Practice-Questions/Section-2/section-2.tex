@@ -1,4 +1,9 @@
+\ifdefined\iscombined
+	\sectiontitle{Section 2 - Practice Problems}
+	\setcounter{section}{2}
+\else
 \documentclass[10pt]{article}
+\usepackage{float}
 \usepackage{tabularx}
 \usepackage{mathtools}
 \usepackage{amsmath, amssymb, amsthm}
@@ -101,25 +106,72 @@
 \begin{document}
 
 \maketitle
+\fi
 
 \vspace{-1cm}
 
 \chaptertitle{The Algebraic and Order Properties of $\mathbb{R}$}
 
-\begin{exercise}[5]
-	If $a \neq 0$ and $b \neq 0$, show that $\frac{1}{ab} = (\frac{1}{a})(\frac{1}{b})$.
+\begin{exercise}
+	Solve the following equations, justifying each step by referring to an approriate property or theorem.
 \end{exercise}
 
-% TODO: SOLVE
+\begin{parts}
+	\item $2x + 5 = 8$.
+\end{parts}
 
 \begin{solution}
-	
 	\begin{align*}
-		\frac{1}{ab} &= 1 \div ab \\
-		&= 1 \cdot \frac{1}{ab} \\
-		&= (1 + 0 + 0) \cdot \frac{1}{ab} \\
-		&= (1 + a - a + b - b) \cdot \frac{1}{ab} \\
-		&= (1 \cdot \frac{1}{ab} + \frac{a}{ab} - \frac{a}{ab} + \frac{b}{ab} - \frac{b}{ab}) 
+		2x + 5 = 8 \implies \qquad &\\\\
+		2x + 5 - 5 = 8 - 5 \implies \qquad &\langle \text{By the additive property of equality} \rangle \\\\
+		2x + 0 = 3 \implies \qquad &\langle \text{By the additive inverse property} \rangle \\\\
+		2x = \implies \qquad &\langle \text{By the additive identity property} \rangle \\\\
+		\frac{2x}{2} = \frac{3}{2} \implies \qquad &\langle \text{By the multiplicative property of equality} \rangle \\\\
+		\frac{2}{2} \cdot x = \frac{3}{2} \implies \qquad &\langle \text{By the associativity of multiplication} \rangle \\\\
+		1 \cdot x = \frac{3}{2} \implies \qquad &\langle \text{By the multiplicative inverse property} \rangle \\\\
+		x = \frac{3}{2} \; \, \qquad \qquad &\langle \text{By the multiplicative identity property} \\
+	\end{align*}
+\end{solution}
+
+\begin{parts}
+	\item $x^2 = 2x$
+\end{parts}
+
+\begin{solution}
+	\begin{align*}
+		x^2 = 2x \implies \qquad &\\\\
+		x^2 - 2x = 2x - 2x \implies \qquad &\langle \text{By the additive property of equality} \rangle \\\\
+		x^2 - 2x = 0 \implies \qquad &\langle \text{By the additive inverse property} \rangle \\\\
+		x \cdot (x - 2) = 0 \implies \qquad &\langle \text{By the distributive property} \rangle \\\\
+		x = 0 \; \text{or} \; x = 2 \; \qquad &\langle \text{By Theorem 2.1.3.b} \rangle \\
+	\end{align*}
+\end{solution}
+
+\begin{parts}
+	\item $x^2 - 1 = 3$
+\end{parts}
+
+\begin{solution}
+	\begin{align*}
+		x^2 - 1 = 3 \implies \qquad &\\\\
+		x^2 - 1 - 3 = 3 - 3 \implies \qquad &\langle \text{By the additive property of equality} \rangle \\\\
+		x^2 - 4 = 0 \implies \qquad &\langle \text{By the additive inverse property} \rangle \\\\
+		(x + 2) \cdot (x - 2) = 0 \implies \qquad &\langle \text{By the distributive property} \rangle \\\\
+		x = 2 \; \vee \; x = -2 \qquad &\langle \text{By Theorem 2.1.3.a} \rangle \\
+	\end{align*}
+\end{solution}
+
+\newpage
+
+\begin{parts}
+	\item $(x - 1)(x - 2) = 0$
+	
+\end{parts}
+
+\begin{solution}
+	\begin{align*}
+		(x - 1)&(x - 2) = 0 \implies \\\\
+		x = 1 \; \vee \; x = 2 &\quad \langle \text{By Theorem 2.1.3.a} \rangle \\
 	\end{align*}
 \end{solution}
 
@@ -132,7 +184,6 @@
 \end{parts}
 
 \begin{solution}
-
 	Let $x_1 = s_1 + t_1\sqrt{2}, x_2 = s_2 + t_2\sqrt{2} \in K$. We separate the proof of each claim into two parts into two parts.
 
 	\begin{steps}
@@ -149,7 +200,6 @@
 
 		Thus, since $\mathbb{Q}$ is closed under addition, we know that $(s_1 + s_2) \in \mathbb{Q}$ and $(t_1 + t_2) \in \mathbb{Q}$. Therefore, $((s_1 + s_2) + (t_1 + t_2)\sqrt{2}) \in K$ and thus $(x_1 + x_2) \in K$.
 	\end{proof}
-
 
 	\begin{steps}
 		\item Prove $x_1x_2 \in K$
@@ -184,12 +234,11 @@
 			&= \frac{s - t\sqrt{2}}{(s + t\sqrt{2})(s - t\sqrt{2})} \\
 			&= \frac{s - t\sqrt{2}}{s^2 + (t\sqrt{2})^2} \\
 			&= \frac{s - t\sqrt{2}}{s^2 + 2t^2} \\
-			&= \frac{s}{s^2 + 2t^2} - \frac{t}{s^2 + 2t^2}\sqrt{2}
+			&= \frac{s}{s^2 + 2t^2} - \frac{t}{s^2 + 2t^2}\sqrt{2} \\
 		\end{align*}
 
 		Therefore, since $\mathbb{Q}$ is closed under addition, multiplication, and division, we know $\frac{s}{s^2 + 2t^2} \in \mathbb{Q}$ and $\frac{t}{s^2 + 2t^2} \in \mathbb{Q}$. Therefore, $\frac{s}{s^2 + 2t^2} - \frac{t}{s^2 + 2t^2}\sqrt{2} \in \mathbb{Q}$ and thus $\frac{1}{x} \in K$ if $x \neq 0$.
 	\end{proof}
-
 \end{solution}
 
 \begin{exercise}[15]
@@ -200,18 +249,19 @@
 	\item $a < \sqrt{ab} < b$
 \end{parts}
 
+%FIX: FORMATTING
+
 \begin{solution}
-
-	\begin{align*}
-		&&a &< b \implies & \\\\
-		&&ab < b\cdot b &\qquad a \cdot a < ab & \\
-		&&ab < b^2 &\qquad a^2 < ab & \\
-		&&\sqrt{ab} < \sqrt{b^2} &\qquad \sqrt{a^2} < \sqrt{ab} & \\
-		&&\sqrt{ab} < b &\qquad a < \sqrt{ab} &
-	\end{align*}
-
-	Therefore, $0 < a < b \implies a < \sqrt{ab} < b$.
-
+	\begin{proof}
+		\begin{align*}
+			ab < b\cdot b &\implies \qquad a \cdot a < ab &\implies \\
+			ab < b^2 &\implies \qquad a^2 < ab &\implies \\
+			\sqrt{ab} < \sqrt{b^2} &\implies \qquad \sqrt{a^2} < \sqrt{ab} &\implies \\
+			\sqrt{ab} < b &\qquad a < \sqrt{ab} &\qquad
+		\end{align*}
+	
+		Therefore, $0 < a < b \implies a < \sqrt{ab} < b$.
+	\end{proof}
 \end{solution}
 
 \begin{parts}
@@ -249,17 +299,20 @@
 \end{parts}
 
 \begin{solution}
-	
 	\begin{align*}
 		&&|x - 2| &\le x + 1& \implies \\
 		&&x - 2 \le x + 1 &\qquad &x - 2 \le -(x + 1) \\
 		&& &\qquad &x - 2 \le -x - 1 \\
 		&& &\qquad &2x \le 1 \\
-		&& &\qquad &x \ge \frac{1}{2} \\
+		&& &\qquad &x \le \frac{1}{2} \\
 	\end{align*}
 
 	Therefore, the inequality holds whenever $x \in (-\inf, \frac{1}{2}]$.
-	
+
+	\begin{figure}[H]
+		\includegraphics[width=\linewidth]{~/Desktop/University/Courses/MATH-3IA3-Coursework/Practice-Questions/Section-2/imgs/Question-2-2-9-a.png}
+		\caption{$|x - 2| \le x + 1$ as graphed by Desmos.}
+	\end{figure}
 \end{solution}
 
 \begin{parts}
@@ -267,37 +320,52 @@
 \end{parts}
 
 \begin{solution}
-	
 	\begin{align*}
-		&&3|x| &\le 2 - x & \implies \\
-		&&3(x) \le 2 - x &\qquad & 3x \le -(2 - x) \\
-		&&4x \le 2 &\qquad & 3x \le 2 + x \\
-		&&x \le {1}{2} &\qquad 4x \ge 2 \\
+		&3|x| &\le 2 - x& &\implies \\
+		&3(x) \le 2 - x& \qquad &3x \le -(2 - x) &\implies \\
+		&4x \le 2& \qquad &3x \le 2 + x &\implies \\
+		&x \le {1}{2}& \qquad &4x \ge 2 &\qquad\\
 	\end{align*}
 
 	Therefore, the inequality holds whenever $x \in (-\infty, \frac{1}{2}] \cup [1, \infty)$.
 
+	\begin{figure}[H]
+		\includegraphics[width=\linewidth]{~/Desktop/University/Courses/MATH-3IA3-Coursework/Practice-Questions/Section-2/imgs/Question-2-2-9-b.png}
+		\caption{$3|x| \le 2 - x$ as graphed by Desmos.}
+	\end{figure}
 \end{solution}
 
-\begin{exercise}
+\begin{exercise}[14]
 	Determine and sketch the set of pairs $(x, y) \in \mathbb{R} \times \mathbb{R}$ that satisfy:
 \end{exercise}
 
 %TODO: CLEAN UP HEAVILY
 
 \begin{parts}
-	\item $|x| \le |y|$.
+	\item $|x| = |y|$.
 \end{parts}
 
 \begin{solution}
 	\begin{align*}
-		|x| &\le |y| \implies \\
-		|y| - |x| &\ge 0 \\
+		|x| &= |y| \implies \\
+		(x = y \; \vee \; x = -y \; &\vee \; -x = y \; \vee \; -x = -y) \implies \\
+		x = y \; &\vee \;  x = -y \\
 	\end{align*}
 	
-	$|y| - |x| \ge 0$ whenever $y \ge x \ge 0$, $0 \ge x \ge y$, $y \ge -x$ when $x \le 0 \le y$, and $ -y \ge x$ when $y \le 0 le x$. Putting this all together,
-	we have the set $\{(x, y): -y \le x \le y \}$ satisfying the inequality.
+
 \end{solution}
+
+\begin{parts}
+	\item $|x| + |y| = 1$.
+\end{parts}
+
+\begin{parts}
+	\item $|xy| = 2$.
+\end{parts}
+
+\begin{parts}
+	\item $|x| - |y| = 2$.
+\end{parts}
 
 \begin{exercise}[19]
 	Show that if $a, b, c \in \mathbb{R}$, then the ``middle number'' is $\text{mid}\{a, b, c\} = \text{min}\{\text{max}\{a, b\}, \text{max}\{b, c\}, \text{max}\{c, a\}\}$.
@@ -307,6 +375,8 @@
 
 
 \end{solution}
+
+\newpage
 
 \chaptertitle{The Completeness Property of $\mathbb{R}$}
 
@@ -395,6 +465,8 @@
 	\end{proof}
 \end{solution}
 
+\newpage
+
 \chaptertitle{Application of the Supremum Property}
 
 \begin{exercise}
@@ -419,15 +491,18 @@
 
 	Therefore, -1 and 1 clearly upper and lowerbound $S$ respectively.
 
-	To prove that $-1$ and $1$ are the infimum and supremum of $S$, consider $\epsilon > 0$. Now consider $1 - \epsilon$. By the Archimedean principle, we know that there exists an $n \in \mathbb{N}$ such that $N > 1 - \epsilon$ annd 
+	To prove that $-1$ and $1$ are the infimum and supremum of $S$, consider $\epsilon > 0$. Now consider $1 - \epsilon$. By the Archimedean principle, we know that there exists an $n \in \mathbb{N}$ such that $N > 1 - \epsilon$ and 
 \end{solution}
 
+\newpage
 
-
+%TODO: FINISH
 
 \chaptertitle{Intervals}
 
 
-
-
-\end{document}
+\ifdefined\iscombined
+\newpage
+\else
+  \end{document}
+\fi

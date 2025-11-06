@@ -1,0 +1,184 @@
+\def\iscombined{}
+\documentclass[10pt]{article}
+\usepackage{float}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\usepackage{mathtools}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\pagestyle{fancy}
+\fancyhf{}
+\title{Math 3IA3 - All Practice Problems}
+\author{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\date{\today}
+
+\hypersetup{
+        colorlinks=true,
+        linkcolor=blue,
+        filecolor=magenta,
+        urlcolor=blue,
+        citecolor=blue,
+	anchorcolor=blue
+}
+
+\fancyhead{}
+\fancyhead[L]{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\fancyhead[R]{Math 3IA3 - All Practice Problems}
+
+\newcommand{\sectiontitle}[1]{
+  \refstepcounter{section}
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}
+  \vspace{2.5em}
+  \begin{center}
+    \textbf{\LARGE #1}
+  \end{center}
+  \vspace{2.5em}
+}
+
+\newcommand{\chaptertitle}[1]{
+	\refstepcounter{chapter}
+	\addcontentsline{toc}{subsection}{\protect\numberline{\thechapter}#1}
+	\vspace{1.5em}
+	\begin{center}
+	\underline{\noindent\Large\bfseries{Chapter} \thechapter: #1}
+	\end{center}
+	\vspace{1.5em}
+}
+
+\newcounter{chapter}[section]
+\renewcommand{\thechapter}{\thesection.\arabic{chapter}}
+
+\newcounter{exercise}[chapter]
+\renewcommand{\theexercise}{\thechapter.\arabic{exercise}}
+
+\newenvironment{exercise}[1][]{
+  \ifx\\#1\\
+    \refstepcounter{exercise}
+    \setcounter{currentstep}{0}
+  \else
+    \setcounter{exercise}{#1}
+    \setcounter{currentstep}{0}
+  \fi
+  \large{\par\noindent\textbf{Exercise \theexercise}}
+}{\vspace{0.8em}}
+
+\newenvironment{solution}{
+	\vspace{0.4cm}\par\noindent\large\textbf{{Solution:}}\par\vspace{1em}
+}{\vspace{0.8em}}
+
+\newcounter{partslist}
+
+\makeatletter
+\newcommand{\parts@seriesname}{parts@\theexercise}
+
+\newenvironment{parts}{
+  \edef\parts@ser{\parts@seriesname}
+  \ifcsname\parts@ser\endcsname
+    \begin{enumerate}[resume=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
+  \else
+    \begin{enumerate}[series=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
+    \expandafter\gdef\csname\parts@ser\endcsname{1}
+  \fi
+}{
+  \end{enumerate}
+}
+\makeatother
+
+\makeatletter
+
+% Step counter resets every exercise
+\newcounter{currentstep}[exercise]
+\renewcommand{\thecurrentstep}{\Roman{currentstep}}
+
+% ---------------------------
+% Steps environment
+% ---------------------------
+\newenvironment{steps}{
+  % Create unique series name for each exercise
+  \edef\steps@ser{steps@\theexercise}
+  \ifcsname\steps@ser\endcsname
+    \begin{enumerate}[resume=\steps@ser,
+                      label=\bfseries{(\Roman*)},
+                      leftmargin=3.15em,
+                      itemsep=0.4em,
+                      topsep=0.8em]
+  \else
+    \begin{enumerate}[series=\steps@ser,
+                      label=\bfseries{(\Roman*)},
+                      leftmargin=3.15em,
+                      itemsep=0.4em,
+                      topsep=0.8em]
+    \expandafter\gdef\csname\steps@ser\endcsname{1}%
+  \fi
+  % ensure \item increments currentstep
+  \let\steps@saved@item\item
+  \renewcommand{\item}{\stepcounter{currentstep}\steps@saved@item}%
+}{
+  \let\item\steps@saved@item
+  \end{enumerate}
+}
+
+% ---------------------------
+% Substeps environment
+% ---------------------------
+\newenvironment{substeps}{
+  % tie substeps to the latest currentstep
+  \edef\substeps@ser{substeps@\theexercise-\number\value{currentstep}}
+  \ifcsname\substeps@ser\endcsname
+    \begin{enumerate}[resume=\substeps@ser,
+                      label=\textbf{(\Roman{currentstep}.\roman*)},
+                      leftmargin=5em,
+                      itemsep=0.3em,
+                      topsep=0.3em]
+  \else
+    \begin{enumerate}[series=\substeps@ser,
+                      label=\textbf{(\Roman{currentstep}.\roman*)},
+                      leftmargin=5em,
+                      itemsep=0.3em,
+                      topsep=0.3em]
+    \expandafter\gdef\csname\substeps@ser\endcsname{1}%
+  \fi
+}{
+  \end{enumerate}
+}
+
+\makeatother
+
+\newcommand{\forcepar}{\par\noindent}
+
+\AtBeginEnvironment{exercise}{\forcepar\vspace{0.8em}}
+\AtBeginEnvironment{parts}{\forcepar\vspace{0.5em}}
+\AtBeginEnvironment{steps}{\forcepar\vspace{0.6em}}
+\AtBeginEnvironment{substeps}{\forcepar\vspace{0.5em}}
+\AtBeginEnvironment{solution}{\forcepar\vspace{0.5em}}
+
+\AtEndEnvironment{exercise}{\vspace{0.8em}}
+\AtEndEnvironment{parts}{\vspace{0.5em}}
+\AtEndEnvironment{steps}{\vspace{1em}}
+\AtEndEnvironment{substeps}{\vspace{0.5em}}
+\AtEndEnvironment{solution}{\forcepar\vspace{0.5em}}
+
+\pretocmd{\endsteps}{\vspace{-0.6em}}{}{}
+\pretocmd{\endsubsteps}{\vspace{-0.5em}}{}{}
+\pretocmd{\endparts}{\vspace{-0.5em}}{}{}
+\pretocmd{\endexercise}{\vspace{-2em}}{}{}
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\renewcommand{\arraystretch}{1.8}
+
+\fontsize{10pt}{14pt}\selectfont
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\input{includes.tex}
+
+\end{document}
