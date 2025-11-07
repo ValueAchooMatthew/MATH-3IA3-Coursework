@@ -1,0 +1,270 @@
+\documentclass{article}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{listings}
+\lstset{breaklines=true}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=blue,
+	citecolor=blue,
+	anchorcolor=blue
+}
+
+\renewcommand{\thesubsubsection}{\Roman{subsubsection}}
+\title{Math 3IA3 - Assignment 3}
+\author{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\date{\today}
+
+\makeatletter
+\setlist{listparindent=\parindent}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L]{Matthew Farah, $\langle$\href{mailto:farahm11@mcmaster.ca}{farahm11@mcmaster.ca}$\rangle$, 400468251}
+\fancyhead[R]{Math 3IA3 - Assignment 3}
+
+\setcounter{section}{3}
+
+\newcounter{chapter}
+\setcounter{chapter}{4}
+
+\newcounter{exercise}
+\renewcommand{\theexercise}{\arabic{exercise}}
+
+
+\newenvironment{exercise}[1][]{
+	\ifx\\#1\\
+		\refstepcounter{exercise}
+		\addcontentsline{toc}{exercise}{\protect\numberline{\thesection}#1}
+	\else
+		\setcounter{exercise}{#1}
+	\fi
+	\large{\par\noindent\textbf{Exercise \thesection.\thechapter.\theexercise}}\vspace{.5em}\par\noindent
+}{\vspace{1.5em}}
+
+\newenvironment{solution}{
+	\vspace{0.4cm}\par\noindent\large\textbf{{Solution:}}\par\vspace{1em}
+}{\vspace{2.5em}}
+
+\newcounter{partslist}
+
+\makeatletter
+\newcommand{\parts@seriesname}{parts@\theexercise}
+
+\newenvironment{parts}{
+	\edef\parts@ser{\parts@seriesname}
+	\ifcsname\parts@ser\endcsname
+		\begin{enumerate}[resume=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
+	\else
+		\begin{enumerate}[series=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
+		\expandafter\gdef\csname\parts@ser\endcsname{1}
+	\fi
+}{
+	\end{enumerate}
+}
+
+\makeatother
+
+\makeatletter
+
+\newcounter{currentstep}[partslist]
+\renewcommand{\thecurrentstep}{\Roman{currentstep}}
+
+\newenvironment{steps}{
+	\edef\steps@ser{steps@\theexercise}
+	\ifcsname\steps@ser\endcsname
+		\begin{enumerate}[
+			resume=\steps@ser,
+			label=\bfseries{(\Roman*)},
+			leftmargin=3.15em,
+			itemsep=0.4em,
+			topsep=0.8em
+		]
+	\else
+		\begin{enumerate}[
+			series=\steps@ser,
+			label=\bfseries{(\Roman*)},
+			leftmargin=3.15em,
+			itemsep=0.4em,
+			topsep=0.8em
+		]
+		\expandafter\gdef\csname\steps@ser\endcsname{1}
+	\fi
+	\let\steps@saved@item\item
+	\renewcommand{\item}{\stepcounter{currentstep}\steps@saved@item}
+}{
+	\let\item\steps@saved@item
+	\end{enumerate}
+}
+
+\makeatother
+
+\begin{document}
+
+\maketitle
+\pagestyle{fancy}
+
+\tableofcontents
+
+\begin{exercise}[6]
+Let $x_n \coloneq n^{\frac{1}{n}}$ for $n \in \mathbb{N}$.
+\end{exercise}
+
+\begin{parts}
+	\item Show that $x_{n + 1} < x_n$ if and only if ${(1 + \frac{1}{n})}^{n} < n$, and infer that the inequality is valid for $n \ge 3.$. Conclude that $(x_n)$ is ultimately decreasing and that $x \coloneq \lim_{n\to\infty}(x_n)$ exists.
+\end{parts}
+
+%TODO: Prove
+
+\begin{solution}
+
+	\begin{steps}
+		\item Show that $x_{n + 1} < x_n \iff (1 + \frac{1}{n})^n < n$.
+	\end{steps}
+
+	\begin{align*}
+		x_{n + 1} &< x_n \implies \\
+		(n + 1)^{\frac{1}{n + 1}} &< n^{\frac{1}{n}} \implies \\
+		\ln{(n + 1)^{\frac{1}{n + 1}}} &< \ln{n^{\frac{1}{n}}} \\
+		\frac{1}{n + 1}\ln{(n + 1)} &< \frac{1}{n}\ln{n} \\
+		\frac{n}{n + 1}{\ln{(n + 1)}} &< \ln{n} \\
+		(1 + \frac{1}{n})\ln{(n + 1)} &< \ln{n} \\
+		e^{(1 + \frac{1}{n})\ln{(n + 1)}} &< e^{\ln{n}} \\
+		(1 + \frac{1}{n})^{1 + \frac{1}{n}} &< n \\
+	\end{align*}
+
+	\begin{steps}
+		\item Show that $(1 + \frac{1}{n})^n < n, \; \forall n \ge 3$.
+	\end{steps}
+
+	\begin{steps}
+		\item Show $x \coloneq \lim_{n\to\infty}(x_n)$ exists.
+	\end{steps}
+
+\end{solution}
+
+
+\begin{parts}
+	\item Use the fact that the subsequence also converges to x to conclude that $x = 1$.
+\end{parts}
+
+\setcounter{chapter}{5}
+
+\begin{exercise}[5]
+	If $x_n \coloneq \sqrt{n}$, show that $(x_n)$ satisfies $\lim_{n\to\infty}|x_{n + 1} - x_n| = 0$ but is not a Cauchy sequence.
+\end{exercise}
+
+\begin{solution}
+
+	\begin{steps}
+		\item Show that $x_n$ satisfies $\lim_{n\to\infty}|x_{n + 1} - x_n| = 0$.
+	\end{steps}
+	
+	$x_n \ge 1 \; \forall n \in \mathbb{N}$
+
+	%TODO: COMPLETE
+	\begin{align*}
+		|(x_{n + 1} - x_n) - 0| &= |x_{n + 1} - x_n| \\
+		&= |\sqrt{n + 1} - \sqrt{n}| \\
+		&= \sqrt{n + 1} - \sqrt{n} \\
+	\end{align*}
+
+	\begin{steps}
+		\item Show that $x_n$ is not a Cauchy sequence.
+	\end{steps}
+
+	We show that $x_n$ is not a Cauchy sequence by proving that it diverges because, over the set of real numbers, a sequence is Cauchy if and only if it is convergent to a real number. Let $M^2 > 0$ be arbitrary. By the Archimedean property, we know that there exists an $N \in \mathbb{N}$ such that for all $n \ge N \implies n > M^2$. Thus:
+
+	\begin{align*}
+		n \ge N &\implies \\
+		n > M^2 &\implies \\
+		\sqrt{n} > \sqrt{M^2} &\implies \\
+		x_n > M \\
+	\end{align*}
+
+	Therefore, we know that $\lim_{n\to\infty} (x_n)$ diverges to infinity and therefore $(x_n)$ cannot be Cauchy.
+\end{solution}
+
+\setcounter{chapter}{6}
+
+\begin{exercise}[10]
+	Show that if $\lim_{n\to\infty}(\frac{a_n}{n}) = L$, where $L > 0$, then $\lim_{n\to\infty}(a_n) = +\infty$.
+\end{exercise}
+
+\begin{solution}
+	Let $M > 0$ be arbitrary. Since $\lim_{n\to\infty} \frac{1}{n} = 0$ is known, we can conclude using algebraic limit rules that $\lim_{n\to\infty}(\frac{M}{N}) = 0$. Since $\lim_{n\to\infty} (\frac{a_n}{n}) = L > 0$, we know there exists some $N_0 \in \mathbb{N}$ such that $\forall n \ge N_0$:
+
+	\begin{gather*}
+		|\frac{a_{n}}{n} - L| < \frac{L}{2} \\
+	\end{gather*}
+
+	And therefore, $\frac{L}{2} < \frac{a_n}{n} < \frac{3}{2}L$ for all such $n$. Likewise, we know that there exists some $N_1 \in \mathbb{N}$ such that $\forall n \ge N_1$:
+
+	\begin{align*}
+		|\frac{M}{n}| < \frac{L}{2}
+	\end{align*}
+
+	And therefore, $0 < \frac{M}{n} < \frac{L}{2}$ for all such n. Thus, letting $N = \text{max}\{N_0, N_1\}$, we have that $\forall n \ge N$:
+
+	\begin{align*}
+		\frac{a_n}{n} > \frac{M}{n} \\
+		a_n > M
+	\end{align*}
+
+	Therefore, since for arbitrary $M > 0$, we can always find an $N \in \mathbb{N}$ such that $a_n > M \; \forall n \ge N$, $\lim_{n\to\infty}(a_n) = +\infty$.
+\end{solution}
+
+\setcounter{chapter}{7}
+
+\begin{exercise}[11]
+	If $\sum_{n = 1}^{\infty}a_n$ with $a_n > 0$ is convergent, then is $\sum_{n = 1}^{\infty}(a_n)^2$ always convergent? Either prove it or give a counter-example.
+\end{exercise} 
+
+\begin{solution}
+
+	\begin{proof}
+		We know, by definition of infinite sums, that if $\sum_{n = 1}^{\infty}a_n$ is convergent, then the sequence of its partial sums $(s_k) = \sum_{n = 1}^{k}(a_n)$ must converge to zero, and therefore, $\lim_{k\to\infty}(s_k) = 0$. By using algebraic limit rules, we can therefore find that:
+
+		\begin{align*}
+			\lim_{k\to\infty}(\sum_{k = 1}(s_k)^2) &= \lim_{k\to\infty}(\sum_{n = 1}^{k}(a_n)^2) \\
+			&= \sum_{n = 1}^{k}(a_n)(a_n) \\
+		\end{align*}
+	\end{proof}
+\end{solution}
+
+\setcounter{section}{4}
+\setcounter{chapter}{1}
+
+\begin{exercise}[7]
+	Show that $\lim_{x\to c}(x^3) = c^3$ for any $c \in \mathbb{R}$.
+\end{exercise}
+
+\begin{solution}
+	We can easily show this using the sequential definition of functional limits. Let $(x_n)$ by any sequence defined on $mathbb{R}$ (since the domain of $x^3$ is $\mathbb{R}$) such that $x_n \neq c \; \forall n \in \mathbb{N}$ and $\lim_{n\to\infty}(x_n) = c$. By sequential limit theorems, we know that:
+
+	\begin{align*}
+		\lim_{n\to\infty}(x^3) &= (\lim_{n\to\infty}(x_n))^3 \\
+		&= c^3 \\
+	\end{align*}
+
+	Therefore, by definition of functional limits, since for all such $(x_n)$, $\lim_{n\to\infty}(x_n)^3 = c^3$, $\lim_{x \to c}(x)^3 = c^3$.
+\end{solution}
+
+\end{document}
