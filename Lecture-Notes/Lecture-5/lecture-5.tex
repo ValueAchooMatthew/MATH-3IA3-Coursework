@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{amsthm}
+\usepackage{comment}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{sectsty}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+
+\title{Lecture 5 - Properties of Fields}
+\author{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\date{\today}
+
+\hypersetup{
+        colorlinks=true,
+        linkcolor=blue,
+        filecolor=magenta,
+        urlcolor=blue,
+        citecolor=blue,
+	anchorcolor=blue
+}
+
+\fancyhead{}
+\fancyhead[L]{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\fancyhead[R]{Lecture 5 - Properties of Fields}
+
+\newenvironment{directsubsubs}{
+  \makeatletter
+  \renewcommand\thesubsubsection{\thesection.\Roman{subsubsection}}
+  \makeatother
+}{
+  \makeatletter
+  \renewcommand\thesubsubsection{\thesubsection.\Roman{subsubsection}}
+  \makeatother
+}
+
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+\renewcommand{\thesubsubsection}{\thesection.\alph{subsection}.\Roman{subsubsection}}
+\makeatletter
+
+\sectionfont{\fontsize{12}{12}\bfseries}
+\subsectionfont{\fontsize{10}{12}\normalfont}
+\subsubsectionfont{\fontsize{10}{12}\normalfont}
+
+\begin{document}
+
+\maketitle
+\pagestyle{fancy}
+
+From our prior definition of a field, we can construct a number of useful theorems.
+
+\begin{theorem}
+	The addition-cancellation property: $x + y = x + z \implies y = z$.
+\end{theorem}
+
+\begin{proof}
+	\begin{align*}
+		y &= 0 + y\\
+		&= (-x + x) + y \\
+		&= -x + (x + y) \\
+		&= -x + (x + z) \\
+		&= (-x + x) + z \\
+		&= 0 + z \\
+		&= z
+	\end{align*}
+\end{proof}
+
+\begin{corollary}
+	The additive inverse of any element in a field is unique
+\end{corollary}
+
+\begin{proof}
+	For the purposes of contradiction, assume that for $x \in \mathbb{F}$, there exists two distinct additive inverses $-x_1, -x_2 \in \mathbb{F}, \; -x_1 -x_2 = 0$ of $x$. Then, we have:
+	
+	\begin{align*}
+		-x_1 + x &= 0 \\
+		&= -x_2 + x
+	\end{align*}
+
+	Which, by the addition-cancellation property, implies that $-x_1 = -x_2$, and thus, by contradiction, the additive inverse of an element in $\mathbb{F}$ is always unique
+\end{proof}
+
+\begin{proof}
+	We can prove this by considering the product of any number $x \in \mathbb{F}$ with 0.
+
+	\begin{align*}
+		0 \cdot x + 0 \cdot y &= (0 + 0) \cdot x \\
+		&= 0 + \cdot x
+	\end{align*}
+
+	Therefore, by the addition-cancellation property, $0 \cdot x = 0 \; \forall x \in \mathbb{F}$.
+\end{proof}
+
+\section[Ex. ~\thesection]{Example: Prove that the product of anything with zero is always zero}
+
+
+\end{document}
