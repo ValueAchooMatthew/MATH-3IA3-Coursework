@@ -1,0 +1,356 @@
+\documentclass{article}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{listings}
+\lstset{breaklines=true}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=blue,
+	citecolor=blue,
+	anchorcolor=blue
+}
+
+\renewcommand{\thesubsubsection}{\Roman{subsubsection}}
+\title{Math 3IA3 - Assignment 3}
+\author{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\date{\today}
+
+\makeatletter
+\setlist{listparindent=\parindent}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L]{Matthew Farah, $\langle$\href{mailto:farahm11@mcmaster.ca}{farahm11@mcmaster.ca}$\rangle$, 400468251}
+\fancyhead[R]{Math 3IA3 - Assignment 3}
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\setlength{\parindent}{0cm}
+
+\setcounter{section}{3}
+
+\newcounter{chapter}
+\setcounter{chapter}{4}
+
+\newcounter{exercise}
+\renewcommand{\theexercise}{\arabic{exercise}}
+
+\newenvironment{exercise}[1][]{
+	\ifx\\#1\\
+		\refstepcounter{exercise}
+	\else
+		\setcounter{exercise}{#1}
+	\fi
+	\addcontentsline{toc}{section}{\protect{\large{Exercise \thesection.\thechapter.\theexercise}}}
+	\large{\par\noindent\textbf{Exercise \thesection.\thechapter.\theexercise}}\vspace{.5em}\par\noindent
+}{\vspace{1.5em}}
+
+\newenvironment{solution}{
+	\vspace{0.4cm}\par\noindent\large\textbf{{Solution:}}\par\vspace{1em}
+}{
+	\vspace{2.5em}
+	\newpage
+}
+
+\newcounter{partslist}
+
+\makeatletter
+\newcommand{\parts@seriesname}{parts@\theexercise}
+
+\newenvironment{parts}{
+	\edef\parts@ser{\parts@seriesname}
+	\ifcsname\parts@ser\endcsname
+		\begin{enumerate}[resume=\parts@ser,label=\textbf{(\alph*)},leftmargin=2.0em,itemsep=0.4em,before=\large]
+	\else
+		\begin{enumerate}[series=\parts@ser,label=\textbf{(\alph*)},leftmargin=2.0em,itemsep=0.4em,before=\large]
+		\expandafter\gdef\csname\parts@ser\endcsname{1}
+	\fi
+}{
+	\end{enumerate}
+}
+
+\makeatother
+
+\makeatletter
+
+\newcounter{currentstep}[partslist]
+\renewcommand{\thecurrentstep}{\Roman{currentstep}}
+
+\newenvironment{steps}{
+	\edef\steps@ser{steps@\theexercise}
+	\ifcsname\steps@ser\endcsname
+		\begin{enumerate}[
+			resume=\steps@ser,
+			label=\bfseries{(\Roman*)},
+			leftmargin=1.5em,
+			itemsep=0.4em,
+			topsep=0.8em
+		]
+	\else
+		\begin{enumerate}[
+			series=\steps@ser,
+			label=\bfseries{(\Roman*)},
+			leftmargin=1.5em,
+			itemsep=0.4em,
+			topsep=0.8em
+		]
+		\expandafter\gdef\csname\steps@ser\endcsname{1}
+	\fi
+	\let\steps@saved@item\item
+	\renewcommand{\item}{\stepcounter{currentstep}\steps@saved@item}
+}{
+	\let\item\steps@saved@item
+	\end{enumerate}
+}
+
+\makeatother
+
+\begin{document}
+
+\maketitle
+\pagestyle{fancy}
+
+\tableofcontents
+\newpage
+
+\begin{exercise}[6]
+Let $x_n \coloneq n^{\frac{1}{n}}$ for $n \in \mathbb{N}$.
+\end{exercise}
+
+\begin{parts}
+	\item Show that $x_{n + 1} < x_n$ if and only if ${(1 + \frac{1}{n})}^{n} < n$, and infer that the inequality is valid for $n \ge 3$. Conclude that $(x_n)$ is ultimately decreasing and that $x \coloneq \lim_{n\to\infty}(x_n)$ exists.
+\end{parts}
+
+\begin{solution}
+
+	\begin{steps}
+		\item Show that $x_{n + 1} < x_n \iff (1 + \frac{1}{n})^n < n$.
+	\end{steps}
+
+	Using basic algebraic manipulations, we find:
+
+	\begin{align*}
+		x_{n + 1} &< x_n \\
+		\Updownarrow \\
+		(n + 1)^{\frac{1}{n + 1}} &< n^{\frac{1}{n}} \\
+		\Updownarrow \\
+		((n + 1)^{\frac{1}{n + 1}})^{n + 1} &< (n^{\frac{1}{n}})^{n + 1} \\
+		\Updownarrow \\
+		n + 1 &< (n^{\frac{1}{n}})^{n} \cdot n^{\frac{1}{n}} \\
+		\Updownarrow \\
+		n + 1 &< n \cdot n^{\frac{1}{n}} \\
+		\Updownarrow \\
+		\frac{n + 1}{n} &< n^{\frac{1}{n}} \\
+		\Updownarrow \\
+		1 + \frac{1}{n} &< n^{\frac{1}{n}} \\
+		\Updownarrow \\
+		\left( 1 + \frac{1}{n} \right)^n &< (n^{\frac{1}{n}})^n \\
+		\Updownarrow \\
+		\left( 1 + \frac{1}{n} \right)^n &< n \\
+	\end{align*}
+
+	Therefore, $x_{n + 1} < x_n \iff (1 + \frac{1}{n})^n < n$
+
+	\begin{steps}
+		\item Show that $(1 + \frac{1}{n})^n < n, \; \forall n \ge 3$.
+	\end{steps}
+
+	We will proceed to prove $(1 + \frac{1}{n})^n < n, \; \forall n \ge 3$ via induction. Let $P(n)$ be the statement $P(n): (1 + \frac{1}{n})^n < n$.
+
+	\begin{center}
+		\underline{Base Case:}
+	\end{center}
+
+	\begin{align*}
+		&\text{LHS:} &\text{RHS} \\
+		&=(1 + \frac{1}{n})^n &=n \\
+		&= \left( 1 + \frac{1}{3} \right)^3 &=3 \\
+		&= \left( \frac{4}{3} \right)^3 &=3 \\
+		&=\frac{64}{27} &=3 \\
+	\end{align*}
+
+	Therefore, since LHS $<$ RHS, the base case holds and $P(3)$ is true.
+
+	\begin{center}
+		\underline{State Induction Hypothesis:}
+	\end{center}
+
+	Let $k \in \mathbb{N}$ be arbitrary, we can therefore formulate our induction hypothesis as:
+
+	\begin{align*}
+		P(k): (1 + \frac{1}{k})^k < k \\
+	\end{align*}
+
+	\begin{center}
+		\underline{Prove $P(k) \implies P(k + 1)$:}
+	\end{center}
+
+	\begin{align*}
+		(1 + \frac{1}{k + 1})^{k + 1} &= (1 + \frac{1}{k + 1})^{k} \cdot (1 + \frac{1}{k + 1}) \\
+		&\le (1 + \frac{1}{k})^{k} \cdot (1 + \frac{1}{k}) \qquad \langle \; \text{Since} \; \frac{1}{k + 1} < \frac{1}{k} \; \forall k \in \mathbb{N} \; \rangle \\
+		&< k \cdot (1 + \frac{1}{1 + k}) \qquad \langle \; \text{By induction hypothesis} \; \rangle \\
+		&= k + 1
+	\end{align*}
+
+	Therefore, $P(k) \implies P(k + 1)$.
+
+	Since $P(k) \implies P(k + 1)$ for arbitrary $k \in \mathbb{N}$, and since we know $P(3)$ is true, then by principle of mathematical induction, we know that $P(n)$ holds $\forall n \in \mathbb{N}$ such that $n \ge 3$.
+
+	\begin{steps}
+		\item Show $x \coloneq \lim_{n\to\infty}(x_n)$ exists.
+	\end{steps}
+
+	From parts (I) and (II), since $x_{n + 1} < x_{n} \iff \left( 1 + \frac{1}{n} \right)^n < n$, and $\left( 1 + \frac{1}{n} \right)^n < n$ holds for all $n \ge 3$, we have that $x_{n + 1} < x_{n}$ is true $\forall n \ge 3$ and thus the sequence $x_n$ is eventually monotone. Furthermore, since $n \ge 1$, we know that $(n)^\frac{1}{n} \ge 1$ and thus, since $(x_n)$ is monotonously decreasing past $n = 3$ and is lowerbounded by 0, by the Monotone Convergence Theorem, we know that $(x_n)$ converges.
+\end{solution}
+
+\begin{parts}
+	\item Use the fact that the subsequence $(x_{2n})$ also converges to x to conclude that $x = 1$.
+\end{parts}
+
+\begin{solution}
+	Since we know that $(x_n)$ converges, we know that all subsequences of $(x_n)$ also converge to $x$. Therefore, using the limit identity proven in the textbook that $\lim_{n\to\infty}(p)^\frac{1}{n} = 1 \; \forall p \in \mathbb{R}, r \ge 1$, we can find that:
+	
+	\begin{align*}
+		\lim_{n\to\infty} \left( (2n)^{\frac{1}{2n}} \right) &= x \implies \\
+		\lim_{n\to\infty} \left( (2n)^{\frac{1}{n}} \right) &= x^2 \implies \\
+		\lim_{n\to\infty} \left( 2^{\frac{1}{n}} n^{\frac{1}{n}} \right) &= x^2 \implies \\
+		\lim_{n\to\infty} \left( 2^{\frac{1}{n}} \right) \cdot \lim_{n\to\infty} \left( n^{\frac{1}{n}} \right) &= x^2 \implies \\
+		1 \cdot x &= x^2 \implies \\
+		x &= x^2 \implies \\
+		x^2 - x &= 0 \implies \\
+		x(x - 1) &= 0 \\
+	\end{align*}
+
+	Therefore, $x = 1$ or $x = 0$, but since we know that $x_n \ge 1 \; \forall n \in \mathbb{N}$, $x$ must equal 1. Therefore, $\lim_{n\to\infty}(x_n) = 1$.
+\end{solution}
+
+\setcounter{chapter}{5}
+
+\begin{exercise}[5]
+	If $x_n \coloneq \sqrt{n}$, show that $(x_n)$ satisfies $\lim_{n\to\infty}|x_{n + 1} - x_n| = 0$ but is not a Cauchy sequence.
+\end{exercise}
+
+\begin{solution}
+
+	\begin{steps}
+		\item Show that $x_n$ satisfies $\lim_{n\to\infty}|x_{n + 1} - x_n| = 0$.
+	\end{steps}
+	
+	Taking it as given that the sequence $\frac{1}{n}$ converges to zero, by algebraic limit rules, we can determine that the sequence $\frac{1}{\sqrt{n}}$ also converges to zero. Thus, for arbitrary $\epsilon > 0$, we know that there exists some $N \in \mathbb{N}$ such that $\forall \ge N, \frac{1}{\sqrt{n}} < \epsilon$. Therefore, for all such $n$, we have that:
+
+	\begin{align*}
+		|(x_{n + 1} - x_n) - 0| &= |\sqrt{n + 1} - \sqrt{n}| \\\\
+		&= \sqrt{n + 1} - \sqrt{n} \qquad \langle \; \text{Since} \sqrt{n + 1} > \sqrt{n} \; \forall n \in \mathbb{N} \; \rangle \\\\
+		&= \sqrt{n + 1} - \sqrt{n} \cdot \frac{\sqrt{n + 1} + \sqrt{n}}{\sqrt{n + 1} + \sqrt{n}} \\
+		&= \frac{\left( \sqrt{n + 1} - \sqrt{n} \right) \left ( \sqrt{n + 1} + \sqrt{n} \right)}{\sqrt{n + 1} + \sqrt{n}} \\
+		&= \frac{n + 1 - n}{\sqrt{n + 1} + \sqrt{n}} \\
+		&= \frac{1}{\sqrt{n + 1} + \sqrt{n}} \\
+		&\le \frac{1}{\sqrt{n}} \\
+		&< \epsilon \\
+	\end{align*}
+
+	Thus, since for arbitrary $\epsilon > 0$, we can find an $N \in \mathbb{N}$ such that for all $n \ge N$, $|x_{n + 1} - x_n| < \epsilon$, by definition of convergence, $\lim_{n\to\infty}|x_{n + 1} - x_n| = 0$.
+
+	\begin{steps}
+		\item Show that $x_n$ is not a Cauchy sequence.
+	\end{steps}
+
+	We show that $x_n$ is not a Cauchy sequence by proving that it diverges because, over the set of real numbers, a sequence is Cauchy if and only if it is convergent to a real number. Let $M^2 > 0$ be arbitrary. By the Archimedean property, we know that there exists an $N \in \mathbb{N}$ such that for all $n \ge N \implies n > M^2$. Thus:
+
+	\begin{align*}
+		n &\ge N \implies \\
+		n &> M^2 \implies \\
+		\sqrt{n} &> \sqrt{M^2} \implies \\
+		x_n &> M \\
+	\end{align*}
+
+	Therefore, we know that $\lim_{n\to\infty} (x_n)$ diverges to infinity and therefore $(x_n)$ cannot be Cauchy.
+\end{solution}
+
+\setcounter{chapter}{6}
+
+\begin{exercise}[10]
+	Show that if $\lim_{n\to\infty}(\frac{a_n}{n}) = L$, where $L > 0$, then $\lim_{n\to\infty}(a_n) = +\infty$.
+\end{exercise}
+
+\begin{solution}
+	Let $M > 0$ be arbitrary. Since $\lim_{n\to\infty} \frac{1}{n} = 0$ is known, we can conclude using algebraic limit rules that $\lim_{n\to\infty}(\frac{M}{N}) = 0$. Since $\lim_{n\to\infty} (\frac{a_n}{n}) = L > 0$, we know there exists some $N_0 \in \mathbb{N}$ such that $\forall n \ge N_0$:
+
+	\begin{gather*}
+		|\frac{a_{n}}{n} - L| < \frac{L}{2} \\
+	\end{gather*}
+
+	And therefore, $\frac{L}{2} < \frac{a_n}{n} < \frac{3}{2}L$ for all such $n$. Likewise, we know that there exists some $N_1 \in \mathbb{N}$ such that $\forall n \ge N_1$:
+
+	\begin{align*}
+		|\frac{M}{n}| &< \frac{L}{2}
+	\end{align*}
+
+	And therefore, $0 < \frac{M}{n} < \frac{L}{2}$ for all such n. Thus, letting $N = \text{max}\{N_0, N_1\}$, we have that $\forall n \ge N$:
+
+	\begin{align*}
+		\frac{a_n}{n} &> \frac{M}{n} \\
+		a_n &> M
+	\end{align*}
+
+	Therefore, since for arbitrary $M > 0$, we can always find an $N \in \mathbb{N}$ such that $a_n > M \; \forall n \ge N$, $\lim_{n\to\infty}(a_n) = +\infty$.
+\end{solution}
+
+\setcounter{chapter}{7}
+
+\begin{exercise}[11]
+	If $\sum_{n = 1}^{\infty}a_n$ with $a_n > 0$ is convergent, then is $\sum_{n = 1}^{\infty}(a_n)^2$ always convergent? Either prove it or give a counter-example.
+\end{exercise} 
+
+\begin{solution}
+	\begin{proof}
+		We know, by definition of infinite sums, that if $\sum_{n = 1}^{\infty}a_n$ convergent to some limit $a$, then the sequence of its partial sums, defined by $(s_k) = \sum_{n = 1}^{k}(a_n)$ must converge likewise converge to $a$. Therefore, we know that $\lim_{k\to\infty}(s_k) = a$. Using the same logic, we know that the infinite sum $\sum_{n = 1}^{\infty}(a_n)^2$ converges if the sequence of its partial sums converges.
+
+		Since $a_n > 0, \; \forall n \in \mathbb{N}$, we know that $(s_k)$ is increasing and since $a_n > 0 \implies (a_n)^2 > 0$, we likewise know the sequence of partial sums of $(a_n)^2$ is likewise increasing. Furthermre, as a corollary to the fact $(s_k)$ is increasing, we know that $a$ must upperbound $(s_k)$. Now, algebraic limit rules dictate that $\left( \lim_{k\to\infty}(s_k) \right)^2 = a^2$, however, notice that:
+
+		\begin{align*}
+			(s_k^2) &= \left( \sum_{n = 1}^{k}(a_n) \right)^2 \\
+			&= \sum_{n = 1}^{k}(a_n) \cdot \sum_{n = 1}^k(a_n) \\
+			&= (a_1 + a_2 + \ldots + a_k) \cdot (a_1 + a_2 + \ldots + a_k) \\
+			&= a_1^2 + a_1a_2 + \ldots + a_1a_k + a_2a_1 + a_2^2 + \ldots a_2a_k + \ldots + a_ka_1 + a_ka_2 + \ldots + a_k^2 \\
+			&\ge a_1^2 + a_2^2 + \ldots + a_k^2 \qquad \langle \; \text{Since} \; a_n > 0 \; \forall n \in \mathbb{N} \; \rangle \\
+			&= \sum_{n = 1}^k(a_n)^2 \\
+		\end{align*}
+
+		Therefore, we know that the sequence of partial sums of $0 < \sum_{n = 1}^k(a_n)^2 \le s_k$, we therefore know that $a$ must also upperbound the sequence of partial sums of $(a_k)^2$. Thus, since the sequence of partial sums of $(a_k)^2$ is both increasing and upperbounded by $a$, by Monotone Convergence Theorem, the sequence converges and thus, the infinite sum $\sum_{n = 1}^{\infty}(a_n)^2$ converges.
+	\end{proof}
+\end{solution}
+
+\setcounter{section}{4}
+\setcounter{chapter}{1}
+
+\begin{exercise}[7]
+	Show that $\lim_{x\to c}(x^3) = c^3$ for any $c \in \mathbb{R}$.
+\end{exercise}
+
+\begin{solution}
+	We can easily show this using the sequential definition of functional limits. Let $(x_n)$ by any sequence defined on $\mathbb{R}$ (since the domain of $x^3$ is $\mathbb{R}$) such that $x_n \neq c \; \forall n \in \mathbb{N}$ and $\lim_{n\to\infty}(x_n) = c$. By the algebraic limit theorems, we know that:
+
+	\begin{align*}
+		\lim_{n\to\infty}(x^3) &= (\lim_{n\to\infty}(x_n))^3 \\
+		&= c^3 \\
+	\end{align*}
+
+	Therefore, by definition of functional limits, since for all such $(x_n)$, $\lim_{n\to\infty}(x_n)^3 = c^3$, $\lim_{x \to c}(x)^3 = c^3$.
+\end{solution}
+\end{document}
