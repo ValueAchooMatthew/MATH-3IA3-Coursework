@@ -1,0 +1,169 @@
+\documentclass{article}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{listings}
+\lstset{breaklines=true}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=blue,
+	citecolor=blue,
+	anchorcolor=blue
+}
+
+\renewcommand{\thesubsubsection}{\Roman{subsubsection}}
+\title{Math 3IA3 - Assignment 1}
+\author{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\date{\today}
+
+\makeatletter
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L]{Matthew Farah, $\langle$\href{mailto:farahm11@mcmaster.ca}{farahm11@mcmaster.ca}$\rangle$, 400468251}
+\fancyhead[R]{Math 3IA3 - Assignment 1}
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\setlength{\parindent}{0cm}
+
+\setcounter{section}{1}
+
+\newcounter{chapter}
+\setcounter{chapter}{1}
+
+\newcounter{exercise}
+\renewcommand{\theexercise}{\arabic{exercise}}
+
+\newenvironment{exercise}[1][]{
+	\newpage
+	\ifx\\#1\\
+		\refstepcounter{exercise}
+	\else
+		\setcounter{exercise}{#1}
+	\fi
+	\addcontentsline{toc}{section}{\protect{\large{Exercise \thesection.\thechapter.\theexercise}}}
+	\par\noindent
+	\large\textbf{Exercise \thesection.\thechapter.\theexercise}
+	\par\noindent\vspace{.5em}
+	\setcounter{step}{0}
+	\setcounter{part}{0}
+}{\vspace{.5em}}
+
+\newenvironment{solution}{
+	\vspace{1em}\par\noindent\large\textbf{{Solution:}}\par\vspace{1em}
+}{
+	\vspace{1em}
+}
+
+\newcounter{subexercise}
+\renewcommand{\thesubexercise}{\alph{subexercise}}
+
+\newenvironment{subexercise}{
+	\refstepcounter{subexercise}
+	\vspace{1em}\par\noindent\large\textbf{(\thesubexercise)}
+	\setcounter{step}{0}
+}{
+	\par
+	\vspace{1em}
+}
+
+\makeatother
+
+\makeatletter
+
+\newcounter{step}
+\renewcommand{\thestep}{\Roman{step}}
+
+\newenvironment{step}{
+	\refstepcounter{step}
+	\vspace{1.5em}\par\noindent\large\textbf{(\thestep)}
+}{
+	\par
+	\vspace{1.5em}
+}
+
+\makeatother
+
+\begin{document}
+
+\maketitle
+\pagestyle{fancy}
+
+\tableofcontents
+\newpage
+
+\begin{exercise}[15]
+	Show that if $f: A \rightarrow B$ and $G$ and $H$ are both subsets of $B$, then:
+\end{exercise}
+
+\begin{subexercise}
+	$f^{-1}(G \cup H) = f^{-1}(G) \cup f{-1}(H)$.
+\end{subexercise}
+
+\begin{solution}
+	We will prove that $f^{-1}(G \cup H) = f^{-1}(G) \cup f^{-1}(H)$ by first showing that $f^{-1}(G) \cup f^{-1}(H) \subseteq f^{-1}(G \cup H)$ and that $f^{-1}(G \cup H) \subseteq f^{-1}(G) \cup f^{-1}(H)$.
+
+	\begin{step}
+		Show that $f^{-1}(G) \cup f^{-1}(H) \subseteq f^{-1}(G \cup H)$.
+	\end{step}
+
+	Let $b \in (f^{-1}(G) \cup f^{-1}(H))$. Then, by definition of inverse, we know $f(b) \in G \vee f(b) \in H$. Thus, $f(b) \in G \cup H$. Taking the inverse of both sides, yields $b \in f^{-1}(G \cup H)$. Thus, since $b \in (f^{-1}(G) \cup f^{-1}(H)) \implies b \in f^{-1}(G \cup H)$, $(f^{-1}(G) \cup f^{-1}(H)) \subseteq f^{-1}(G \cup H)$.
+
+	\begin{step}
+		Show that $f^{-1}(G \cup H) \subseteq f^{-1}(G) \cup f^{-1}(H)$.
+	\end{step}
+
+	Let $b \in f^{-1}(G \cup H)$. Applying $f$ to both sides yields $f(b) \in (G \cup H) \implies f(b) \in G \vee f(b) \in H$. Thus, reapplying the inverse we have that $b \in f^{-1}(G) \vee \cup f^{-1}(H)$, which, by definition of inverse implies that $b \in f^{-1}(G) \cup f^{-1}(H)$. Thus, since $b \in f^{-1}(G \cup H) \implies b \in (f^{-1}(G) \cup f^{-1}(H))$, $f^{-1}(G \cup H) \subseteq (f^{-1}(G) \cup f^{-1}(H))$. \\
+
+	Therefore, since $f^{-1}(G) \cup f^{-1}(H) \subseteq f^{-1}(G \cup H)$ and $f^{-1}(G \cup H) \subseteq f^{-1}(G) \cup f^{-1}(H)$, we necessarily have that $f^{-1}(G \cup H) = f^{-1}(G) \cup f^{-1}(H)$.
+\end{solution}
+
+\begin{subexercise}
+	$f^{-1}(G \cap H) = f^{-1}(G) \cap f^{-1}(H)$.
+\end{subexercise}
+
+\begin{solution}
+	We will likewise prove that $f^{-1}(G \cap H) = f^{-1}(G) \cap f^{-1}(H)$ by first showing that $f^{-1}(G \cap H) \subseteq (f^{-1}(G) \cap f^{-1}(H))$ and that $(f^{-1}(G) \cap f^{-1}(H)) \subseteq f^{-1}(G \cap H)$.
+
+	\begin{step}
+		Show that $f^{-1}(G \cap H) \subseteq (f^{-1}(G) \cap f^{-1}(H))$.
+	\end{step}
+
+	Let $b \in f^{-1}(G \cap H)$. Therefore, applying the function to both sides, we know that $f(b) \in (G \cap H) \implies f(b) \in G \wedge f(b) \in H$. Thus, applying the inverse, we have $b \in f^{-1}(G) \wedge b \in f^{-1}(H)$ and thus, by definition of intersection, we have $b \in f^{-1}(G) \cap f^{-1}(H)$. Thus, since $b \in f^{-1}(G \cap H) \implies b \in (f^{-1}(G) \cap f^{-1}(H))$, $f^{-1}(G \cap H) \subseteq (f^{-1}(G) \cap f^{-1}(H))$.
+
+	\begin{step}
+		$(f^{-1}(G) \cap f^{-1}(H)) \subseteq f^{-1}(G \cap H)$.
+	\end{step}
+
+	Let $b \in f^{-1}(G) \cap f^{-1}(H)$. Therefore, applying the function to both sides, we know that $f(b) \in G \wedge f(b) \in H$. Thus, by definition of inverse, we know that $f(b) \in (G \cap H)$, and by reapplying the inverse to both sides, we yield $b \in f^{-1}(G \cap H)$. Thus, since $b \in (f^{-1}(G) \cap f^{-1}(H)) \implies b \in f^{-1}(G \cap H)$, $(f^{-1}(G) \cap f^{-1}(H)) \subseteq f^{-1}(G \cap H)$. \\
+
+	Therefore, since $f^{-1}(G \cap H) \subseteq (f^{-1}(G) \cap f^{-1}(H))$ and $(f^{-1}(G) \cap f^{-1}(H)) \subseteq f^{-1}(G \cap H)$ we necessarily have that $(f^{-1}(G) \cap f^{-1}(H)) = f^{-1}(G \cap H)$
+
+\end{solution}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
