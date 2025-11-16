@@ -1,0 +1,274 @@
+\documentclass{article}
+\usepackage{bm}
+\usepackage{braket}
+\usepackage{lipsum}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{listings}
+\lstset{breaklines=true}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=blue,
+	citecolor=blue,
+	anchorcolor=blue
+}
+
+\renewcommand{\thesubsubsection}{\Roman{subsubsection}}
+\title{Math 3IA3 - Midterm}
+\author{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\date{\today}
+
+\makeatletter
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L]{Matthew Farah, $\langle$\href{mailto:farahm11@mcmaster.ca}{farahm11@mcmaster.ca}$\rangle$, 400468251}
+\fancyhead[R]{Math 3IA3 - Midterm} 
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\setlength{\parindent}{0cm}
+
+\newcounter{problem}
+\renewcommand{\theproblem}{\arabic{problem}}
+
+\newenvironment{problem}{
+	\newpage
+	\refstepcounter{problem}
+	\addcontentsline{toc}{section}{\protect{\large{Problem \theproblem}}}
+	\par
+	\large\textbf{Problem \theproblem}
+	\vspace{.2cm}
+	\par
+	\setcounter{step}{0}
+}{\vspace{.5em}}
+
+\newenvironment{solution}{
+	\vspace{.5em}\par\large\textbf{{Solution:}}\par\vspace{.5em}
+}{
+	\vspace{.5em}
+}
+
+\newcounter{step}
+\renewcommand{\thestep}{\Roman{step}}
+
+\newenvironment{step}{
+	\refstepcounter{step}
+	\vspace{1.5em}\par\noindent\large\textbf{(\thestep)}
+	\setcounter{substep}{0}
+}{
+	\par
+	\vspace{1.5em}
+}
+
+\makeatother
+
+\newcounter{substep}
+\renewcommand{\thesubstep}{\alph{substep}}
+
+\newenvironment{substep}{
+	\refstepcounter{substep}
+	\vspace{1.5em}\par\noindent\large\textbf{(\thesubstep)}
+}{
+	\par
+	\vspace{1.5em}
+}
+
+\makeatother
+
+\begin{document}
+
+\maketitle
+\pagestyle{fancy}
+
+\tableofcontents
+\newpage
+
+\begin{problem}
+	Let $S$ be a subset of $\mathbb{R}$ which is bounded below. Prove that a lower bound $w$ of $S$ is the infimum of $S$ if and only if for every $\epsilon > 0$, there exists some $t \in S$ such that $t < w + \epsilon$.
+\end{problem}
+
+\begin{solution}
+	\begin{proof}
+		$ $
+		\begin{step}
+			Prove the forward direction.
+		\end{step}
+	
+		If $w = \inf{S}$, then $w \le s, \forall s \in S$ and for all $l \in \mathbb{R}$ such that $l$ lowerbounds $S$, $l \le w$ by definition of infimum. \\
+	
+		Now, let $\epsilon > 0$ be arbitrary, and assume, for the purposes of deriving a contradiction, that there exists no element $s_0 \in S$ such that $s_0 < w + \epsilon$. This therefore implies that $w + \epsilon$ must be a lower bound of $S$ since $\forall s \in S, w + \epsilon \le s$. However, clearly $w < w + \epsilon$, which implies that there exists a lower bound of $S$ which is larger than $w$. This contradicts our prior assumptions that $w$ must be the greatest lower bound of $S$, and thus it must be the case that for arbitrary $\epsilon > 0$, $\exists s \in S$ such that $s < w + \epsilon$.
+	
+		\begin{step}
+			Prove the reverse direction.
+		\end{step}
+	
+		If $w$ is a lower bound of $S$ with the property that $\forall \epsilon > 0$, $\exists s_0 \in S$ such that $s_0 < w + \epsilon$, this implies that $s_0 - \epsilon < w$. \\
+	
+		Let $l$ be an arbitrary lower bound of $S$. Then we know for $l$ to lower bound $S$, $l \le s_0$, however, this implies that $l < w + \epsilon$ from our previous deduction regarding the relationship between $s_0$ and $w$. This therefore implies that $l \le w$, which means that $w$, which is a lower bound of $S$ is larger than or equal to any other possible lower bound of $S$. Therefore, by definition of infimum, we know that $w = \inf{S}$.
+	\end{proof}
+\end{solution}
+
+\begin{problem}
+	If $0 < a < b$, determine $\lim_{n\to\infty}\frac{a^{n + 1} + b^{n + 1}}{a^n + b^n}$.
+\end{problem}
+
+\begin{solution}
+	\begin{align*}
+		\lim_{n\to\infty} \left( \frac{a^{n + 1} + b^{n + 1}}{a^n + b^n} \right) &= \lim_{n\to\infty} \left( \frac{b^{n} \left( \frac{a^{n + 1}}{b^n} + b \right)}{b^n \left( \frac{a^n}{b^n} + 1 \right)} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{\frac{a^{n + 1}}{b^n} + b}{\frac{a^n}{b^n} + 1} \right) \\
+		&= \lim_{n\to\infty} \left( \frac{a \left( \frac{a}{b} \right)^n + b}{\left( \frac{a}{b} \right)^n + 1} \right) \\
+		&= \frac{a \lim_{n\to\infty}\left( \frac{a}{b} \right)^n + b}{\lim_{n\to\infty} \left( \frac{a}{b} \right)^n + 1} \\
+	\end{align*}
+
+	Now, since $0 < a < b$, $\frac{a}{b} < 1$. Therefore, we know that $\lim_{n\to\infty}\left( \frac{a}{b} \right)^n = 0$. Thus, we can conclude that:
+
+	\begin{align*}
+		\frac{a \lim_{n\to\infty}\left( \frac{a}{b} \right)^n + b}{\lim_{n\to\infty} \left( \frac{a}{b} \right)^n + 1} &= \frac{a \cdot 0 + b}{0 + 1} \\
+		&= \frac{0 + b}{1} \\
+		&= \frac{b}{1} \\
+		&= b \\
+	\end{align*}
+
+	Thus, $\lim_{n\to\infty} \left( \frac{a^{n + 1} + b^{n + 1}}{a^n + b^n} \right) = b$.
+\end{solution}
+
+\begin{problem}
+	Let $x_1 = 1$ and let $x_{n + 1} = \sqrt{2 + x_n}, \forall n \in \mathbb{N}$ such that $n \ge 1$. Show that $\lim_{n\to\infty}(x_n)$ exists and find the limit.
+\end{problem}
+
+\begin{solution}
+	\begin{step}
+		Prove $(x_n)$ is upperbounded.
+	\end{step}
+
+	Selecting 10 as an arbitrary number I conjecture upperbounds the sequence $(x_n)$, I will attempt to prove that 10 does indeed upperbond $(x_n)$ by induction. Let $P(n)$ be the statement $P(n): x_n \le 10$.
+
+	\begin{substep}
+		Show the base case holds (Show $P(1)$ is true).
+	\end{substep}
+
+	\begin{align*}
+		&\text{LHS:} & \text{RHS:} \\
+		& = x_1 & = 10 \\
+		& = 1 & = 10 \\
+	\end{align*}
+
+	Therefore, since the LHS $\le$ RHS, the base case holds and $P(1)$ is true.
+
+	\begin{substep}
+		Formulate the induction hypothesis (State $P(k)$).
+	\end{substep}
+
+	Let $k \in \mathbb{N}$ be an arbitrary natural number for which our statement holds true. We can therefore state our induction hypothesis to be:
+
+	\begin{align*}
+		P(k): x_k \le 10
+	\end{align*}
+
+	\begin{substep}
+		Prove the induction step (Show $P(k) \implies P(k + 1)$).
+	\end{substep}
+
+	\begin{align*}
+		x_{k + 1} &= \sqrt{2 + x_k} \qquad \langle \; \text{By definition of} \; (x_n) \; \rangle \\
+		&\le \sqrt{2 + 10} \qquad \langle \; \text{From our induction hypothesis} \; \rangle \\
+		&= \sqrt{12} \\
+		&\le 10 \\
+	\end{align*}
+
+	Therefore, since $P(1)$ is true, and for arbitrary $k \in \mathbb{N}$ where $P(k)$ holds true, $P(k) \implies P(k + 1)$, then by the principle of mathematical induction, $P(n)$ is true $\forall n \in \mathbb{N}$ and thus 10 is an upper bound of $(x_n)$.
+
+	\begin{step}
+		Prove that $(x_n)$ is increasing.
+	\end{step}
+
+	By computing the first few values of $(x_n)$, I conjecture, and will attempt to prove by induction, that $(x_n)$ is an increasing sequence. For this purpose, let $P(n)$ be the statement $P(n): x_{n} \le x_{n + 1}$
+
+	\begin{substep}
+		Show the base case holds (Show $P(1)$ is true).
+	\end{substep}
+
+	\begin{align*}
+		&\text{LHS:} & \text{RHS:} \\
+		& = x_1 & = x_2 \\
+		& = 1 & = \sqrt{2 + 1} \\
+		& = 1 & = \sqrt{3} \\
+	\end{align*}
+
+	Therefore, since the LHS $\le$ RHS, the base case holds and $P(1)$ is true.
+
+	\begin{substep}
+		Formulate the induction hypothesis (State $P(k)$).
+	\end{substep}
+
+	Let $k \in \mathbb{N}$ be an arbitrary natural number for which our statement holds true. We can therefore state our induction hypothesis to be:
+
+	\begin{align*}
+		P(k): x_k \le x_{k + 1}
+	\end{align*}
+
+	\begin{substep}
+		Prove the induction step (Show $P(k) \implies P(k + 1)$).
+	\end{substep}
+
+	\begin{align*}
+		x_{k + 2} &= \sqrt{2 + x_{k + 1}} \qquad \langle \; \text{By definition of} \; (x_k) \; \rangle \\
+		&\ge \sqrt{2 + x_k} \qquad \langle \; \text{By induction hypothesis} \; \rangle \\
+		&= x_k
+	\end{align*}
+
+	Therefore, since $P(1)$ is true, and for arbitrary $k \in \mathbb{N}$ where $P(k)$ holds true, $P(k) \implies P(k + 1)$, then by the principle of mathematical induction, $P(n)$ is true $\forall n \in \mathbb{N}$ and thus $(x_n)$ is an increasing sequence. \\
+
+	Thus, by $\textbf{(I)}$ and $\textbf{(II)}$, $(x_n)$ is an increasing sequence which is bounded above. Therefore, by the Monotone Convergence Theorem, $(x_n)$ converges and thus $\lim_{n\to\infty}(x_n)$ exists.
+
+	\begin{step}
+		Find $\lim_{n\to\infty}(x_n)$.
+	\end{step}
+
+	Let $L = \lim_{n\to\infty}(x_n)$. Trivially, we have that $\lim_{n\to\infty}(x_{n + 1}) = L = \lim_{n\to\infty}(x_n)$, and thus:
+
+	\begin{align*}
+		\lim_{n\to\infty}x_{n + 1} &= \lim_{n\to\infty}\sqrt{2 + x_n} \qquad \langle \; \text{By definition of} \; (x_n) \; \rangle \\
+		\lim_{n\to\infty}x_{n + 1} &= \sqrt{2 + \lim_{n\to\infty}x_n} \qquad \langle \; \text{By Algebraic Limit Theorems} \; \rangle \\
+		L &= \sqrt{2 + L} \\
+		L^2 &= 2 + L \\
+		L^2 - L - 2 &= 0 \\
+		(L + 1)(L - 2) &= 0 \\
+	\end{align*}
+
+	Thus, the limit of $(x_n)$ must be one of either $L = -1$ or $L = 2$. However, since $(x_n)$ is an increasing sequence, and $x_1 = 1$, it naturally must be that $\lim_{n\to\infty}(x_n) \ge 1$. Thus, $\lim_{n\to\infty}(x_n) = 2$.
+\end{solution}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
