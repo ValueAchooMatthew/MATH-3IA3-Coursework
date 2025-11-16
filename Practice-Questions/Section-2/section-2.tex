@@ -21,11 +21,11 @@
 \date{\today}
 
 \hypersetup{
-        colorlinks=true,
-        linkcolor=blue,
-        filecolor=magenta,
-        urlcolor=blue,
-        citecolor=blue,
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=blue,
+	citecolor=blue,
 	anchorcolor=blue
 }
 
@@ -33,69 +33,79 @@
 \fancyhead[L]{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
 \fancyhead[R]{Section 2 - Practice Problems}
 
-\newcommand{\chaptertitle}[1]{
-  \refstepcounter{chapter}
-  \vspace{1.5em}
-  \begin{center}
-  \underline{\noindent\Large\bfseries{Chapter} \thechapter: #1}
-  \end{center}
-  \vspace{1em}
+\setlength{\parindent}{0cm}
+
+\newcommand{\sectiontitle}{Section 1 - Practice Problems}
+\setcounter{section}{1}
+
+\newcounter{chapter}
+\setcounter{chapter}{1}
+
+\newenvironment{chaptertitle}{
+	\newpage
+	\begin{center}
+	\vspace*{.5em}
+	\par
+	\Large
+	Chapter \thechapter:\hspace{-.5em}
+	\addcontentsline{toc}{section}{\protect{\large{Chapter \thechapter}}}
+}{
+	\end{center}
+	\vspace{2.5em}
 }
 
-\newcommand{\sectiontitle}{Section 2 - Practice Problems}
-\setcounter{section}{2}
-
-\newcounter{chapter}[section]
-\renewcommand{\thechapter}{\thesection.\arabic{chapter}}
-
-\newcounter{exercise}[chapter]
-\renewcommand{\theexercise}{\thechapter.\arabic{exercise}}
+\newcounter{exercise}
+\renewcommand{\theexercise}{\arabic{exercise}}
 
 \newenvironment{exercise}[1][]{
-  \ifx\\#1\\
-    \refstepcounter{exercise}
-  \else
-    \setcounter{exercise}{#1}
-  \fi
-  \large{\par\noindent\textbf{Exercise \theexercise}}
-}{\vspace{0.8em}}
+	\ifx\\#1\\
+		\refstepcounter{exercise}
+	\else
+		\setcounter{exercise}{#1}
+	\fi
+	\addcontentsline{toc}{subsection}{\protect{\large{Exercise \thesection.\thechapter.\theexercise}}}
+	\vspace{1em}
+	\par
+	\large\textbf{Exercise \thesection.\thechapter.\theexercise}
+	\vspace{.2cm}
+	\par
+	\setcounter{subexercise}{0}
+	\setcounter{step}{0}
+}{\vspace{.5em}}
 
 \newenvironment{solution}{
-	\vspace{0.4cm}\par\noindent\large\textbf{{Solution:}}\par\vspace{0.4em}
-}{\vspace{0.8em}}
-
-\newcounter{partslist}
-
-\makeatletter
-\newcommand{\parts@seriesname}{parts@\theexercise}
-
-\newenvironment{parts}{
-  \edef\parts@ser{\parts@seriesname}
-  \ifcsname\parts@ser\endcsname
-    \begin{enumerate}[resume=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
-  \else
-    \begin{enumerate}[series=\parts@ser,label=\textbf{(\alph*)},leftmargin=3.3em,itemsep=0.4em,before=\large]
-    \expandafter\gdef\csname\parts@ser\endcsname{1}
-  \fi
+	\vspace{1em}\par\large\textbf{{Solution:}}\par\vspace{1em}
 }{
-  \end{enumerate}
+	\vspace{1em}
 }
+
+\newcounter{subexercise}
+\renewcommand{\thesubexercise}{\alph{subexercise}}
+
+\newenvironment{subexercise}{
+	\refstepcounter{subexercise}
+	\vspace{1em}\par\large\textbf{(\thesubexercise)}\hspace{-.5em}
+	\setcounter{step}{0}
+}{
+	\par
+	\vspace{1em}
+}
+
 \makeatother
 
 \makeatletter
-\newcommand{\steps@seriesname}{steps@\theexercise}
 
-\newenvironment{steps}{
-  \edef\steps@ser{\steps@seriesname}
-  \ifcsname\steps@ser\endcsname
-    \begin{enumerate}[resume=\steps@ser,label=(\Roman*),leftmargin=3.15em,itemsep=0.4em,topsep=0.6em]
-  \else
-    \begin{enumerate}[series=\steps@ser,label=(\Roman*),leftmargin=3.15em,itemsep=0.4em,topsep=0.6em]
-    \expandafter\gdef\csname\steps@ser\endcsname{1}
-  \fi
+\newcounter{step}
+\renewcommand{\thestep}{\Roman{step}}
+
+\newenvironment{step}{
+	\refstepcounter{step}
+	\vspace{1.5em}\par\noindent\large\textbf{(\thestep)}
 }{
-  \end{enumerate}
+	\par
+	\vspace{1.5em}
 }
+
 \makeatother
 
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
@@ -106,19 +116,24 @@
 \begin{document}
 
 \maketitle
+
+\tableofcontents
+\newpage
 \fi
 
-\vspace{-1cm}
+\setcounter{chapter}{1}
 
-\chaptertitle{The Algebraic and Order Properties of $\mathbb{R}$}
+\begin{chaptertitle}
+	The Algebraic and Order Properties of $\mathbb{R}$
+\end{chaptertitle}
 
 \begin{exercise}
 	Solve the following equations, justifying each step by referring to an approriate property or theorem.
 \end{exercise}
 
-\begin{parts}
-	\item $2x + 5 = 8$.
-\end{parts}
+\begin{subexercise}
+	$2x + 5 = 8$.
+\end{subexercise}
 
 \begin{solution}
 	\begin{align*}
@@ -133,9 +148,9 @@
 	\end{align*}
 \end{solution}
 
-\begin{parts}
-	\item $x^2 = 2x$
-\end{parts}
+\begin{subexercise}
+	$x^2 = 2x$
+\end{subexercise}
 
 \begin{solution}
 	\begin{align*}
@@ -147,9 +162,9 @@
 	\end{align*}
 \end{solution}
 
-\begin{parts}
-	\item $x^2 - 1 = 3$
-\end{parts}
+\begin{subexercise}
+	$x^2 - 1 = 3$
+\end{subexercise}
 
 \begin{solution}
 	\begin{align*}
@@ -163,10 +178,9 @@
 
 \newpage
 
-\begin{parts}
-	\item $(x - 1)(x - 2) = 0$
-	
-\end{parts}
+\begin{subexercise}
+	$(x - 1)(x - 2) = 0$
+\end{subexercise}
 
 \begin{solution}
 	\begin{align*}
@@ -179,16 +193,16 @@
 	Let $K \coloneq \{s + t\sqrt{2}: s, t \in \mathbb{Q} \}$. Show that $K$ satisfies the following:
 \end{exercise}
 
-\begin{parts}
-	\item If $x_1, x_2 \in K$, then $x_1 + x_2 \in K$ and $x_1x_2 \in K$.
-\end{parts}
+\begin{subexercise}
+	If $x_1, x_2 \in K$, then $x_1 + x_2 \in K$ and $x_1x_2 \in K$.
+\end{subexercise}
 
 \begin{solution}
 	Let $x_1 = s_1 + t_1\sqrt{2}, x_2 = s_2 + t_2\sqrt{2} \in K$. We separate the proof of each claim into two parts into two parts.
 
-	\begin{steps}
-		\item Prove $x_1 + x_2 \in K$
-	\end{steps}
+	\begin{step}
+		Prove $x_1 + x_2 \in K$
+	\end{step}
 
 	\begin{proof}
 		We can see that:
@@ -201,9 +215,9 @@
 		Thus, since $\mathbb{Q}$ is closed under addition, we know that $(s_1 + s_2) \in \mathbb{Q}$ and $(t_1 + t_2) \in \mathbb{Q}$. Therefore, $((s_1 + s_2) + (t_1 + t_2)\sqrt{2}) \in K$ and thus $(x_1 + x_2) \in K$.
 	\end{proof}
 
-	\begin{steps}
-		\item Prove $x_1x_2 \in K$
-	\end{steps}
+	\begin{step}
+		Prove $x_1x_2 \in K$
+	\end{step}
 
 	\begin{proof}
 		We can see that:
@@ -220,9 +234,9 @@
 	\end{proof}
 \end{solution}
 	
-\begin{parts}
-	\item If $x \neq 0$ and $x \in K$, then $\frac{1}{x} \in K$.
-\end{parts}
+\begin{subexercise}
+	If $x \neq 0$ and $x \in K$, then $\frac{1}{x} \in K$.
+\end{subexercise}
 
 \begin{solution}
 	\begin{proof}
@@ -245,9 +259,9 @@
 	If $0 < a < b$, prove that:
 \end{exercise}
 
-\begin{parts}
-	\item $a < \sqrt{ab} < b$
-\end{parts}
+\begin{subexercise}
+	$a < \sqrt{ab} < b$
+\end{subexercise}
 
 %FIX: FORMATTING
 
@@ -264,9 +278,9 @@
 	\end{proof}
 \end{solution}
 
-\begin{parts}
-	\item $\frac{1}{b} < \frac{1}{a}$
-\end{parts}
+\begin{subexercise}
+	$\frac{1}{b} < \frac{1}{a}$
+\end{subexercise}
 
 \begin{solution}
 	\begin{proof}
@@ -284,9 +298,11 @@
 	\end{proof}
 \end{solution}
 
-\newpage
+\setcounter{chapter}{2}
 
-\chaptertitle{Absolute Value and the Real Line}
+\begin{chaptertitle}
+	Absolute Value and the Real Line
+\end{chaptertitle}
 
 \begin{exercise}[9]
 	Find all values of $x$ that satisfy the following inequalities. Sketch all graphs.
@@ -294,9 +310,9 @@
 
 %TODO: FIX!
 
-\begin{parts}
-	\item $|x - 2| \le x + 1$
-\end{parts}
+\begin{subexercise}
+	$|x - 2| \le x + 1$
+\end{subexercise}
 
 \begin{solution}
 	\begin{align*}
@@ -315,9 +331,9 @@
 	\end{figure}
 \end{solution}
 
-\begin{parts}
-	\item $3|x| \le 2 - x$
-\end{parts}
+\begin{subexercise}
+	$3|x| \le 2 - x$
+\end{subexercise}
 
 \begin{solution}
 	\begin{align*}
@@ -341,9 +357,9 @@
 
 %TODO: CLEAN UP HEAVILY
 
-\begin{parts}
-	\item $|x| = |y|$.
-\end{parts}
+\begin{subexercise}
+	$|x| = |y|$.
+\end{subexercise}
 
 \begin{solution}
 	\begin{align*}
@@ -355,30 +371,33 @@
 
 \end{solution}
 
-\begin{parts}
-	\item $|x| + |y| = 1$.
-\end{parts}
+\begin{subexercise}
+	$|x| + |y| = 1$.
+\end{subexercise}
 
-\begin{parts}
-	\item $|xy| = 2$.
-\end{parts}
+\begin{subexercise}
+	$|xy| = 2$.
+\end{subexercise}
 
-\begin{parts}
-	\item $|x| - |y| = 2$.
-\end{parts}
+\begin{subexercise}
+	$|x| - |y| = 2$.
+\end{subexercise}
 
 \begin{exercise}[19]
 	Show that if $a, b, c \in \mathbb{R}$, then the ``middle number'' is $\text{mid}\{a, b, c\} = \text{min}\{\text{max}\{a, b\}, \text{max}\{b, c\}, \text{max}\{c, a\}\}$.
 \end{exercise}
 
-\begin{solution}
+%TODO: COMPLETE
 
+\begin{solution}
 
 \end{solution}
 
-\newpage
+\setcounter{chapter}{3}
 
-\chaptertitle{The Completeness Property of $\mathbb{R}$}
+\begin{chaptertitle}
+	The Completeness Property of $\mathbb{R}$
+\end{chaptertitle}
 
 \begin{exercise}
 	Let $S_3 = \{\frac{1}{n}: n \in \mathbb{N}\}$. Show that $\text{sup} S_3 = 1$ and $\text{inf} S_3 \ge 0$. (It will follow from the Archimedean Property in Section 2.4 that $\text{inf} S_3 = 0$.)
@@ -388,9 +407,9 @@
 
 \begin{solution}
 	
-	\begin{steps}
-		\item Show that $\text{sup} S_3 = 1$
-	\end{steps}
+	\begin{step}
+		Show that $\text{sup} S_3 = 1$
+	\end{step}
 
 	By definition of supremum, we know that $1$ is the supremum of $S_3$ if, for all $\epsilon > 0$:
 
@@ -402,9 +421,9 @@
 
 
 
-	\begin{steps}
-		\item Show that $\text{inf} s_3 \ge 0$.
-	\end{steps}
+	\begin{step}
+		Show that $\text{inf} s_3 \ge 0$.
+	\end{step}
 
 	Since $n \in \mathbb{N}$, we know $n \ge 0$ by the order limit properties of $\mathbb{R}$ that $\frac{1}{n} \ge 0$ for all $n \in \mathbb{N}$. Now, let's assume for the purposes of contradiction that $s_1 = \text{inf} S_3 < 0$. In such a case, we know that there exists an $s_2 \in \mathbb{R}$ such that $s_1 > s_2 > 0$. However, we know that $s_2$ must also lower bound $S_3$ since $\frac{1}{n} > 0 \; \forall n \in \mathbb{N}$. Thus, any $s_1 > 0$ cannot be the infimum of $S_3$ since there will always exists a number larger than it ($s_2$) which lowerbounds $S_3$. Therefore, by contraduction, the infimum of $S_3$ must be greater than or equal to zero.
 
@@ -435,17 +454,17 @@
 	
 	We separate our proof into two parts.
 
-	\begin{steps}
-		\item Prove that $A \cup B$ is bounded.
-	\end{steps}
+	\begin{step}
+		Prove that $A \cup B$ is bounded.
+	\end{step}
 
 	\begin{proof}
 		By definition of boundedness, we know that $\exists \; M_1, M_2 \in \mathbb{R}$ such that $|a| \le M_1, |b| \le M_2 \forall a, b \in A, B$. Let $M = max{M_1, M_2}$. Thus, we trivially have $M \ge M_1$ and $M \ge M_2$. We know that $\forall c \in (A \cup B)$, $c \in A \vee c \in B$. If $c \in A$, then $|c| \le M$ since $M \ge M_1$ and if $c \in B$, $|c| \le M$ since $M \ge M_2$. Thus, $A \cup B$ must be bounded for bounded $A, B$.
 	\end{proof}
 
-	\begin{steps}
-		\item Prove that $\text{sup}(A \cup B) = \text{sup}(\{\text{sup}(A), \text{sup}(B)\})$.
-	\end{steps}
+	\begin{step}
+		Prove that $\text{sup}(A \cup B) = \text{sup}(\{\text{sup}(A), \text{sup}(B)\})$.
+	\end{step}
 	
 	\begin{proof}
 		
@@ -465,9 +484,11 @@
 	\end{proof}
 \end{solution}
 
-\newpage
+\setcounter{chapter}{4}
 
-\chaptertitle{Application of the Supremum Property}
+\begin{chaptertitle}
+	Applications of the Supremum Property
+\end{chaptertitle}
 
 \begin{exercise}
 	If $S \coloneq \{\frac{1}{n} - \frac{1}{m}: n, m \in \mathbb{N}\}$, find $\text{inf}(S)$ and $\text{sup}(S)$.
@@ -494,15 +515,17 @@
 	To prove that $-1$ and $1$ are the infimum and supremum of $S$, consider $\epsilon > 0$. Now consider $1 - \epsilon$. By the Archimedean principle, we know that there exists an $n \in \mathbb{N}$ such that $N > 1 - \epsilon$ and 
 \end{solution}
 
-\newpage
-
 %TODO: FINISH
 
-\chaptertitle{Intervals}
+\setcounter{chapter}{5}
+
+\begin{chaptertitle}
+	Intervals
+\end{chaptertitle}
 
 
 \ifdefined\iscombined
-\newpage
+	\newpage
 \else
-  \end{document}
+	\end{document}
 \fi
