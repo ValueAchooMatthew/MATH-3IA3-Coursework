@@ -35,7 +35,6 @@
 \setlength{\parindent}{0cm}
 
 \newcommand{\sectiontitle}{Section 1 - Practice Problems}
-
 \setcounter{section}{1}
 
 \newcounter{chapter}
@@ -48,6 +47,7 @@
 	\par
 	\Large
 	Chapter \thechapter:\hspace{-.5em}
+	\addcontentsline{toc}{section}{\protect{\large{Chapter \thechapter}}}
 }{
 	\end{center}
 	\vspace{2.5em}
@@ -62,7 +62,7 @@
 	\else
 		\setcounter{exercise}{#1}
 	\fi
-	\addcontentsline{toc}{section}{\protect{\large{Exercise \thesection.\thechapter.\theexercise}}}
+	\addcontentsline{toc}{subsection}{\protect{\large{Exercise \thesection.\thechapter.\theexercise}}}
 	\vspace{1em}
 	\par
 	\large\textbf{Exercise \thesection.\thechapter.\theexercise}
