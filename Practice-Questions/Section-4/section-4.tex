@@ -1,0 +1,366 @@
+\ifdefined\iscombined
+	\sectiontitle{Section 4 - Practice Problems}
+	\setcounter{section}{4}
+\else
+\documentclass[10pt]{article}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{mathtools}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\pagestyle{fancy}
+\fancyhf{}
+\title{Section 4 - Practice Problems}
+\author{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\date{\today}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=blue,
+	citecolor=blue,
+	anchorcolor=blue
+}
+
+\fancyhead{}
+\fancyhead[L]{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\fancyhead[R]{Section 4 - Practice Problems}
+
+\DeclareMathOperator{\sign}{sign}
+
+\setlength{\parindent}{0cm}
+
+\newcommand{\sectiontitle}{Section 4 - Practice Problems}
+\setcounter{section}{4}
+
+\newcounter{chapter}
+\setcounter{chapter}{1}
+
+\newenvironment{chaptertitle}{
+	\newpage
+	\begin{center}
+	\vspace*{.5em}
+	\par
+	\Large
+	Chapter \thechapter:\hspace{-.5em}
+	\addcontentsline{toc}{section}{\protect{\large{Chapter \thechapter}}}
+}{
+	\end{center}
+	\vspace{2.5em}
+}
+
+\newcounter{exercise}
+\renewcommand{\theexercise}{\arabic{exercise}}
+
+\newenvironment{exercise}[1][]{
+	\ifx\\#1\\
+		\refstepcounter{exercise}
+	\else
+		\setcounter{exercise}{#1}
+	\fi
+	\addcontentsline{toc}{subsection}{\protect{\large{Exercise \thesection.\thechapter.\theexercise}}}
+	\vspace{1em}
+	\par
+	\large\textbf{Exercise \thesection.\thechapter.\theexercise}
+	\vspace{.2cm}
+	\par
+	\setcounter{subexercise}{0}
+	\setcounter{step}{0}
+}{\vspace{.5em}}
+
+\newenvironment{solution}{
+	\vspace{1em}\par\large\textbf{{Solution:}}\par\vspace{1em}
+}{
+	\vspace{1em}
+}
+
+\newcounter{subexercise}
+\renewcommand{\thesubexercise}{\alph{subexercise}}
+
+\newenvironment{subexercise}{
+	\refstepcounter{subexercise}
+	\vspace{1em}\par\large\textbf{(\thesubexercise)}\hspace{-.5em}
+	\setcounter{step}{0}
+	\addcontentsline{toc}{subsubsection}{\protect{\large{\thesection.\thechapter.\theexercise.\thesubexercise}}}
+}{
+	\par
+	\vspace{1em}
+}
+
+\makeatother
+
+\makeatletter
+
+\newcounter{step}
+\renewcommand{\thestep}{\Roman{step}}
+
+\newenvironment{step}{
+	\refstepcounter{step}
+	\vspace{1.5em}\par\noindent\large\textbf{(\thestep)}
+}{
+	\par
+	\vspace{1.5em}
+}
+
+\makeatother
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\renewcommand{\arraystretch}{1.8}
+
+\fontsize{10pt}{14pt}\selectfont
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+\fi
+
+\setcounter{chapter}{1}
+
+\begin{chaptertitle}
+	Limits of Functions
+\end{chaptertitle}
+
+\begin{exercise}[4]
+	Let $f \coloneq \mathbb{R} \rightarrow \mathbb{R}$ and let $c \in \mathbb{R}$. Show that $\lim_{x\to{c}}f(x) = L$ if and only if $\lim_{x\to{0}}f(x + c) = L$.
+\end{exercise}
+
+\begin{solution}
+	\begin{step}
+		Forward Direction.
+	\end{step}
+
+	\begin{align*}
+		|x - c| < \delta \implies \\
+		|f(x) - L| < \epsilon \\
+		|x| < \delta \implies \\
+		|f(x + c) - L| < \epsilon
+	\end{align*}
+
+	\begin{step}
+		Reverse Direction.
+	\end{step}
+\end{solution}
+
+\begin{exercise}[5]
+	Let $I \coloneq (0, a)$ where $a > 0$, and let $g(x) \coloneq x^2$ for $x \in I$. For any points $x, c \in I$, show that $|g(x) - c^2| \le 2a|x - c|$. Use this inequality to prove that $\lim_{x\to{c}}x^2 = c^2$ for any $c \in I$.
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}[8]
+	Show that $\lim_{x\to{c}}\sqrt{x} = \sqrt{c}$ for any $c > 0$.
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}[12]
+	Show that the following limits do \emph{not} exist.
+\end{exercise}
+
+\begin{subexercise}
+	$\lim_{x\to{0}} \frac{1}{x^2} \; (x > 0)$.
+\end{subexercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{subexercise}
+	$\lim_{x\to{0}} \frac{1}{\sqrt{x}} \; (x > 0)$.
+\end{subexercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{subexercise}
+	$\lim_{x\to{0}} (x + \sign(x))$. Note that $\sign(x) = \begin{cases}1, \; \text{if} \; x > 0 \\ 0, \; \text{if} \; x = 0 \\ -1, \; \text{if} \; x < 0  \end{cases}$.
+\end{subexercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{subexercise}
+	$\lim_{x\to{0}} \sin \left( \frac{1}{x^2} \right)$.
+\end{subexercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}[14]
+	Let $c \in \mathbb{R}$ and let $f: \mathbb{R} \rightarrow \mathbb{R}$ be such that $\lim_{x\to{c}} (f(x))^2 = L$.
+\end{exercise}
+
+\begin{subexercise}
+	Show that if $L = 0$, then $\lim_{x\to{c}}f(x) = 0$.
+\end{subexercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{subexercise}
+	Show by example that if $L \neq 0$, then $f$ may not have a limit at $c$.
+\end{subexercise}
+
+\begin{solution}
+
+\end{solution}
+
+\setcounter{chapter}{2}
+
+\begin{chaptertitle}
+	Limit Theorems
+\end{chaptertitle}
+
+\begin{exercise}[4]
+	Prove that $\lim_{x\to{0}} \cos \left( \frac{1}{x} \right)$ does not exist but that $\lim_{x\to{0}}x \cos \left( \frac{1}{x} \right) = 0$.
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}[5]
+	Let $f, \, g$ be defined on $A \subseteq \mathbb{R}$ to $\mathbb{R}$, and let $c$ be a cluster point of $A$. Suppose that $f$ is bounded on a neighbourhood of $c$ and that $\lim_{x\to{c}} g = 0$. Prove that $\lim_{x\to{c}} f\cdot{g} = 0$.
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}[8]
+	Let $n \in \mathbb{N}$ be such that $n \ge 3$. Derive the inequality $-x^2 \le x^n \le x^2$ for $-1 < x < 1$. Then use the fact that $\lim_{x\to{0}}x^2 = 0$ to show that $\lim_{x\to{0}}x^n = 0$.
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}[9]
+	Let $f, \, g$ be defined on $A$ to $\mathbb{R}$ and let $c$ be a cluster point of $A$.
+\end{exercise}
+
+\begin{subexercise}
+	Show that if both $\lim_{x\to{c}}f$ and $\lim_{x\to{c}}(f + g)$ exists, then $\lim_{x\to{c}}g$ exists.
+\end{subexercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{subexercise}
+	If $\lim_{x\to{c}}f$ and $\lim_{x\to{c}}f \cdot g$ exist, does it follow that $\lim_{x\to{c}}$ exists?
+\end{subexercise}
+
+\begin{solution}
+	No
+\end{solution}
+
+\begin{exercise}[11]
+	Determine whether the following limits exist in $\mathbb{R}$.
+\end{exercise}
+
+\begin{subexercise}
+	$\lim_{x\to{0}} \sin \left( \frac{1}{x^2} \right) \; (x \neq 0)$.
+\end{subexercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{subexercise}
+	$\lim_{x\to{0}} x \sin \left( \frac{1}{x^2} \right) \; (x \neq 0)$.
+\end{subexercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{subexercise}
+	$\lim_{x\to{0}}\sign \left( \sin \left( \frac{1}{x^2} \right) \right) \; (x \neq 0)$.
+\end{subexercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{subexercise}
+	$\lim_{x\to{0}}\sqrt{x}\sin \left( \frac{1}{x^2} \right)$.
+\end{subexercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}[15]
+	Let $A \subseteq \mathbb{R}$ and let $f: A \rightarrow \mathbb{R}$, and let $c \in \mathbb{R}$ be a cluster point of $A$. In addition, suppose that $f(x) \ge 0$ for all $x \in A$, and let $\sqrt{f}$ be the function defined for $x \in A$ by $\left( \sqrt{f} \right)(x) \coloneq \sqrt{f(x)}$. If $\lim_{x\to{c}}$ exists, prove that $\lim_{x\to{c}} \sqrt{f} = \sqrt{\lim_{x\to{c}}f}$.
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\setcounter{chapter}{3}
+\begin{chaptertitle}
+	Some Extensions of the Limit Concept
+\end{chaptertitle}
+
+\begin{exercise}[4]
+	Let $c \in \mathbb{R}$ and let $f$ be defined for $x \in \left( c, \infty \right)$ and $f(x) > 0$ for all $x \in \left( c, \infty \right)$. Show that $\lim_{x\to{c}}f = \infty$ if and only if $\lim_{x\to{c}}\frac{1}{f} = 0$.
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}[8]
+	Let $f$ be defined on $\left(0, \infty \right)$ to $\mathbb{R}$. Prove that $\lim_{x\to\infty} = L$ if and only if $\lim_{x\to{0}^+}f\left( \frac{1}{x} \right) = L$.
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}[12]
+	Find functions $f$ and $g$ defined on $\left( 0, \infty \right)$ such that $\lim_{x\to\infty} f = \infty$ and $\lim_{x\to\infty} = \infty$ and $\lim_{x\to\infty}(f - g) = 0$. Can you find such functions, with $g(x) > 0$ for all $x \in \left( 0, \infty \right)$ such that $\lim_{x\to\infty} \frac{f}{g} = 0$?
+\end{exercise}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}[13]
+	Let $f$ and $g$ be defined on $\left( a, \infty \right)$ and suppose that $\lim_{x\to\infty}f = L$ and $\lim_{x\to\infty}g = \infty$. Prove that $\lim_{x\to\infty} f \circ g = L$.
+\end{exercise}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
