@@ -1,0 +1,348 @@
+\documentclass{article}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{listings}
+\lstset{breaklines=true}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=blue,
+	citecolor=blue,
+	anchorcolor=blue
+}
+
+\renewcommand{\thesubsubsection}{\Roman{subsubsection}}
+\title{Math 3IA3 - Assignment 4}
+\author{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\date{\today}
+
+\makeatletter
+\setlist{listparindent=\parindent}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L]{Matthew Farah, $\langle$\href{mailto:farahm11@mcmaster.ca}{farahm11@mcmaster.ca}$\rangle$, 400468251}
+\fancyhead[R]{Math 3IA3 - Assignment 4}
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\setlength{\parindent}{0cm}
+
+\setcounter{section}{4}
+
+\newcounter{chapter}
+\renewcommand{\thechapter}{\arabic{chapter}}
+\setcounter{chapter}{2}
+
+\newenvironment{chaptertitle}[1][]{
+	\newpage
+	\refstepcounter{chapter}
+	\begin{center}
+	\vspace*{.5em}
+	\par
+	\Large
+	Section \thechapter:\hspace{-.5em}
+	\addcontentsline{toc}{section}{\protect{\large{Section \thechapter $\,$ (#1)}}}
+}{
+	\end{center}
+	\vspace{2.5em}
+}
+
+\newcounter{exercise}
+\renewcommand{\theexercise}{\arabic{exercise}}
+
+\newenvironment{exercise}[1][]{
+	\refstepcounter{exercise}
+	\addcontentsline{toc}{subsection}{\protect{\large{Exercise \thesection.\thechapter.#1}}}
+	\vspace{1em}
+	\par
+	\large\textbf{Exercise \thesection.\thechapter.#1}
+	\vspace{.2cm}
+	\par
+	\setcounter{subexercise}{0}
+	\setcounter{step}{0}
+}{\vspace{.5em}}
+
+\newenvironment{solution}{
+	\vspace{1em}\par\large\textbf{{Solution:}}\par\vspace{1em}
+}{
+	\vspace{1em}
+	\newpage
+}
+
+\newcounter{subexercise}
+\renewcommand{\thesubexercise}{\alph{subexercise}}
+
+\newenvironment{subexercise}{
+	\refstepcounter{subexercise}
+	\vspace{1em}\par\large\textbf{(\thesubexercise)}\hspace{-.5em}
+	\setcounter{step}{0}
+	\addcontentsline{toc}{subsubsection}{\protect{\large{Part \theexercise.\thesubexercise}}}
+}{
+	\par
+	\vspace{1em}
+}
+
+\makeatother
+
+\makeatletter
+
+\newcounter{step}
+\renewcommand{\thestep}{\Roman{step}}
+
+\newenvironment{step}{
+	\refstepcounter{step}
+	\vspace{1.5em}\par\noindent\large\textbf{(\thestep)}
+}{
+	\par
+	\vspace{1.5em}
+}
+
+\makeatother
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\renewcommand{\arraystretch}{1.8}
+
+\fontsize{10pt}{14pt}\selectfont
+
+\begin{document}
+
+\maketitle
+\pagestyle{fancy}
+\cfoot{\thepage}
+
+\tableofcontents
+\newpage
+
+\begin{exercise}[12]
+	Find functions $f$ and $g$ defined on $\left( 0, \infty \right)$ such that $\lim_{x\to\infty}f = \infty$ and $\lim_{x\to\infty}g = \infty$ and $\lim_{x\to\infty}\left( f - g \right) = 0$. Can you find such functions, with $g(x) > 0$ for all $x > 0$ for all $x \in \left( 0, \infty \right)$, such that $\lim_{x\to\infty} \frac{f}{g} = 0$?
+\end{exercise}
+
+\begin{solution}
+
+\begin{step}
+Find $f$ and $g$ such that $\lim_{x\to\infty}(f-g)=0$ while both diverge.
+\end{step}
+
+A suitable choice is
+\[
+f(x)=x+\frac{1}{x},\qquad g(x)=x.
+\]
+
+\begin{align*}
+\lim_{x\to\infty}f(x) &= \lim_{x\to\infty}\left(x+\frac{1}{x}\right) = \infty,\\
+\lim_{x\to\infty}g(x) &= \lim_{x\to\infty}x = \infty,\\
+\lim_{x\to\infty}(f(x)-g(x)) &= \lim_{x\to\infty}\frac{1}{x} = 0.
+\end{align*}
+
+\begin{step}
+Find $f$ and $g$ with $g(x)>0$ and $\displaystyle\lim_{x\to\infty}\frac{f}{g}=0$.
+\end{step}
+
+Let
+\[
+f(x)=\sqrt{x},\qquad g(x)=x.
+\]
+
+\begin{align*}
+\lim_{x\to\infty}f(x) &= \infty,\\
+\lim_{x\to\infty}g(x) &= \infty,\qquad g(x)>0\ \forall x>0,\\
+\lim_{x\to\infty}\frac{f(x)}{g(x)} &= \lim_{x\to\infty}\frac{\sqrt{x}}{x}
+= \lim_{x\to\infty}\frac{1}{\sqrt{x}} = 0.
+\end{align*}
+
+\end{solution}
+
+\setcounter{section}{5}
+\setcounter{chapter}{1}
+
+\begin{exercise}[12]
+	Suppose that $f\colon \mathbb{R} \rightarrow \mathbb{R}$ is continuous on $\mathbb{R}$ and that $f(r) = 0$ for every rational number $r$. Prove that $f(x) = 0$ for all $x \in \mathbb{R}$.
+\end{exercise}
+
+\begin{solution}
+
+Assume, for contradiction, that there exists $k\in\mathbb{R}$ with $f(k)\neq 0$.  
+Let $L=f(k)$, so $|L|>0$.
+
+Since $f$ is continuous at $k$, for  
+\[
+\varepsilon=\frac{|L|}{2}>0,
+\]
+there exists $\delta>0$ such that
+\[
+0<|x-k|<\delta \implies |f(x)-L|<\varepsilon.
+\]
+
+Because $\mathbb{Q}$ is dense in $\mathbb{R}$, there exists a rational number $r$ with  
+\[
+0<|r-k|<\delta.
+\]
+Then
+\[
+|f(r)-L| = |0-L| = |L| \ge \frac{|L|}{2} = \varepsilon,
+\]
+contradicting continuity at $k$.
+
+Thus no such $k$ exists and $f(x)=0$ for all real $x$.
+
+\end{solution}
+
+\setcounter{chapter}{3}
+
+\begin{exercise}[12]
+	Let $I \coloneq \left[0, \frac{\pi}{2} \right]$ and let $f\colon I \rightarrow \mathbb{R}$ be defined by $f(x) \coloneq \sup{\set{x^2, \cos(x)}}$ for $x \in I$. Show that there exists an absolute maximum point $x_0 \in I$ for $f$ on $I$. Show that $x_0$ is a solution to the equation $\cos(x) = x^2$.
+\end{exercise}
+
+\begin{solution}
+
+\begin{step}
+Show that $f$ attains an absolute maximum on $I$.
+\end{step}
+
+Both $x^2$ and $\cos x$ are continuous on $I$. Thus
+\[
+f(x)=\max\{x^2,\cos x\}
+\]
+is continuous as the maximum of two continuous functions. Since $I$ is compact,
+$f$ attains an absolute maximum at some $x_0\in I$.
+
+\begin{step}
+Show that any interior maximizer satisfies $x_0^2=\cos x_0$.
+\end{step}
+
+Suppose $x_0\in(0,\frac{\pi}{2})$ is a point where $f$ achieves its maximum.
+
+\textbf{Case 1:} $\cos(x_0)>x_0^2$.
+	Then in a small neighbourhood of $x_0$ we have $f(x)=\cos x$. Since $\cos x$ is strictly decreasing on $[0,\frac{\pi}{2}]$, choosing $x<x_0$ sufficiently close gives $\cos(x)>\cos(x_0)$, contradicting maximality.
+
+\textbf{Case 2:} $x_0^2>\cos(x_0)$.
+Then near $x_0$ we have $f(x)=x^2$. Since $x^2$ is strictly increasing on $[0,\frac{\pi}{2}]$, choosing $x>x_0$ sufficiently close gives $x^2>x_0^2$, again contradicting maximality.
+
+Thus neither case is possible, so
+\[
+x_0^2 = \cos(x_0).
+\]
+
+\end{solution}
+
+\setcounter{chapter}{6}
+
+\begin{exercise}[7]
+	Let $I \subseteq \mathbb{R}$ be an interval and let $f\colon I \rightarrow \mathbb{R}$ be increasing on $I$. If $c$ is not an endpoint of $I$, show that the jump $j_{f}(c)$ of $f$ at $c$ is given as
+	\[
+	\inf\{f(y)-f(x) : x<c<y,\; x,y\in I\}.
+	\]
+\end{exercise}
+
+\begin{solution}
+
+Let
+\[
+j_f(c)=f(c+)-f(c-),
+\]
+where $f(c+)=\lim_{y\downarrow c}f(y)$ and $f(c-)=\lim_{x\uparrow c}f(x)$ exist because $f$ is increasing.
+
+Let
+\[
+S=\{\,f(y)-f(x):x<c<y,\ x,y\in I\,\}.
+\]
+
+\begin{step}
+Show $j_f(c)$ is a lower bound of $S$.
+\end{step}
+
+If $x<c<y$, then by monotonicity,
+\[
+f(y)-f(x)\ge f(c+)-f(c-)=j_f(c).
+\]
+
+\begin{step}
+Show $\inf S \le j_f(c)$.
+\end{step}
+
+Let $\varepsilon>0$.  
+Choose $y>c$ close enough so that
+\[
+f(y)<f(c+)+\varepsilon/2,
+\]
+and choose $x<c$ close enough so that
+\[
+f(x)>f(c-)-\varepsilon/2.
+\]
+Then
+\begin{align*}
+f(y)-f(x)
+&< \big(f(c+)+\varepsilon/2\big) - \big(f(c-)-\varepsilon/2\big) \\
+&= j_f(c)+\varepsilon.
+\end{align*}
+
+Thus $\inf S \le j_f(c)+\varepsilon$ for all $\varepsilon>0$, so $\inf S \le j_f(c)$.
+
+Combining both steps gives $\inf S = j_f(c)$.
+
+\end{solution}
+
+\setcounter{section}{6}
+\setcounter{chapter}{1}
+
+
+\begin{exercise}[9]
+	Show that if $f$ is an even function and has a derivative at every point, then the derivative $f'$ is an odd function. Also prove that if $g \colon \mathbb{R} \rightarrow \mathbb{R}$ is a differentiable and odd function then $g'$ is an even function.
+\end{exercise}
+
+\begin{solution}
+
+\begin{step}
+If $f$ is even and differentiable, then $f'$ is odd.
+\end{step}
+
+Since $f$ is even, $f(-x)=f(x)$ for all $x$.
+
+For any $x$,
+\begin{align*}
+f'(-x)
+&= \lim_{h\to 0}\frac{f(-x+h)-f(-x)}{h} \\
+&= \lim_{h\to 0}\frac{f(x-h)-f(x)}{h} \\
+&= \lim_{k\to 0}\frac{f(x+k)-f(x)}{-k} \qquad (k=-h)\\
+&= -f'(x).
+\end{align*}
+
+Thus $f'$ is odd.
+
+\begin{step}
+If $g$ is odd and differentiable, then $g'$ is even.
+\end{step}
+
+Since $g$ is odd, $g(-x)=-g(x)$.
+
+For any $x$,
+\begin{align*}
+g'(-x)
+&= \lim_{h\to 0}\frac{g(-x+h)-g(-x)}{h} \\
+&= \lim_{h\to 0}\frac{-g(x-h)+g(x)}{h} \\
+&= \lim_{k\to 0}\frac{g(x+k)-g(x)}{k} \qquad (k=-h)\\
+&= g'(x).
+\end{align*}
+
+Thus $g'$ is even.
+
+\end{solution}
+
+\end{document}
