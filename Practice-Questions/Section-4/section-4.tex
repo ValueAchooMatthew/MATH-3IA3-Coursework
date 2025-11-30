@@ -134,20 +134,29 @@
 	Let $f \coloneq \mathbb{R} \rightarrow \mathbb{R}$ and let $c \in \mathbb{R}$. Show that $\lim_{x\to{c}}f(x) = L$ if and only if $\lim_{x\to{0}}f(x + c) = L$.
 \end{exercise}
 
+%TODO: Complete
 \begin{solution}
 	\begin{step}
-		Forward Direction.
+		Prove the forward direction.
 	\end{step}
 
+	By definition of functional limits, we know that if $\lim_{x\to{c}} f(x) = L$, then for arbitrary $\epsilon > 0$, there exists a $\delta > 0$ such that $0 < |x - c| < \delta \implies |f(x) - L| < \epsilon$.
+
 	\begin{align*}
-		|x - c| < \delta \implies \\
-		|f(x) - L| < \epsilon \\
-		|x| < \delta \implies \\
-		|f(x + c) - L| < \epsilon
+		0 < |x - 0| < \delta \implies \\
+		|f(x + c) - L| &= |f(x + c) - f(x) + f(x) - L| \\
+		&\le |f(x + c) - f(x)| + |f(x) - L| \\
+		&< \frac{\epsilon}{2} + \frac{\epsilon}{2} \\
+		&= \epsilon
 	\end{align*}
 
+
+
+
+
+
 	\begin{step}
-		Reverse Direction.
+		Prove the reverse direction.
 	\end{step}
 \end{solution}
 
@@ -156,7 +165,31 @@
 \end{exercise}
 
 \begin{solution}
+	\begin{step}
+		Prove that $|g(x) - c^2| \le 2a|x - c|$ for all $ x, \, c \in I$.
+	\end{step}
 
+	\begin{align*}
+		|g(x) - c^2| &= |x^2 - c^2| \\
+		&= |\left( x + c \right) \left( x - c \right)| \\
+		&\le |\left( a + a \right) \left( x - c \right)| \\
+		&= |2a\left( x - c \right)| \\
+		&= 2a|x - c| \\
+	\end{align*}
+
+	\begin{step}
+		Prove that $\lim_{x\to{c}}x^2 = c^2$ for all $c \in I$.
+	\end{step}
+
+	Let $\epsilon > 0$ be arbitrary. Selecting $\delta = \frac{\epsilon}{2a}$ we can see that, in conjunction with the inequality derived earlier, that for all $x \in I$ satisfying $0 < |x - c| < \delta$:
+
+	\begin{align*}
+		|g(x) - c^2| &\le 2a|x - c| \\
+		&< 2a \cdot \frac{\epsilon}{2a} \\
+		&= \epsilon \\
+	\end{align*}
+
+	Thus, by definition of functional limits, we know that $\lim_{x\to{c}}g(x) = \lim_{x\to{c}} x^2 = c^2$ for arbitrary $c \in I$.
 \end{solution}
 
 \begin{exercise}[8]
@@ -164,7 +197,24 @@
 \end{exercise}
 
 \begin{solution}
+	Let $\epsilon > 0$ be arbitrary. Selecting $\delta_0 = \sqrt{c}$, we can see that:
 
+	\begin{gather*}
+		0 < |x - c| < \delta_0 \implies |\sqrt{x} + \sqrt{c}| > c \\
+	\end{gather*}
+
+	Since $c - \sqrt{c} < x < c + \sqrt{c}$ must hold for $|x - c| < \delta_0$ to be satisfied. Now consider $\delta_1 = c\epsilon$ and setting $\delta = \min{\delta_0, \, \delta_1}$. We therefore have for all $x$ satisfying $0 < |x - c| < \delta$:
+
+	\begin{align*}
+		|\sqrt{x} - \sqrt{c}| &= |\sqrt{x} - \sqrt{c}| \cdot \frac{\sqrt{x} + \sqrt{c}}{\sqrt{x} + \sqrt{c}} \\
+		&= \frac{|x - c|}{\sqrt{x} + \sqrt{c}} \\
+		&< \frac{\delta}{c} \\
+		&\le \frac{\delta_0}{c} \\
+		&= \frac{c \epsilon}{c} \\
+		&= \epsilon \\
+	\end{align*}
+
+	Therefore, by definition of functional limits, $\lim_{x\to{c}}\sqrt{x} = \sqrt{c}$.
 \end{solution}
 
 \begin{exercise}[12]
@@ -176,7 +226,15 @@
 \end{subexercise}
 
 \begin{solution}
+	To prove that $\lim_{x\to{0}}$ does not exist, we must prove that for all $L \in \mathbb{R}$, there exists an $\epsilon > 0$ such that for all $\delta > 0$ there always exists some $x_0$ satisfying $|x - 0| < delta $ such that $|\frac{1}{x_2} - L| \ge \epsilon$. Thus, 
 
+	By the Archemedian principle, we know that there exists an $N \in \mathbb{N}$ such that $N > \sqrt{\delta}$. Thus, $N^2 > \delta$ and thus $\frac{1}{N^2} < \frac{1}{\delta}$
+
+	\begin{align*}
+		0 < |x| < \delta \implies
+		|\frac{1}{x^2} - L| &= |\frac{1 - Lx^2}{x^2}| \\
+		&= \\
+	\end{align*}
 \end{solution}
 
 \begin{subexercise}
@@ -212,7 +270,19 @@
 \end{subexercise}
 
 \begin{solution}
+	If $L = 0$, then for arbitrary $\epsilon > 0$, there exists a $\delta > 0$ such that all $x$ satisfying $0 < |x - c| < \delta$ also satisfies $|\left( f(x) \right)^2 - L| < \epsilon^2$. However, note that if $L = 0$, then:
 
+	\begin{align*}
+		|\left( f(x) \right)^2 - L| &< \epsilon^2 \\
+		|\left( f(x) \right)^2 - 0| &< \epsilon^2 \\
+		|\left( f(x) \right)^2| &< \epsilon^2 \\
+		|f(x)|^2 &< \epsilon^2 \\
+		|f(x)| &< \sqrt{\epsilon^2} \\
+		|f(x)| &< \epsilon \\
+		|f(x) - 0| &< \epsilon \\
+	\end{align*}
+
+	Thus, since for all $\epsilon > 0$, there exists a $\delta > 0$ such that all $x$ satisfying $0 < |x - c| < \delta$ also satisfies $|f(x) - 0| < \epsilon$, then by definition of functional limits, $\lim_{x\to{c}}f(x) = L$.
 \end{solution}
 
 \begin{subexercise}
@@ -220,7 +290,7 @@
 \end{subexercise}
 
 \begin{solution}
-
+	If $\left(f(x) \right)^2 = x$, we can trivially see that $\lim_{x\to{1}}\left( f(x) \right)^2 = \lim_{x\to{1}} x = 1$ and $\lim_{x\to{1}} f(x) = \lim_{x\to{1}} \sqrt{x} = 1$. However, if $\left( f(x) \right)^2 = \frac{1}{x - 1}$ then $\lim_{x\to{0}} \left( f(x) \right )^2 = \lim_{x\to{0}} \frac{1}{x - 1} = -1$, however since $f(x) = \frac{1}{\sqrt{1}{x - 1}}$ has an interval around $x = -1$ for which all $x$ values in that interval do not belong to the domain of $f$, $\lim_{x\to{0}} f(x) = \lim_{x\to{0}} \frac{1}{\sqrt{x - 1}}$ does not exist.
 \end{solution}
 
 \setcounter{chapter}{2}
@@ -234,7 +304,29 @@
 \end{exercise}
 
 \begin{solution}
+	\begin{step}
+		Prove that $\lim_{x\to{0}} \cos \left( \frac{1}{x} \right)$ does not exist.
+	\end{step}
 
+	\begin{proof}
+		Let $(x_n)$ be the sequence $x_n = \frac{1}{2\pi{n}}$ and $(y_n)$ be the sequence $y_n = \frac{1}{(2n - 1)\pi}$. By algebraic limit rules, we know that $\lim_{n\to\infty} (x_n) = \lim_{n\to\infty} (y_n) = 0$. Now consider the limits of sequences $\cos \left( \frac{1}{(x_n)} \right)$ and $\cos \left( \frac{1}{(y_n)} \right)$ as $n$ approaches infinity. We can see that:
+
+
+		\begin{align*}
+			\lim_{n\to\infty}\cos \left( \frac{1}{(x_n)} \right) &= \lim_{n\to\infty} \cos \left( 2\pi{n} \right) \qquad \lim_{n\to\infty} \cos \left( \frac{1}{y_n} \right) &&= \lim_{n\to\infty} \cos \left( (2n - 1)\pi \right) \\
+			&= 1 &&= -1 \\
+		\end{align*}
+
+		Therefore, since there exists two different sequences both converging to zero for which the function does not converge to the same result, by the sequential definition of functional limits, the limit does not exist.
+	\end{proof}
+
+	\begin{step}
+		Prove that $\lim_{x\to{0}} x\cos \left( \frac{1}{x} \right) = 0$.
+	\end{step}
+
+	\begin{proof}
+		Since $-1 \le \cos \left( \frac{1}{x} \right) \le 1$, we can establish that $-x \le x \cos \left( \frac{1}{x} \right) \le x$. Now, since $\lim_{x\to{0}} -x = \lim_{x\to{0}} x = 0$, by the Squeeze Theorem, we know that $\lim_{x\to{0}} x\cos \left( \frac{1}{x} \right) = 0$
+	\end{proof}
 \end{solution}
 
 \begin{exercise}[5]
@@ -242,7 +334,18 @@
 \end{exercise}
 
 \begin{solution}
+	\begin{proof}
+		Let $\delta_0$ be the neighbourhood around $c$ for which $f$ is bounded. Thus, there exists some $M \in \mathbb{R}$ such that $M > 0$ for which $\forall x \in V_{\delta_0}(c)$, $|f(x)| < M$. Let $\epsilon > 0$ be arbitrary. Since $\lim_{x\to{c}} g = 0$, we know by the definition of functional limits that there exists some $\delta_1$ such that for all $x$ satisfying $0 < |x - c| < \delta_1$, then $g$ satisfies $|g(x) - 0| = |g(x)| < \frac{epsilon}{M}$. Letting $\delta = \min{\delta_0, \delta_1}$, we therefore know that for all $x$ satisfying $0 < |x - c| < \delta$:
 
+		\begin{align*}
+			|f(x)g(x) - 0| &= |f(x)g(x)| \\
+			&= |f(x)||g(x)| \\
+			&< M \cdot \frac{\epsilon}{M} \\
+			&= \epsilon
+		\end{align*}
+
+		Thus, since for arbitrary $\epsilon > 0$, there always exists some $\delta > 0$ for which $x$ satisfying $0 < |x - c| < \delta$ implies $|f(x)g(x) - 0| < \epsilon$, then by definition of functional limits, $\lim_{x\to{c}}f(x)g(x) = 0$.
+	\end{proof}
 \end{solution}
 
 \begin{exercise}[8]
@@ -251,6 +354,17 @@
 
 \begin{solution}
 
+	\begin{step}
+		Derive the inequality $-x^2 \le x^n \le x^2$ for $-1 < x < 1$.
+	\end{step}
+
+	Since $n \ge 3$, we know that there exists some $k \in \mathbb{N}$ such that $n - k = 2$. Therefore, $x^n = x^2x^{k}$. Since $-1 < x < 1$, we know that $-1 \le x^k \le 1$ and thus $-x^2 \le x^2x^{k} \le x^2$. Therefore, since $x^n = x^2x^k$, we can conclude that $-x^2 \le x^n \le x^2$.
+
+	\begin{step}
+		Show that $\lim_{x\to{0}} x^n = 0$.
+	\end{step}
+
+	Using our prior inequality, we know that since $-x^2 \le x^n \le x^2$, thus, we know that $\lim_{x\to{0}}-x^2 \le x^n \le \lim_{x\to{0}} x^2$. Since we know that $\lim_{x\to{0}} x^2 = 0$, by algebraic limit theorems, we can conclude that $\lim_{x\to{0}}-x^2 = \lim_{x\to{0}}x^2 = 0$, and thus, by squeeze theorem, we can conclude that $\lim_{x\to{0}}x^{n} = 0$ for all $n \ge 3$.
 \end{solution}
 
 \begin{exercise}[9]
@@ -262,15 +376,24 @@
 \end{subexercise}
 
 \begin{solution}
+	%TODO: Consider using different approach, seems a bit too easy
+	Let $L_1, \, L_2 \in \mathbb{R}$ such that $\lim_{x\to{c}} f = L_1$ and $\lim_{x\to{c}}(f + g) = L_2$. By algebraic limit theorems, we know that: $\lim_{x\to{c}}(f + g) - \lim_{x\to{c}}f = L_2 - L_1$ and thus:
 
+	\begin{align*}
+		L_2 - L_1 &= \lim_{x\to{c}}(f + g) - \lim_{x\to{c}}f \\
+		&= \lim_{x\to{c}}\left( f + g - f \right) \\
+		&= \lim_{x\to{c}}g
+	\end{align*}
+
+	Thus, letting $L_3 = L_2 - L_1$, since there exists an $L_3 \in \mathbb{N}$ such that $\lim_{x\to{c}}g = L_3$, we know that $\lim_{x\to{c}}g$ exists.
 \end{solution}
 
 \begin{subexercise}
-	If $\lim_{x\to{c}}f$ and $\lim_{x\to{c}}f \cdot g$ exist, does it follow that $\lim_{x\to{c}}$ exists?
+	If $\lim_{x\to{c}}f$ and $\lim_{x\to{c}}f \cdot g$ exist, does it follow that $\lim_{x\to{c}}g$ exists?
 \end{subexercise}
 
 \begin{solution}
-	No
+	No. Take for example $f(x) = x^2$ and $g(x) = \frac{1}{x}$. Noting that $f \cdot g = x^2 \cdot \frac{1}{x} = x$, we conclude that $\lim_{x\to{0}}f(x) = \lim_{x\to{0}} \left(f(x) \cdot g(x) \right) = 0$. However, $\lim_{x\to{c}}g = \lim{x\to{c}} \frac{1}{x}$ does not have a limit in the real numbers. Therefore, it does not follow that $\lim_{x\to{c}}g$ exists even if $\lim_{x\to{c}}f$ and $\lim_{x\to{c}}\left(f \cdot g \right)$ do.
 \end{solution}
 
 \begin{exercise}[11]
@@ -282,7 +405,14 @@
 \end{subexercise}
 
 \begin{solution}
+	This limit does not exist. Consider the two sequences $(x_n) = \frac{1}{\sqrt{2\pi{n} + \frac{\pi}{2}}}$ and $(y_n) = \frac{1}{\sqrt{(2\pi{n} + \frac{3\pi}{2}}}$. We can see that trivially see that as $n$ approaches infinity, $(x_n)$ and $(y_n)$ approach 0. However, we can also observe that:
 
+	\begin{align*}
+		\lim_{n\to\infty}\sin \left( \frac{1}{(x_n)^2} \right) &= \lim_{n\to\infty} \sin\left( 2\pi{n} + \frac{\pi}{2} \right) \qquad &\lim_{n\to\infty} \sin \left( \frac{1}{(y_n)^2}\right) &= \sin \left( 2\pi{n} + \frac{3\pi}{2} \right) \\
+		&= 1 \qquad &&= -1
+	\end{align*}
+
+	Thus, since two different sequences which both converge to zero but result in the function converging to two different limits, we know that $\lim_{n\to{0}}\sin \left( \frac{1}{x^2} \right)$ does not exist.
 \end{solution}
 
 \begin{subexercise}
