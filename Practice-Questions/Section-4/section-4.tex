@@ -12,6 +12,7 @@
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{hyperref}
+\usepackage{bookmark}
 \geometry{margin=1in}
 
 \pagestyle{fancy}
@@ -33,6 +34,9 @@
 \fancyhead[L]{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
 \fancyhead[R]{Section 4 - Practice Problems}
 
+\setcounter{tocdepth}{3}
+\hypersetup{bookmarksopen=true, bookmarksopenlevel=2, bookmarksdepth=3}
+
 \DeclareMathOperator{\sign}{sign}
 
 \setlength{\parindent}{0cm}
@@ -43,14 +47,15 @@
 \newcounter{chapter}
 \setcounter{chapter}{1}
 
-\newenvironment{chaptertitle}{
+\newenvironment{chaptertitle}[1][]{
 	\newpage
 	\begin{center}
 	\vspace*{.5em}
 	\par
 	\Large
 	Chapter \thechapter:\hspace{-.5em}
-	\addcontentsline{toc}{section}{\protect{\large{Chapter \thechapter}}}
+	\phantomsection
+	\addcontentsline{toc}{section}{\protect{\large{Chapter \thechapter} - #1}}
 }{
 	\end{center}
 	\vspace{2.5em}
@@ -65,6 +70,7 @@
 	\else
 		\setcounter{exercise}{#1}
 	\fi
+	\phantomsection
 	\addcontentsline{toc}{subsection}{\protect{\large{Exercise \thesection.\thechapter.\theexercise}}}
 	\vspace{1em}
 	\par
@@ -88,6 +94,7 @@
 	\refstepcounter{subexercise}
 	\vspace{1em}\par\large\textbf{(\thesubexercise)}\hspace{-.5em}
 	\setcounter{step}{0}
+	\phantomsection
 	\addcontentsline{toc}{subsubsection}{\protect{\large{\thesection.\thechapter.\theexercise.\thesubexercise}}}
 }{
 	\par
@@ -124,9 +131,7 @@
 \newpage
 \fi
 
-\setcounter{chapter}{1}
-
-\begin{chaptertitle}
+\begin{chaptertitle}[Limits of Functions]
 	Limits of Functions
 \end{chaptertitle}
 
@@ -197,6 +202,7 @@
 \end{exercise}
 
 \begin{solution}
+	%TODO: Consider case where 0 < c < 1
 	Let $\epsilon > 0$ be arbitrary. Selecting $\delta_0 = \sqrt{c}$, we can see that:
 
 	\begin{gather*}
@@ -295,7 +301,7 @@
 
 \setcounter{chapter}{2}
 
-\begin{chaptertitle}
+\begin{chaptertitle}[Limit Theorems]
 	Limit Theorems
 \end{chaptertitle}
 
@@ -335,7 +341,7 @@
 
 \begin{solution}
 	\begin{proof}
-		Let $\delta_0$ be the neighbourhood around $c$ for which $f$ is bounded. Thus, there exists some $M \in \mathbb{R}$ such that $M > 0$ for which $\forall x \in V_{\delta_0}(c)$, $|f(x)| < M$. Let $\epsilon > 0$ be arbitrary. Since $\lim_{x\to{c}} g = 0$, we know by the definition of functional limits that there exists some $\delta_1$ such that for all $x$ satisfying $0 < |x - c| < \delta_1$, then $g$ satisfies $|g(x) - 0| = |g(x)| < \frac{epsilon}{M}$. Letting $\delta = \min{\delta_0, \delta_1}$, we therefore know that for all $x$ satisfying $0 < |x - c| < \delta$:
+		Let $\delta_0$ be the neighbourhood around $c$ for which $f$ is bounded. Thus, there exists some $M \in \mathbb{R}$ such that $M > 0$ for which $\forall x \in V_{\delta_0}(c)$, $|f(x)| < M$. Let $\epsilon > 0$ be arbitrary. Since $\lim_{x\to{c}} g = 0$, we know by the definition of functional limits that there exists some $\delta_1$ such that for all $x$ satisfying $0 < |x - c| < \delta_1$, then $g$ satisfies $|g(x) - 0| = |g(x)| < \frac{\epsilon}{M}$. Letting $\delta = \min{\delta_0, \delta_1}$, we therefore know that for all $x$ satisfying $0 < |x - c| < \delta$:
 
 		\begin{align*}
 			|f(x)g(x) - 0| &= |f(x)g(x)| \\
@@ -353,7 +359,6 @@
 \end{exercise}
 
 \begin{solution}
-
 	\begin{step}
 		Derive the inequality $-x^2 \le x^n \le x^2$ for $-1 < x < 1$.
 	\end{step}
@@ -393,7 +398,7 @@
 \end{subexercise}
 
 \begin{solution}
-	No. Take for example $f(x) = x^2$ and $g(x) = \frac{1}{x}$. Noting that $f \cdot g = x^2 \cdot \frac{1}{x} = x$, we conclude that $\lim_{x\to{0}}f(x) = \lim_{x\to{0}} \left(f(x) \cdot g(x) \right) = 0$. However, $\lim_{x\to{c}}g = \lim{x\to{c}} \frac{1}{x}$ does not have a limit in the real numbers. Therefore, it does not follow that $\lim_{x\to{c}}g$ exists even if $\lim_{x\to{c}}f$ and $\lim_{x\to{c}}\left(f \cdot g \right)$ do.
+	No. Take for example $f(x) = x^2$ and $g(x) = \frac{1}{x}$. Noting that $f \cdot g = x^2 \cdot \frac{1}{x} = x$, we conclude that $\lim_{x\to{0}}f(x) = \lim_{x\to{0}} \left(f(x) \cdot g(x) \right) = 0$. However, $\lim_{x\to{c}}g = \lim_{x\to{c}} \frac{1}{x}$ does not have a limit in the real numbers. Therefore, it does not follow that $\lim_{x\to{c}}g$ exists even if $\lim_{x\to{c}}f$ and $\lim_{x\to{c}}\left(f \cdot g \right)$ do.
 \end{solution}
 
 \begin{exercise}[11]
@@ -405,14 +410,13 @@
 \end{subexercise}
 
 \begin{solution}
-	This limit does not exist. Consider the two sequences $(x_n) = \frac{1}{\sqrt{2\pi{n} + \frac{\pi}{2}}}$ and $(y_n) = \frac{1}{\sqrt{(2\pi{n} + \frac{3\pi}{2}}}$. We can see that trivially see that as $n$ approaches infinity, $(x_n)$ and $(y_n)$ approach 0. However, we can also observe that:
-
+	This limit does not exist. Consider the two sequences $(x_n) = \frac{1}{\sqrt{2\pi{n} + \frac{\pi}{2}}}$ and $(y_n) = \frac{1}{\sqrt{2\pi{n} + \frac{3\pi}{2}}}$. We can see that trivially see that as $n$ approaches infinity, $(x_n)$ and $(y_n)$ approach 0. However, we can also observe that:
 	\begin{align*}
 		\lim_{n\to\infty}\sin \left( \frac{1}{(x_n)^2} \right) &= \lim_{n\to\infty} \sin\left( 2\pi{n} + \frac{\pi}{2} \right) \qquad &\lim_{n\to\infty} \sin \left( \frac{1}{(y_n)^2}\right) &= \sin \left( 2\pi{n} + \frac{3\pi}{2} \right) \\
 		&= 1 \qquad &&= -1
 	\end{align*}
 
-	Thus, since two different sequences which both converge to zero but result in the function converging to two different limits, we know that $\lim_{n\to{0}}\sin \left( \frac{1}{x^2} \right)$ does not exist.
+	Thus, since there exists two sequences which both converge to zero but result in the function converging to two different limits, we know that $\lim_{n\to{0}}\sin \left( \frac{1}{x^2} \right)$ does not exist.
 \end{solution}
 
 \begin{subexercise}
@@ -420,7 +424,7 @@
 \end{subexercise}
 
 \begin{solution}
-
+	This limit does exist. Since $-1 \le \sin \left( \frac{1}{x^2} \right) \le 1$, we ascertain that $-x \le \sin \left( \frac{1}{x^2} \right) \le x$. Since $\lim_{x\to{0}} -x = \lim_{x\to{0}} x = 0$, by the squeeze theorem, we know that $\lim_{x\to{0}}x\sin{\frac{1}{x^2}} = 0$.
 \end{solution}
 
 \begin{subexercise}
@@ -428,7 +432,18 @@
 \end{subexercise}
 
 \begin{solution}
+	This limit does not exist. Once again, consider the two sequences $(x_n) = \frac{1}{\sqrt{2\pi{n} + \frac{\pi}{2}}}$ and $(y_n) = \frac{1}{\sqrt{2\pi{n} + \frac{3\pi}{2}}}$. Since both sequences converge to $0$ as $n$ goes to infinity, to show that $\lim_{x\to{0}} \sign \left( \sin \left( \frac{1}{x^2} \right) \right) \; (x \neq 0)$ does not exist, we can show that the function converges to two different values for each sequence. We know that $\sin \left( 2\pi{n} + \frac{\pi}{2} \right) = 1$ for all $n \in \mathbb{N}$ and similarly, $\sin \left( 2\pi{n} + \frac{3\pi}{2} \right) = -1$ for all $n \in \mathbb{N}$. Therefore:
 
+	\begin{align*}
+		\lim_{n\to\infty} \sign \left( \sin \left( \frac{1}{(x_n)^2} \right) \right) &= \lim_{n\to\infty} \sign \left( \sin \left( 2\pi{n} + \frac{\pi}{2} \right) \right) \\
+		&= \lim_{n\to\infty} \sign \left( 1 \right) \\
+		&= 1 \\\\
+		\lim_{n\to\infty} \sign \left( \sin \left( \frac{1}{(y_n)^2} \right) \right) &= \lim_{n\to\infty} \sign \left( \sin \left( 2\pi{n} + \frac{3\pi}{2} \right) \right) \\
+		&= \lim_{n\to\infty} \sign \left( -1 \right) \\
+		&= -1
+	\end{align*}
+
+	Thus, since there exists two sequences which both converge to zero but result in the function converging to two different limits, we know that $\lim_{n\to{0}}\sign \left( \sin \left( \frac{1}{x^2} \right) \right)$ does not exist.
 \end{solution}
 
 \begin{subexercise}
@@ -436,7 +451,9 @@
 \end{subexercise}
 
 \begin{solution}
+	This limit does not exist, simply because there exists no open interval around $x = 0$ which is contained in the function's domain (since $\sqrt{x}$ is undefined for all $x < 0$). \\
 
+	This right-hand limit does however exist. Since $-1 \le \sin \left( \frac{1}{x^2} \right) \le 1$, we can ascertain that $-\sqrt{x} \le \sin \left( \frac{1}{x^2} \right) \le \sqrt{x}$. Since $\lim_{x\to{0}^+} -\sqrt{x} = \lim_{x\to{0}^+} \sqrt{x} = 0$, by the squeeze theorem, we know that $\lim_{x\to{0}^+}\sqrt{x}\sin{\frac{1}{x^2}} = 0$.
 \end{solution}
 
 \begin{exercise}[15]
@@ -444,11 +461,29 @@
 \end{exercise}
 
 \begin{solution}
+	\begin{proof}
+		%TODO: Fill out wording
+		Let $L = \lim_{x\to{c}} f$. By algebraic limit rules, we know that $\sqrt{L} = \lim_{x\to{c}} \sqrt{\lim_{x\to{c}} f}$. Since $\lim_{x\to{c}}f$ exists, then for arbitrary $\epsilon > 0$, there exists some $\delta > 0$ such that all $x \in A$ satisfying $0 < |x - c| < \delta$ also satisfy $|f(x) - f(c)| < \sqrt{L}\epsilon$. Therefore, for all $x$ satisfying $0 < |x - c| < \delta$, we have that:
 
+		\begin{align*}
+			|\sqrt{f} - \sqrt{L}| &= |\sqrt{f} - \sqrt{L}| \cdot \frac{\sqrt{f} + \sqrt{L}}{\sqrt{f} + \sqrt{L}} \\
+			&= \frac{|\left(\sqrt{f} \right)^2 - L|}{\sqrt{f} + \sqrt{L}} \\
+			&= \frac{|f - L|}{\sqrt{f} + \sqrt{L}} \\
+			&\le \frac{|f - L|}{\sqrt{L}} \\
+			&< \frac{\sqrt{L}\epsilon}{\sqrt{L}} \\
+			&= \epsilon
+		\end{align*}
+
+		Therefore, since for arbitrary $\epsilon > 0$, there exists some $\delta > 0$ for which all $x$ satisfying $0 < |x - c| < \delta$ also satisfies $|\sqrt{f} - \sqrt{L}| < \epsilon$, by definition of functional limits, $\lim_{x\to{c}}\sqrt{f} = \sqrt{L}$. Since $\sqrt{L} = \sqrt{\lim_{x\to{c}}f}$, we thus have that:
+
+		\begin{gather*}
+			\lim_{x\to{c}}\sqrt{f} = \sqrt{\lim_{x\to{c}}f}
+		\end{gather*}
+	\end{proof}
 \end{solution}
 
 \setcounter{chapter}{3}
-\begin{chaptertitle}
+\begin{chaptertitle}[Some Extensions of the limit concept]
 	Some Extensions of the Limit Concept
 \end{chaptertitle}
 
@@ -457,7 +492,43 @@
 \end{exercise}
 
 \begin{solution}
+	\begin{step}
+		Forward direction.
+	\end{step}
 
+	If $\lim_{x\to{c}}f = \infty$, then we know that for all $M > 0$, there exists some $\delta > 0$ such that all $x$ satisfying $0 < |x - c| < \delta$ also satisfies $f(x) > M$. Let $\epsilon = \frac{1}{M}$, we can therefore see that, $\forall x \in V_{\delta}(c)$:
+
+	\begin{align*}
+		f(x) &> M \implies \\
+		f(x) &> \frac{1}{\epsilon} \\
+	\end{align*}
+
+	Since $f(x) > 0$ for all $x \in \left( c, \infty \right)$, we know that $f(x) = |f(x)|$. Therefore, we can establish that:
+
+	\begin{align*}
+		f(x) &> \frac{1}{\epsilon} \implies \\
+		|f(x)| &> \frac{1}{\epsilon} \implies \\
+		\frac{1}{|f(x)|} &< \epsilon \\
+		\left| \frac{1}{f(x)} \right| &< \epsilon \\
+		\left| \frac{1}{f(x)} - 0 \right| &< \epsilon \\
+	\end{align*}
+
+	Therefore, since for all $\epsilon > 0$, there exists some $\delta > 0$ such that all $x$ satisfying $0 < |x - c| < \delta$ also satisfies $|\frac{1}{f(x)} - 0| < \epsilon$, by definition of functional limits, we know $\lim_{x\to{c}} \frac{1}{f} = 0$.
+
+	\begin{step}
+		Reverse Direction.
+	\end{step}
+
+	If $\lim_{x\to{c}}\frac{1}{f} = 0$, then we know that for all $\epsilon > 0$, there exists some $\delta > 0$ such that all $x$ satisfying $0 < |x - c| < \delta$ also satisfies $|\frac{1}{f} - 0| < \epsilon$. Therefore, we have for all such $x$ that:
+
+	\begin{align*}
+		|\frac{1}{f} - 0| &< \epsilon \implies \\
+		|\frac{1}{f}| &< \epsilon \implies \\
+		\frac{1}{|f|} &< \epsilon \implies \\
+		|f| &> \epsilon \implies \\
+	\end{align*}
+
+	And since $f > 0$ for all $x$, we have that $f > \epsilon$. Thus, since for all $\epsilon > 0$, there exists some $\delta > 0$ for which $|f(x)| > \epsilon$ for all $0 < |x - c| < \delta$, we can conclude that $\lim_{x\to{c}}f = \infty$.
 \end{solution}
 
 \begin{exercise}[8]
@@ -465,7 +536,18 @@
 \end{exercise}
 
 \begin{solution}
+	\begin{proof}
+		%TODO: Revise, I don't like this proof approach
+		If $\lim_{x\to\infty}f = L$, then for arbitrary $\epsilon > 0$, there exists some $x_0 \in \left( 0, \infty \right)$ such that for all $x > x_0$, $|f(x) - L| < \epsilon$. Now, let $k = \frac{1}{x}$, by change of variables, we can see that as $\lim_{x\to\infty} \implies k \rightarrow 0^{+}$. Therefore, we can express that:
 
+		\begin{align*}
+			\lim_{k\to\0^{+}} |f(k) - L|
+		\end{align*}
+
+
+
+
+	\end{proof}
 \end{solution}
 
 \begin{exercise}[12]
