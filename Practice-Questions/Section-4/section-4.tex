@@ -11,6 +11,7 @@
 \usepackage{geometry}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
+\usepackage{braket}
 \usepackage{hyperref}
 \usepackage{bookmark}
 \geometry{margin=1in}
@@ -135,24 +136,21 @@
 	Limits of Functions
 \end{chaptertitle}
 
+%TODO: FINISH
 \begin{exercise}[4]
 	Let $f \coloneq \mathbb{R} \rightarrow \mathbb{R}$ and let $c \in \mathbb{R}$. Show that $\lim_{x\to{c}}f(x) = L$ if and only if $\lim_{x\to{0}}f(x + c) = L$.
 \end{exercise}
 
-%TODO: Complete
 \begin{solution}
-	\begin{step}
-		Prove the forward direction.
-	\end{step}
 
-	By definition of functional limits, we know that if $\lim_{x\to{c}} f(x) = L$, then for arbitrary $\epsilon > 0$, there exists a $\delta > 0$ such that $0 < |x - c| < \delta \implies |f(x) - L| < \epsilon$.
 
 	\begin{align*}
-		0 < |x - 0| < \delta \implies \\
-		|f(x + c) - L| &= |f(x + c) - f(x) + f(x) - L| \\
-		&\le |f(x + c) - f(x)| + |f(x) - L| \\
-		&< \frac{\epsilon}{2} + \frac{\epsilon}{2} \\
-		&= \epsilon
+		|x - c| < |x| + |c|
+		|x|
+		|f(x) - L| < \epsilon
+		|x| < \delta
+		|f(x) - f(x + c) + f(x + c) - L| < \epsilon
+		|f(x + c) - L| < \epsilon
 	\end{align*}
 
 
@@ -160,9 +158,18 @@
 
 
 
-	\begin{step}
-		Prove the reverse direction.
-	\end{step}
+
+
+
+
+
+
+
+
+
+
+
+
 \end{solution}
 
 \begin{exercise}[5]
@@ -381,7 +388,6 @@
 \end{subexercise}
 
 \begin{solution}
-	%TODO: Consider using different approach, seems a bit too easy
 	Let $L_1, \, L_2 \in \mathbb{R}$ such that $\lim_{x\to{c}} f = L_1$ and $\lim_{x\to{c}}(f + g) = L_2$. By algebraic limit theorems, we know that: $\lim_{x\to{c}}(f + g) - \lim_{x\to{c}}f = L_2 - L_1$ and thus:
 
 	\begin{align*}
@@ -462,7 +468,6 @@
 
 \begin{solution}
 	\begin{proof}
-		%TODO: Fill out wording
 		Let $L = \lim_{x\to{c}} f$. By algebraic limit rules, we know that $\sqrt{L} = \lim_{x\to{c}} \sqrt{\lim_{x\to{c}} f}$. Since $\lim_{x\to{c}}f$ exists, then for arbitrary $\epsilon > 0$, there exists some $\delta > 0$ such that all $x \in A$ satisfying $0 < |x - c| < \delta$ also satisfy $|f(x) - f(c)| < \sqrt{L}\epsilon$. Therefore, for all $x$ satisfying $0 < |x - c| < \delta$, we have that:
 
 		\begin{align*}
@@ -536,43 +541,76 @@
 \end{exercise}
 
 \begin{solution}
-	\begin{proof}
-		%TODO: Revise, I don't like this proof approach
-		If $\lim_{x\to\infty}f = L$, then for arbitrary $\epsilon > 0$, there exists some $x_0 \in \left( 0, \infty \right)$ such that for all $x > x_0$, $|f(x) - L| < \epsilon$. Now, let $k = \frac{1}{x}$, by change of variables, we can see that as $\lim_{x\to\infty} \implies k \rightarrow 0^{+}$. Therefore, we can express that:
+	\begin{proof} $ $\\
+		\begin{step}
+			Forward direction.
+		\end{step}
+		
+		If $\lim_{x\to\infty}f = L$, then for arbitrary $\epsilon > 0$, there exists some $x_0 \in \left( 0, \infty \right)$ such that for all $x > x_0$, $|f(x) - L| < \epsilon$. Let $\delta = \frac{1}{x_0}$. Then we know that:
 
 		\begin{align*}
-			\lim_{k\to\0^{+}} |f(k) - L|
+			x &< \delta \iff \\
+			x &< \frac{1}{x_0} \iff \\
+			\frac{1}{x} &> x_0 \\
 		\end{align*}
 
+		And thus, for all $x < \delta$, $|f \left( \frac{1}{x} \right) - L| < \epsilon$. Thus, by definition of right-hand limits, we have that $\lim_{x\to{0}^+} f\left( \frac{1}{x} \right) = L$.
 
+		\begin{step}
+			Reverse direction.
+		\end{step}
 
+		If $\lim_{x\to{0}^+}f \left( \frac{1}{x} \right)$, then for arbitrary $\epsilon > 0$, there exists some $\delta_0 > 0$ such that all $x$ satisfying $0 < x < \delta_0$ also satisfies $|f \left( \frac{1}{x} \right) - L| < \epsilon$. Let $x_0 = \frac{1}{\delta_0}$. Therefore, we have that:
 
+		\begin{align*}
+			\frac{1}{x} &> x_0 \iff \\
+			x &< \frac{1}{x_0} \iff \\
+			x &< \frac{1}{\delta_0} \\
+		\end{align*}
+
+		Letting $\delta = \min\set{1, \delta_0}$, we can therefore conclude that:
+
+		\begin{align*}
+			x &< \delta \\
+		\end{align*}
+
+		And thus $\frac{1}{x} > x_0 \iff x < \delta$. Therefore, for all $\epsilon > 0$, there exists an $x_0 \in \left( 0, \infty \right)$ such that for all $x > x_0$, $|f \left( \frac{1}{\frac{1}{x}} \right) - L| = |f \left ( x \right) - L| < \epsilon$. Thus, by definition of limits to infinity, we have that $\lim_{x\to\infty} f(x) = L$.
 	\end{proof}
 \end{solution}
 
 \begin{exercise}[12]
-	Find functions $f$ and $g$ defined on $\left( 0, \infty \right)$ such that $\lim_{x\to\infty} f = \infty$ and $\lim_{x\to\infty} = \infty$ and $\lim_{x\to\infty}(f - g) = 0$. Can you find such functions, with $g(x) > 0$ for all $x \in \left( 0, \infty \right)$ such that $\lim_{x\to\infty} \frac{f}{g} = 0$?
+	Find functions $f$ and $g$ defined on $\left( 0, \infty \right)$ such that $\lim_{x\to\infty} f = \infty$ and $\lim_{x\to\infty} g = \infty$ and $\lim_{x\to\infty}(f - g) = 0$. Can you find such functions, with $g(x) > 0$ for all $x \in \left( 0, \infty \right)$ such that $\lim_{x\to\infty} \frac{f}{g} = 0$?
 \end{exercise}
 
 \begin{solution}
+	\begin{step}
+		Find $f$ and $g$ such that $\lim_{x\to\infty} \left( f - g \right) = 0$.
+	\end{step}
 
+	The functions $f(x) = x$ and $g(x) = x$ both trivially satisfy the property that $\lim_{x\to\infty} f = \lim_{x\to\infty} g = \infty$ and $\lim_{x\to\infty}\left( f - g \right) = 0$.
+
+	\begin{step}
+		Find $f$ and $g$ such that $\lim_{x\to\infty} \frac{f}{g} = 0$.
+	\end{step}
+
+	The functions $f(x) = x$ and $g(x) = x^2$ also both trivially satisfy this property.
 \end{solution}
 
 \begin{exercise}[13]
 	Let $f$ and $g$ be defined on $\left( a, \infty \right)$ and suppose that $\lim_{x\to\infty}f = L$ and $\lim_{x\to\infty}g = \infty$. Prove that $\lim_{x\to\infty} f \circ g = L$.
 \end{exercise}
 
+\begin{solution}
+	\begin{proof}
+		Let $\epsilon > 0$ be arbitrary. Since $\lim_{x\to\infty} f = L$, we know that there exists some $x_0 \in \left ( a, \infty \right)$ such that for all $x > x_0$, $|f(x) - L| < \epsilon$. Likewise, since $\lim_{x\to\infty}g = \infty$, we know that for arbitrary $M > 0$ there exists some $x_1 \in \left ( a, \infty \right)$ such that for all $x > x_1$, $g(x) > M$. Fixing $M$ to be greater than $a$, we can therefore say that $\set{g(x) : x > x_1} \subseteq \left( a, \infty \right)$ and $f \circ g$ is defined for all such $x$. Now, if we consider the set $\set{g(x) : x > x_1 \wedge g(x) > x_0}$, then we have that $|f(g(x)) - L| < \epsilon$. \\
 
-
-
-
-
-
-
-
-
-
-
+		Therefore, letting $\epsilon > 0$ be arbitrary and setting $M = \max\set{a, x_0}$, we have that:
+	
+		\begin{align*}
+			|f \circ g - L| < \epsilon
+		\end{align*}
+	\end{proof}
+\end{solution}
 
 
 \end{document}
