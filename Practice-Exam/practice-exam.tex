@@ -1,0 +1,214 @@
+\documentclass[10pt]{article}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{mathtools}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\geometry{margin=1in}
+
+\pagestyle{fancy}
+\fancyhf{}
+\title{SFWRENG 3IA3 - Practice Exam}
+\author{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\date{\today}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=blue,
+	citecolor=blue,
+	anchorcolor=blue
+}
+
+\fancyhead{}
+\fancyhead[L]{Matthew Farah, \href{mailto:farahm11@mcmaster.ca}{$\langle$farahm11@mcmaster.ca$\rangle$}, 400468251}
+\fancyhead[R]{SFWRENG 3IA3 - Practice Exam}
+
+\setlength{\parindent}{0cm}
+
+\newcommand{\sectiontitle}{SFWRENG 3IA3 - Practice Exam}
+\setcounter{section}{1}
+
+\newcounter{question}
+\renewcommand{\thequestion}{\arabic{question}}
+
+\newenvironment{question}{
+	\newpage
+	\refstepcounter{question}
+	\phantomsection
+	\addcontentsline{toc}{section}{\protect{\large{Question \thequestion}}}
+	\vspace{1em}
+	\par
+	\large\textbf{Question \thequestion}
+	\vspace{.2cm}
+	\par
+	\setcounter{subquestion}{0}
+	\setcounter{step}{0}
+}{\vspace{.5em}}
+
+\newenvironment{solution}{
+	\vspace{1em}\par\large\textbf{{Solution:}}\par\vspace{1em}
+}{
+	\vspace{1em}
+}
+
+\newcounter{subquestion}
+\renewcommand{\thesubquestion}{\alph{subquestion}}
+
+\newenvironment{subquestion}{
+	\refstepcounter{subquestion}
+	\vspace{1em}\par\large\textbf{(\thesubquestion)}\hspace{-.5em}
+	\setcounter{step}{0}
+	\phantomsection
+	\addcontentsline{toc}{subsection}{\protect{\large{\thequestion.\thesubquestion.)}}}
+}{
+	\par
+	\vspace{1em}
+}
+
+\makeatother
+
+\makeatletter
+
+\newcounter{step}
+\renewcommand{\thestep}{\Roman{step}}
+
+\newenvironment{step}{
+	\refstepcounter{step}
+	\vspace{1.5em}\par\noindent\large\textbf{(\thestep)}
+}{
+	\par
+	\vspace{1.5em}
+}
+
+\makeatother
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\renewcommand{\arraystretch}{1.8}
+
+\fontsize{10pt}{14pt}\selectfont
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\begin{question}
+	Let $X = \left( x_n \right)_{n = 1}^{\infty}$ be a real valued sequence and let $L \in \mathbb{R}$.
+\end{question}
+
+\begin{subquestion}
+	Define $\lim_{n\to\infty}x_n = L$.
+\end{subquestion}
+
+\begin{solution}
+	We say that $\lim_{n\to\infty}x_n = L$ if, for arbitrary $\epsilon > 0$, there exists some $N \in \mathbb{N}$ such that for all $n \ge N$, $|x_n - L| < \epsilon$.
+\end{solution}
+
+\begin{subquestion}
+	Define $X'$ is a subsequence of $X$.
+\end{subquestion}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{subquestion}
+	Prove that a sequence $X = \left( x_n \right)_{\n = 1}^{\infty}$ converges to $L$ if and only if every subsequence $X'$ of $X$ converges to $L$.
+\end{subquestion}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{question}
+	Consider the two series $\sum_{n = 1}^{\infty}\cos(n)$ and $\sum_{n = 1}^{\infty}\frac{\cos(n)}{n^2}$.
+\end{question}
+
+\begin{subquestion}
+	Prove that $\sum_{n = 1}^{\infty}\cos(n)$ is divergent.
+\end{subquestion}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{subquestion}
+	Prove that $\sum_{n = 1}^{\infty}\frac{\cos(n)}{n^2}$ is convergent.
+\end{subquestion}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{question}
+	Let $f\colon A \rightarrow \mathbb{R}$ and $c \in A$.
+\end{question}
+
+\begin{subquestion}
+	Define $f$ is continuous at $c$.
+\end{subquestion}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{subquestion}
+	Let $f\colon I \rightarrow \mathbb{R}$ be increasing on an interval $I$ and $c$ be an interior point of $I$. Give a rigorous proof that:
+
+	\begin{enumerate}
+		\item $\lim_{x\to{c^{-}}}f(x)$ and $\lim_{x\to\c^{+}}f(x)$ both exist.
+		\item $\lim_{x\to{c^{-}}}f(x) \le \lim_{x\to{c^{+}}}f(x)$.
+		\item $f$ is continuous at $c$ if and only if $\lim_{x\to{c}^{-}}f(x) = f(x) = \lim_{x\to{c}^{+}}f(x)$.
+	\end{enumerate}
+\end{subquestion}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{question}
+	Let $f\colon I \rightarrow \mathbb{R}$ and $c \in I$, where $I$ is an interval.
+\end{question}
+
+\begin{subquestion}
+	Define differentiability of $f$ at $c$ and state CarathÈodory's Theorem that characterizes differentiability.
+\end{subquestion}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{subquestion}
+	Suppose in addition that $f$ is strictly increasing and continuous on $I$, that $J \coloneq f(I)$ and that $g\colon J \rightarrow I$ is an inverse function to $f$. If $f$ is differentiable at $c$ and $f'(c) \neq 0$, give a rigorous proof that $g$ is differentiable at $d \coloneq f(c)$ and that:
+
+	\begin{gather*}
+		g'(d) = \frac{1}{f'(c)} = \frac{f'(g(d))}.
+	\end{gather*}
+\end{subquestion}
+
+\begin{solution}
+
+\end{solution}
+
+\begin{question}
+	State and prove both the Bolzano-Weierstass Theorem and the Mean Value Theorem.
+\end{question}
+
+\begin{solution}
+
+\end{solution}
+
+
+
+
+\end{document}
